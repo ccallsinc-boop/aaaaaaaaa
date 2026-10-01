@@ -87,14 +87,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Framers" },
+      { name: "description", content: "Os 12 jogos de PC mais pedidos, em pagamento único." },
+      { property: "og:title", content: "Framers" },
+      {
+        property: "og:description",
+        content: "Os 12 jogos de PC mais pedidos, em pagamento único.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -141,10 +142,16 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
-/** /clips and /es2 have their own dedicated pixels, so the store pixels stay off there. */
+/**
+ * /clips and /es2 have their own dedicated pixels, so the store pixels stay off
+ * there. The policy pages are excluded too: the pixel fires ViewContent on mount,
+ * and someone reading the privacy policy is not a product view.
+ */
+const NO_PIXEL_PREFIXES = ["/clips", "/es2", "/terms", "/privacy", "/refund"];
+
 function StorePixel() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  if (pathname.startsWith("/clips") || pathname.startsWith("/es2")) return null;
+  if (NO_PIXEL_PREFIXES.some((prefix) => pathname.startsWith(prefix))) return null;
   return <MetaPixel />;
 }
 

@@ -1,3 +1,5 @@
+import { basePriceBrlAt, campaignEndsAtMs, priceAfterCampaignBrl } from "./campaign";
+
 /**
  * Single source of truth for "who is visiting and in which money do we talk to them".
  *
@@ -21,7 +23,10 @@ export type Market = {
   intl: string;
 };
 
-/** The one price the business charges, in Brazilian reais. */
+/**
+ * The price the business charges, in Brazilian reais, at a given instant.
+ * It is a function of time because the launch window actually changes it.
+ */
 export const BASE_PRICE_BRL = 17.99;
 
 /**
@@ -164,6 +169,12 @@ export type ResolvedMarket = {
   fxSource: string;
   /** Detected country, or null when the host sent no header. */
   country: string | null;
+  /** Server clock at resolve time, so the countdown cannot be faked by the client. */
+  now: number;
+  /** When launch pricing ends, or null when no campaign is configured. */
+  campaignEndsAt: number | null;
+  /** Converted price once the launch window closes, for the "then" value. */
+  priceAfter: number | null;
 };
 
 /**
@@ -174,9 +185,13 @@ export function buildResolvedMarket(
   country: string | null,
   rates: Record<string, number>,
   fxSource: string,
+  now: number = Date.now(),
 ): ResolvedMarket {
   const market = marketForCountry(country);
   const rate = rates[market.currency];
+  const baseBrl = basePriceBrlAt(now);
+  const afterBrl = priceAfterCampaignBrl();
+  const endsAt = campaignEndsAtMs();
 
   // An unmapped or broken rate must never put NaN on screen.
   if (typeof rate !== "number" || !Number.isFinite(rate) || rate <= 0) {
@@ -185,20 +200,26 @@ export function buildResolvedMarket(
     return {
       market: DEFAULT_MARKET,
       rate: safeUsd,
-      price: convert(BASE_PRICE_BRL, safeUsd),
+      price: convert(baseBrl, safeUsd),
       perGameValue: convert(PER_GAME_VALUE_BRL, safeUsd),
       fxSource,
       country: country ?? null,
+      now,
+      campaignEndsAt: endsAt,
+      priceAfter: afterBrl == null ? null : convert(afterBrl, safeUsd),
     };
   }
 
   return {
     market,
     rate,
-    price: convert(BASE_PRICE_BRL, rate),
+    price: convert(baseBrl, rate),
     perGameValue: convert(PER_GAME_VALUE_BRL, rate),
     fxSource,
     country: country ?? null,
+    now,
+    campaignEndsAt: endsAt,
+    priceAfter: afterBrl == null ? null : convert(afterBrl, rate),
   };
 }
 
@@ -210,6 +231,9 @@ export const FALLBACK_RESOLVED: ResolvedMarket = {
   perGameValue: PER_GAME_VALUE_BRL * 0.186,
   fxSource: "static",
   country: null,
+  now: 0,
+  campaignEndsAt: null,
+  priceAfter: null,
 };
 
 /**

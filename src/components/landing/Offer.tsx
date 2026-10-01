@@ -1,10 +1,10 @@
 import { Check } from "lucide-react";
 import { Cta } from "@/components/landing/Cta";
+import { LaunchWindow } from "@/components/landing/LaunchWindow";
 import { useLocale } from "@/lib/locale";
 
 export function Offer() {
-  const { t, money, price, hidePrice, fullValue, pricePerGame, discount, totalGames } =
-    useLocale();
+  const { t, money, price, hidePrice, fullValue, pricePerGame, discount, totalGames } = useLocale();
 
   return (
     <section id="oferta" className="border-t border-border py-20">
@@ -16,15 +16,13 @@ export function Offer() {
             </p>
             {hidePrice ? (
               <p className="mt-6 max-w-md text-base text-muted-foreground">
-                Toda la biblioteca en un solo pago, con acceso de por vida y
-                entrega inmediata. Haz clic abajo para ver tu precio con
-                descuento.
+                Toda la biblioteca en un solo pago, con acceso de por vida y entrega inmediata. Haz
+                clic abajo para ver tu precio con descuento.
               </p>
             ) : (
               <>
                 <p className="mt-6 text-sm text-muted-foreground">
-                  {t.offerCompare}{" "}
-                  <span className="line-through">{money(fullValue)}</span>
+                  {t.offerCompare} <span className="line-through">{money(fullValue)}</span>
                 </p>
                 <p className="mt-1 text-sm text-muted-foreground">{t.offerToday}</p>
                 <div className="mt-2 flex flex-wrap items-center gap-3">
@@ -40,6 +38,10 @@ export function Offer() {
                 </p>
               </>
             )}
+
+            <div className="mt-7">
+              <LaunchWindow />
+            </div>
 
             <Cta className="mt-7 w-full sm:w-auto" location="offer">
               {t.heroCta}

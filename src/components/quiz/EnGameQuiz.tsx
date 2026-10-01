@@ -251,7 +251,7 @@ const TESTIMONIALS = [
 const BENEFITS = [
   {
     icon: Gamepad2,
-    title: "424 games",
+    title: "12 games",
     text: "Action, sports, racing, RPG, horror and much more.",
   },
   {
@@ -498,7 +498,7 @@ function ResultScreen({ games, onContinue }: { games: CatalogGame[]; onContinue:
         These titles match your profile
       </h1>
       <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-        And you don't have to pick just one: they all belong to a library with 424 games.
+        And you don't have to pick just one: they all belong to the same 12-game pack.
       </p>
       <div className="mt-9 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {games.map((game) => (
@@ -648,7 +648,7 @@ function OfferScreen({ checkoutUrl, onCheckout }: { checkoutUrl: string; onCheck
         <p className="mt-2 text-sm font-semibold">One-time payment · lifetime access</p>
         <Button asChild size="lg" className="mt-6 h-14 w-full rounded-xl text-base">
           <a href={checkoutUrl} onClick={onCheckout}>
-            I want my 424 games <ArrowRight />
+            I want my 12 games <ArrowRight />
           </a>
         </Button>
         <p className="mt-4 flex items-center justify-center gap-2 text-xs text-muted-foreground">

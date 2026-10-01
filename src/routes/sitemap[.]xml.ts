@@ -20,6 +20,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/uk", changefreq: "weekly", priority: "0.9" },
           { path: "/es", changefreq: "weekly", priority: "0.9" },
           { path: "/in", changefreq: "weekly", priority: "0.9" },
+          { path: "/br-quiz", changefreq: "weekly", priority: "0.7" },
           { path: "/clips", changefreq: "weekly", priority: "0.8" },
           // Listed so the pages are discoverable; they carry robots noindex, which
           // keeps them out of search while remaining reachable and auditable.

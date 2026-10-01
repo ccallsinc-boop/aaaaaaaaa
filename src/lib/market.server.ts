@@ -51,6 +51,6 @@ export const resolveMarket = createServerFn({ method: "GET" }).handler(
     }
 
     const fx = await getFxRates();
-    return buildResolvedMarket(country, fx.rates, fx.source);
+    return buildResolvedMarket(country, fx.rates, fx.source, Date.now());
   },
 );

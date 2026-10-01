@@ -3,7 +3,7 @@ import { EnGameQuiz } from "@/components/quiz/EnGameQuiz";
 
 const TITLE = "Find your perfect PC game pack — Framers";
 const DESCRIPTION =
-  "Answer five quick questions and unlock a personalized library of 424 PC games with instant access and a 7-day guarantee.";
+  "Answer five quick questions and unlock your pack with the 12 most wanted PC games, instant access and a 7-day guarantee.";
 const URL = "https://framers.lovable.app/en-quiz";
 
 export const Route = createFileRoute("/en-quiz")({

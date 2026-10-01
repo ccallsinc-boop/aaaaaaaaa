@@ -16,11 +16,26 @@ import { MidCta } from "@/components/landing/MidCta";
 import { DiscountPopup } from "@/components/landing/DiscountPopup";
 import { Reveal } from "@/components/landing/Reveal";
 import { LocaleProvider, type Lang } from "@/lib/locale";
+import type { MarketLang } from "@/lib/markets";
 import { useMarket } from "@/lib/use-market";
 import { loadHotmartWidget } from "@/lib/hotmart-widget";
 
-export function LandingPage({ lang }: { lang: Lang }) {
+/** Market language to the route language the copy is keyed by. */
+const LANG_FOR_MARKET: Record<MarketLang, Lang> = {
+  pt: "pt",
+  es: "es",
+  en: "en",
+  hi: "in",
+};
+
+/**
+ * `lang` pins the language for the per-language routes (/pt, /es, ...).
+ * Omitting it serves the visitor's own language, resolved from their country,
+ * which is what the unified route at / does.
+ */
+export function LandingPage({ lang: pinned }: { lang?: Lang } = {}) {
   const market = useMarket();
+  const lang = pinned ?? LANG_FOR_MARKET[market.market.lang];
   const quizVisual = lang === "pt" || lang === "es";
 
   // Checkout runs through Hotmart on every route, so the widget binds here once

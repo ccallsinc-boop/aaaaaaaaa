@@ -1,6 +1,7 @@
 import { trackMeta } from "@/lib/meta-pixel";
 import { useLocale } from "@/lib/locale";
 import { HOTMART_WIDGET_CLASSES, hotmartWidgetLoaded } from "@/lib/hotmart-widget";
+import { LaunchWindow } from "@/components/landing/LaunchWindow";
 
 export function StickyCta() {
   const { money, price, hidePrice, currency, totalGames, storeUrl, t, lang, hotmart } = useLocale();
@@ -11,6 +12,7 @@ export function StickyCta() {
         <div>
           {!hidePrice && <p className="font-display text-lg text-primary">{money(price)}</p>}
           <p className="text-[11px] text-muted-foreground">{t.stickySub(totalGames)}</p>
+          <LaunchWindow compact />
         </div>
         <a
           href={storeUrl}

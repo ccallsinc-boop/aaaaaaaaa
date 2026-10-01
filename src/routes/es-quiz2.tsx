@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { EsGameQuiz } from "@/components/quiz/EsGameQuiz";
 
 const TITLE = "Descubre tu pack ideal de juegos — Framers";
-const DESCRIPTION = "Responde cinco preguntas y descubre una biblioteca personalizada con 424 juegos de PC, acceso inmediato y garantía de 7 días.";
+const DESCRIPTION = "Responde cinco preguntas y descubre tu pack con los 12 juegos de PC más pedidos, acceso inmediato y garantía de 7 días.";
 
 export const Route = createFileRoute("/es-quiz2")({
   head: () => ({

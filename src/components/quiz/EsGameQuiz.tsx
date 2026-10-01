@@ -288,7 +288,7 @@ const TESTIMONIALS = [
 const BENEFITS = [
   {
     icon: Gamepad2,
-    title: "424 juegos",
+    title: "12 juegos",
     text: "Acción, deportes, carreras, RPG, terror y mucho más.",
   },
   {
@@ -575,7 +575,7 @@ function ResultScreen({ games, onContinue }: { games: CatalogGame[]; onContinue:
         Estos títulos encajan con tu perfil
       </h1>
       <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-        Y no tendrás que elegir solo uno: forman parte de una biblioteca con 424 juegos.
+        Y no tendrás que elegir solo uno: forman parte del mismo pack de 12 juegos.
       </p>
       <div className="mt-9 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {games.map((game) => (
@@ -757,7 +757,7 @@ function OfferScreen({
             onClick={onCheckout}
             className={hotmartWidget ? "hotmart-fb hotmart__button-checkout" : undefined}
           >
-            Quiero mis 424 juegos <ArrowRight />
+            Quiero mis 12 juegos <ArrowRight />
           </a>
         </Button>
         <p className="mt-4 flex items-center justify-center gap-2 text-xs text-muted-foreground">

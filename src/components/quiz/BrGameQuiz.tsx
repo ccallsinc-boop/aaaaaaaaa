@@ -261,7 +261,7 @@ const TESTIMONIALS = [
 const BENEFITS = [
   {
     icon: Gamepad2,
-    title: "424 jogos",
+    title: "12 jogos",
     text: "Ação, esportes, corrida, RPG, terror e muito mais.",
   },
   {
@@ -515,7 +515,7 @@ function ResultScreen({ games, onContinue }: { games: CatalogGame[]; onContinue:
         Estes títulos combinam com o seu perfil
       </h1>
       <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-        E você não precisa escolher só um: todos fazem parte de uma biblioteca com 424 jogos.
+        E você não precisa escolher só um: todos fazem parte do mesmo pacote de 12 jogos.
       </p>
       <div className="mt-9 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {games.map((game) => (
@@ -682,7 +682,7 @@ function OfferScreen({ checkoutUrl, onCheckout }: { checkoutUrl: string; onCheck
           className="mt-6 h-14 w-full rounded-full bg-foreground text-base text-primary hover:bg-foreground/90"
         >
           <a href={checkoutUrl} onClick={onCheckout}>
-            Quero meus 424 jogos <ArrowRight />
+            Quero meus 12 jogos <ArrowRight />
           </a>
         </Button>
         <p className="mt-4 flex items-center justify-center gap-2 text-xs text-muted-foreground">

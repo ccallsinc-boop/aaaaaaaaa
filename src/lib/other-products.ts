@@ -19,6 +19,10 @@ function fixedUsd(price: number): ResolvedMarket {
     perGameValue: price,
     fxSource: "fixed",
     country: null,
+    // These products are not part of the game pack's launch window.
+    now: 0,
+    campaignEndsAt: null,
+    priceAfter: null,
   };
 }
 

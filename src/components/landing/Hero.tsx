@@ -41,7 +41,7 @@ export function Hero() {
           show: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
         }}
       >
-        {lang !== "es" && (
+        {marketLang !== "es" && (
           <motion.div variants={ITEM}>
             <Logo
               variant="3d"

@@ -136,7 +136,7 @@ const COPY = {
     catalogSub:
       "Os títulos mais pedidos, com capa oficial e download direto. Nada de lista inflada.",
     coverAlt: (name: string) => `Capa de ${name}`,
-    offerEyebrow: (n: number) => `Pacote Framers Completo · ${n} jogos`,
+    offerEyebrow: (n: number) => `Pacote Framers · ${n} jogos`,
     offerCompare: "Comprando separado:",
     offerToday: "Hoje, pagamento único de",
     offerPerGame: (n: number, price: string) => (
@@ -163,7 +163,7 @@ const COPY = {
     ],
     brandsTitle: "Estúdios e publishers presentes na biblioteca",
     testimonialsEyebrow: "Quem já comprou",
-    testimonialsTitle: "Mais de 4.000 gamers já jogando",
+    testimonialsTitle: "Quem comprou, instalou e jogou",
     testimonialsSub:
       "Depoimentos reais de clientes que receberam o acesso e já estão com a biblioteca instalada.",
     testimonials: (price: string) => [
@@ -229,6 +229,13 @@ const COPY = {
     footerReady: "Pronto para jogar?",
     footerCta: (price: string) => `Garantir acesso por ${price}`,
     rights: "Todos os direitos reservados.",
+    countdownTitle: "O preço de lançamento acaba em",
+    countdownDays: "dias",
+    countdownHours: "horas",
+    countdownMinutes: "min",
+    countdownSeconds: "seg",
+    countdownThen: (price: string) => `Depois dessa data o pacote passa a custar ${price}.`,
+    countdownCompact: (clock: string) => `Preço de lançamento acaba em ${clock}`,
     legalTitle: "Legal e suporte",
     legalWhatsapp: "Suporte no WhatsApp",
     trademarkNotice:
@@ -245,7 +252,7 @@ const COPY = {
     midCtas: [
       ["Pronto para começar a jogar hoje?", "Quero começar a jogar agora"],
       ["Escolheu seus favoritos? Leve todos de uma vez.", "Quero esses jogos"],
-      ["Junte-se a mais de 4.000 gamers que já estão jogando", "Jogar como eles"],
+      ["Instale hoje e jogue hoje", "Quero jogar agora"],
       ["Teste sem risco, com 7 dias de garantia total", "Testar sem risco"],
     ] as [string, string][],
   },
@@ -326,7 +333,7 @@ const COPY = {
     ],
     brandsTitle: "Studios and publishers featured in the library",
     testimonialsEyebrow: "Verified buyers",
-    testimonialsTitle: "Over 4,000 gamers already playing",
+    testimonialsTitle: "Bought it, installed it, played it",
     testimonialsSub:
       "Real feedback from customers who got their access and already have the library installed.",
     testimonials: (price: string) => [
@@ -392,6 +399,13 @@ const COPY = {
     footerReady: "Ready to play?",
     footerCta: (price: string) => `Get access for ${price}`,
     rights: "All rights reserved.",
+    countdownTitle: "Launch price ends in",
+    countdownDays: "days",
+    countdownHours: "hours",
+    countdownMinutes: "min",
+    countdownSeconds: "sec",
+    countdownThen: (price: string) => `After that date the pack goes to ${price}.`,
+    countdownCompact: (clock: string) => `Launch price ends in ${clock}`,
     legalTitle: "Legal and support",
     legalWhatsapp: "WhatsApp support",
     trademarkNotice:
@@ -408,7 +422,7 @@ const COPY = {
     midCtas: [
       ["Ready to start playing today?", "Start playing now"],
       ["Found your favorites? Take them all at once.", "I want these games"],
-      ["Join over 4,000 gamers already playing", "Join gamers already playing"],
+      ["Install today and play today", "I want to play now"],
       ["Try it risk-free, with a 7-day full guarantee", "Try risk-free"],
     ] as [string, string][],
   },
@@ -462,7 +476,7 @@ const ES = {
   catalogTitle: (n: number) => `${n} juegos. Un solo precio.`,
   catalogSub: "Los títulos más pedidos, con portada oficial y descarga directa. Sin lista inflada.",
   coverAlt: (name: string) => `Portada de ${name}`,
-  offerEyebrow: (n: number) => `Pack Framers Completo · ${n} juegos`,
+  offerEyebrow: (n: number) => `Pack Framers · ${n} juegos`,
   offerCompare: "Comprando por separado:",
   offerToday: "Hoy, pago único de",
   offerPerGame: (n: number, price: string) => (
@@ -490,7 +504,7 @@ const ES = {
   ],
   brandsTitle: "Estudios y publishers presentes en la biblioteca",
   testimonialsEyebrow: "Quienes ya compraron",
-  testimonialsTitle: "Más de 4.000 gamers ya jugando",
+  testimonialsTitle: "Compraron, instalaron y jugaron",
   testimonialsSub:
     "Opiniones reales de clientes que recibieron el acceso y ya tienen la biblioteca instalada.",
   testimonials: (price: string) => [
@@ -555,6 +569,13 @@ const ES = {
   footerReady: "¿Listo para jugar?",
   footerCta: (price: string) => `Conseguir acceso por ${price}`,
   rights: "Todos los derechos reservados.",
+  countdownTitle: "El precio de lanzamiento termina en",
+  countdownDays: "días",
+  countdownHours: "horas",
+  countdownMinutes: "min",
+  countdownSeconds: "seg",
+  countdownThen: (price: string) => `Después de esa fecha el pack pasa a costar ${price}.`,
+  countdownCompact: (clock: string) => `El precio de lanzamiento termina en ${clock}`,
   legalTitle: "Legal y soporte",
   legalWhatsapp: "Soporte por WhatsApp",
   trademarkNotice:
@@ -571,7 +592,7 @@ const ES = {
   midCtas: [
     ["¿Listo para empezar a jugar hoy?", "Quiero empezar a jugar ahora"],
     ["¿Ya elegiste tus favoritos? Llévatelos todos de una vez.", "Quiero estos juegos"],
-    ["Únete a más de 4.000 gamers que ya están jugando", "Unirme a los que ya juegan"],
+    ["Instala hoy y juega hoy", "Quiero jugar ahora"],
     ["Pruébalo sin riesgo, con 7 días de garantía total", "Probar sin riesgo"],
   ] as [string, string][],
 };
@@ -647,7 +668,7 @@ const HI = {
   guaranteeBadges: ["100% सुरक्षित खरीद", "7 दिन की गारंटी", "रिफंड की गारंटी", "असली सपोर्ट"],
   brandsTitle: "लाइब्रेरी में मौजूद स्टूडियो और पब्लिशर",
   testimonialsEyebrow: "जिन्होंने पहले ही खरीदा",
-  testimonialsTitle: "4,000+ गेमर्स पहले से खेल रहे हैं",
+  testimonialsTitle: "खरीदा, इंस्टॉल किया, खेला",
   testimonialsSub:
     "असली ग्राहकों के अनुभव जिन्हें एक्सेस मिल चुका है और लाइब्रेरी इंस्टॉल हो चुकी है।",
   testimonials: (price: string) => [
@@ -716,6 +737,13 @@ const HI = {
   footerReady: "खेलने के लिए तैयार हैं?",
   footerCta: (price: string) => `${price} में एक्सेस पाएं`,
   rights: "सर्वाधिकार सुरक्षित।",
+  countdownTitle: "लॉन्च कीमत खत्म होने में",
+  countdownDays: "दिन",
+  countdownHours: "घंटे",
+  countdownMinutes: "मिनट",
+  countdownSeconds: "सेकंड",
+  countdownThen: (price: string) => `इस तारीख के बाद पैक की कीमत ${price} हो जाएगी।`,
+  countdownCompact: (clock: string) => `लॉन्च कीमत खत्म: ${clock}`,
   legalTitle: "लीगल और सपोर्ट",
   legalWhatsapp: "WhatsApp सपोर्ट",
   trademarkNotice:
@@ -732,7 +760,7 @@ const HI = {
   midCtas: [
     ["आज ही खेलना शुरू करने के लिए तैयार?", "अभी खेलना शुरू करें"],
     ["अपने फेवरेट चुन लिए? सब एक साथ ले लें।", "मुझे ये गेम्स चाहिए"],
-    ["4,000+ गेमर्स से जुड़ें जो पहले से खेल रहे हैं", "उनके साथ खेलना शुरू करें"],
+    ["आज इंस्टॉल करें और आज ही खेलें", "अभी खेलना है"],
     ["बिना जोखिम आज़माएं, 7 दिन की पूरी गारंटी", "बिना जोखिम आज़माएं"],
   ] as [string, string][],
 };
@@ -789,6 +817,12 @@ export function buildLocale(lang: Lang, resolved: ResolvedMarket = FALLBACK_RESO
     intl: market.intl,
     rate: resolved.rate,
     fxSource: resolved.fxSource,
+
+    // Launch window. serverNow comes from the request so the countdown cannot be
+    // shifted by changing the device clock.
+    serverNow: resolved.now,
+    campaignEndsAt: resolved.campaignEndsAt,
+    priceAfter: resolved.priceAfter,
 
     money,
     price,
