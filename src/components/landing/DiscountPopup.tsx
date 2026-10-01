@@ -1,39 +1,33 @@
 import { useEffect, useState } from "react";
-import { X } from "lucide-react";
-import { trackMeta } from "@/lib/meta-pixel";
+import { Check, X } from "lucide-react";
+
+import { trackMeta, trackMetaCustom } from "@/lib/meta-pixel";
 import { useLocale } from "@/lib/locale";
+import { LaunchWindow } from "@/components/landing/LaunchWindow";
 import {
   loadHotmartWidget,
   HOTMART_WIDGET_CLASSES,
   hotmartWidgetLoaded,
 } from "@/lib/hotmart-widget";
 
-const COPY: Record<string, { title: string; sub: string; cta: string; note: string }> = {
-  pt: {
-    title: "Desconto exclusivo por tempo limitado",
-    sub: "Garanta a biblioteca completa hoje",
-    cta: "Quero meu desconto agora",
-    note: "Pagamento único · Acesso imediato · Garantia de 7 dias",
-  },
-  es: {
-    title: "Descuento exclusivo por tiempo limitado",
-    sub: "Llévate la biblioteca completa hoy",
-    cta: "Quiero mi descuento ahora",
-    note: "Pago único · Acceso inmediato · Garantía de 7 días",
-  },
-  in: {
-    title: "सीमित समय का विशेष डिस्काउंट",
-    sub: "पूरी लाइब्रेरी आज ही पाएं",
-    cta: "मुझे अभी डिस्काउंट चाहिए",
-    note: "एक बार भुगतान · तुरंत एक्सेस · 7 दिन की गारंटी",
-  },
-};
-
 /** sessionStorage key so a dismissed popup does not come back on reload. */
 const DISMISS_KEY = "framers:discount-popup-dismissed";
 
+/** How long before the popup offers itself to someone who has not left yet. */
+const TIMER_MS = 25000;
+
+/**
+ * Exit-intent and dwell-time offer.
+ *
+ * The old version computed the price and the compare-at value and then rendered
+ * neither, so the one block whose job was to reveal the price showed no number at
+ * all. It now carries the whole offer: price, the anchor, the countdown that
+ * actually governs the price, the guarantee, and what the pack costs once the
+ * window closes.
+ */
 export function DiscountPopup() {
-  const { lang, storeUrl, price, currency, money, hotmart } = useLocale();
+  const { t, storeUrl, price, currency, money, fullValue, priceAfter, totalGames, lang, hotmart } =
+    useLocale();
   const [open, setOpen] = useState(false);
   const [shown, setShown] = useState(false);
 
@@ -46,8 +40,6 @@ export function DiscountPopup() {
 
   useEffect(() => {
     if (shown) return;
-    // Once dismissed, stay dismissed for the session instead of firing again on
-    // every reload.
     try {
       if (window.sessionStorage.getItem(DISMISS_KEY) === "1") {
         setShown(true);
@@ -57,14 +49,15 @@ export function DiscountPopup() {
       /* private mode or blocked storage: just show it */
     }
 
-    const show = () => {
+    const show = (trigger: string) => {
       setOpen(true);
       setShown(true);
+      trackMetaCustom("OfferPopupView", { trigger, lang });
     };
 
-    const timer = window.setTimeout(show, 12000);
+    const timer = window.setTimeout(() => show("dwell"), TIMER_MS);
     const onLeave = (e: MouseEvent) => {
-      if (e.clientY <= 0) show();
+      if (e.clientY <= 0) show("exit-intent");
     };
     document.addEventListener("mouseleave", onLeave);
 
@@ -72,7 +65,7 @@ export function DiscountPopup() {
       window.clearTimeout(timer);
       document.removeEventListener("mouseleave", onLeave);
     };
-  }, [shown]);
+  }, [shown, lang]);
 
   const dismiss = () => {
     setOpen(false);
@@ -85,32 +78,50 @@ export function DiscountPopup() {
 
   if (!open) return null;
 
-  const copy = COPY[lang] ?? COPY.pt;
-
   return (
     <div
-      className="fixed inset-0 z-[100] grid place-items-center bg-foreground/60 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] grid place-items-center overflow-y-auto bg-foreground/70 p-4 backdrop-blur-sm"
       onClick={dismiss}
+      role="dialog"
+      aria-modal="true"
+      aria-label={t.popupTitle}
     >
       <div
-        className="relative w-full max-w-md rounded-3xl border border-border bg-background p-7 text-center shadow-soft"
+        className="relative my-auto w-full max-w-md rounded-3xl border border-border bg-background p-7 text-center shadow-soft"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           type="button"
-          aria-label={lang === "pt" ? "Fechar" : "Cerrar"}
+          aria-label={t.popupDismiss}
           onClick={dismiss}
-          className="absolute right-4 top-4 text-muted-foreground hover:text-foreground"
+          className="absolute right-4 top-4 text-muted-foreground transition-colors hover:text-foreground"
         >
           <X className="h-5 w-5" />
         </button>
 
-        <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">{copy.title}</p>
-        <h3 className="mt-3 text-2xl leading-tight">{copy.sub}</h3>
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
+          {t.popupEyebrow}
+        </p>
+        <h3 className="mt-3 text-2xl leading-tight">{t.popupTitle}</h3>
+        <p className="mt-2 text-sm text-muted-foreground">{t.popupSub(totalGames)}</p>
 
-        <p className="mt-5 font-display text-[clamp(2.4rem,12vw,3.4rem)] leading-none text-primary">
+        <p className="mt-5 text-sm text-muted-foreground line-through">{money(fullValue)}</p>
+        <p className="font-display text-[clamp(2.6rem,13vw,3.6rem)] leading-none text-primary">
           {money(price)}
         </p>
+
+        <ul className="mt-5 flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs font-semibold text-muted-foreground">
+          {t.popupBullets.map((item) => (
+            <li key={item} className="inline-flex items-center gap-1.5">
+              <Check className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
+              {item}
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-5">
+          <LaunchWindow showThen={false} />
+        </div>
 
         <a
           href={storeUrl}
@@ -119,15 +130,28 @@ export function DiscountPopup() {
             trackMeta("InitiateCheckout", {
               value: Number(price.toFixed(2)),
               currency,
+              content_name: "Framers Full Pack",
+              content_type: "product",
+              content_ids: ["pacote-framers"],
               cta_location: `${lang}:discount-popup`,
             });
           }}
           className={`${hotmart ? HOTMART_WIDGET_CLASSES + " " : ""}mt-6 inline-flex w-full items-center justify-center rounded-full bg-primary px-7 py-3.5 text-sm font-bold text-primary-foreground shadow-soft transition-transform hover:scale-[1.02]`}
         >
-          {copy.cta}
+          {t.popupCta}
         </a>
 
-        <p className="mt-3 text-[11px] text-muted-foreground">{copy.note}</p>
+        {priceAfter ? (
+          <p className="mt-3 text-[11px] text-muted-foreground">{t.popupNote(money(priceAfter))}</p>
+        ) : null}
+
+        <button
+          type="button"
+          onClick={dismiss}
+          className="mt-4 text-[11px] text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
+        >
+          {t.popupDismiss}
+        </button>
       </div>
     </div>
   );

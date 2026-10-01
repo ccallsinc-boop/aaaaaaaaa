@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Check } from "lucide-react";
 import { FRONT_GAMES } from "@/data/front-offer";
 import { Logo } from "@/components/landing/Logo";
 import { VslEs } from "@/components/landing/VslEs";
@@ -59,7 +60,7 @@ export function Hero() {
           variants={ITEM}
           className="mx-auto mt-6 max-w-4xl text-[clamp(2.2rem,7vw,4.5rem)]"
         >
-          {t.heroTitleA} <span className="block text-primary">{t.heroTitleB(totalGames)}</span>
+          {t.heroTitleA} <span className="block text-primary">{t.heroTitleB()}</span>
         </motion.h1>
 
         <motion.p
@@ -88,6 +89,18 @@ export function Hero() {
             {t.heroCompare(money(fullValue), money(fullValue - price))}
           </motion.p>
         )}
+
+        <motion.ul
+          variants={ITEM}
+          className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-semibold text-muted-foreground"
+        >
+          {t.heroTrust.map((item) => (
+            <li key={item} className="inline-flex items-center gap-1.5">
+              <Check className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
+              {item}
+            </li>
+          ))}
+        </motion.ul>
 
         {marketLang === "es" ? (
           <motion.div variants={ITEM} className="mt-12">

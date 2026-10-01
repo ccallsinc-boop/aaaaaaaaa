@@ -15,7 +15,14 @@ import { useLocale } from "@/lib/locale";
  * baseline, which is enough: the price itself is decided server-side on every
  * request, so a client that fakes the countdown still gets charged the real price.
  */
-export function LaunchWindow({ compact = false }: { compact?: boolean }) {
+export function LaunchWindow({
+  compact = false,
+  showThen = true,
+}: {
+  compact?: boolean;
+  /** The popup states the after-price in its own note, so it hides this one. */
+  showThen?: boolean;
+}) {
   const { t, money, priceAfter, campaignEndsAt, serverNow } = useLocale();
 
   // Offset between the server clock and this device, measured once.
@@ -77,7 +84,7 @@ export function LaunchWindow({ compact = false }: { compact?: boolean }) {
         ))}
       </div>
 
-      {priceAfter ? (
+      {priceAfter && showThen ? (
         <p className="mt-4 text-sm text-muted-foreground">{t.countdownThen(money(priceAfter))}</p>
       ) : null}
     </div>

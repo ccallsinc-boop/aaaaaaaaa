@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Nav } from "@/components/landing/Nav";
 import { Hero } from "@/components/landing/Hero";
 import { Deliverables } from "@/components/landing/Deliverables";
+import { WhyCheap } from "@/components/landing/WhyCheap";
 import { FrontGames } from "@/components/landing/FrontGames";
 import { BrandMarquee } from "@/components/landing/BrandMarquee";
 import { Testimonials } from "@/components/landing/Testimonials";
@@ -56,6 +57,9 @@ export function LandingPage({ lang: pinned }: { lang?: Lang } = {}) {
         <BrandMarquee />
         <Reveal>
           <Deliverables />
+        </Reveal>
+        <Reveal>
+          <WhyCheap />
         </Reveal>
         <Reveal>
           <MidCta index={0} />

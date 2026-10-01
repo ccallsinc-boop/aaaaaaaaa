@@ -89,52 +89,73 @@ const CONFIG = {
 const COPY = {
   pt: {
     nav: [
-      { label: "Biblioteca", href: "#jogos" },
+      { label: "Os 12 jogos", href: "#jogos" },
       { label: "Como funciona", href: "#como-funciona" },
       { label: "Oferta", href: "#oferta" },
       { label: "FAQ", href: "#faq" },
     ],
-    heroBadge: (d: number) => `Os 12 mais pedidos · ${d}% OFF`,
-    heroTitleA: "Nunca foi tão barato ter",
-    heroTitleB: (n: number) => `${n} jogos`,
+    heroBadge: (d: number) => `Preço de lançamento · ${d}% OFF`,
+    heroTitleA: "12 jogos que custam uma fortuna.",
+    heroTitleB: () => "Hoje, o preço de um lanche.",
     heroSub: (price: string) =>
-      `GTA V, Red Dead 2, Elden Ring, God of War Ragnarök, Hogwarts Legacy e mais 7 por ${price}. Pagamento único, entrega imediata e acesso vitalício.`,
-    heroCta: "Quero garantir meu acesso",
-    heroSecondary: "Ver a biblioteca",
+      `GTA V, Red Dead 2, Elden Ring, God of War Ragnarök, Hogwarts Legacy e mais 7. Tudo liberado de uma vez por ${price}, pagamento único, sem mensalidade e com acesso vitalício.`,
+    heroCta: "Quero os 12 jogos agora",
+    heroSecondary: "Ver os 12 jogos",
     heroCompare: (full: string, save: string) => (
       <>
-        <span className="line-through">{full}</span> comprando separado · economia de{" "}
-        <span className="font-semibold text-foreground">{save}</span>
+        Comprando separado dá <span className="line-through">{full}</span>. Você economiza{" "}
+        <span className="font-semibold text-foreground">{save}</span> hoje.
       </>
     ),
-    heroAlt: (n: number) => `Prévia da biblioteca com ${n} jogos para PC`,
+    heroAlt: (n: number) => `Prévia da biblioteca com ${n} jogos de PC`,
     heroMore: (n: number) => `+ ${n} títulos liberados na mesma compra`,
+    heroTrust: ["Pagamento único", "Acesso em minutos", "7 dias de garantia"],
     stats: (price: string) =>
       [
-        [price, "Pagamento único"],
-        ["Imediato", "Acesso após o pagamento"],
-        ["7 dias", "Garantia total"],
+        [price, "Uma vez. Nunca mais."],
+        ["Em minutos", "O acesso cai no seu e-mail"],
+        ["7 dias", "Não gostou, devolvemos"],
       ] as [string, string][],
+
+    whyCheapTitle: "Por que tão barato?",
+    whyCheapSub: "É a pergunta certa, e ninguém responde. Aqui vai a resposta direta.",
+    whyCheap: [
+      [
+        "Você paga o arquivo, não a caixa",
+        "Não existe disco, frete, loja física nem prateleira. Entrega digital tem custo perto de zero, e o preço reflete isso.",
+      ],
+      [
+        "É preço de lançamento",
+        "Estamos começando, e preferimos volume agora a margem agora. Por isso a data abaixo existe e o preço realmente sobe nela.",
+      ],
+      [
+        "Um pacote, não 12 compras",
+        "Vender os 12 de uma vez custa o mesmo que vender um. Essa economia volta para você em vez de virar margem.",
+      ],
+    ] as [string, string][],
+
     deliverablesTitleA: "Tudo que você precisa",
-    deliverablesTitleB: "para jogar hoje mesmo",
+    deliverablesTitleB: "para jogar ainda hoje",
     deliverablesSub:
-      "Uma compra simples, sem assinatura, sem burocracia e com suporte de gente de verdade.",
+      "Compra simples, sem assinatura, sem burocracia e com gente de verdade do outro lado.",
     deliverables: (perGame: string) =>
       [
         ["Os 12 jogos liberados", "Todos de uma vez, sem escolher pacote nem pagar por título."],
-        ["Entrega imediata", "Pagou, o acesso cai no seu e-mail em minutos."],
-        ["Acesso vitalício", "Paga uma vez e continua com tudo, sem mensalidade."],
-        ["Download direto", "Links organizados, rápidos e sem enrolação."],
-        ["Pack de otimização", "Configurações prontas para rodar melhor em PC fraco."],
-        ["Suporte humano", "Time no WhatsApp para ajudar na instalação."],
+        ["Entrega imediata", "Pagou, o acesso chega no seu e-mail em minutos."],
+        ["Acesso vitalício", "Paga uma vez e é seu para sempre, sem mensalidade."],
+        ["Download direto", "Links organizados, rápidos e sem complicação."],
+        ["Pack de otimização", "Ajustes prontos para rodar melhor em PC fraco."],
+        ["Suporte humano", "Time real no WhatsApp para te ajudar na instalação."],
         ["Garantia de 7 dias", "Não gostou? Devolvemos 100% do valor."],
         [`Menos de ${perGame} por jogo`, "O preço de um jogo compra os 12."],
       ] as [string, string][],
+
     catalogEyebrow: "O que vem dentro",
-    catalogTitle: (n: number) => `${n} jogos. Um preço só.`,
+    catalogTitle: (n: number) => `Os ${n} jogos. Um preço só.`,
     catalogSub:
-      "Os títulos mais pedidos, com capa oficial e download direto. Nada de lista inflada.",
+      "Os títulos mais pedidos, com capa oficial e download direto. Nada de lista inflada com joguinho de navegador para inchar o número.",
     coverAlt: (name: string) => `Capa de ${name}`,
+
     offerEyebrow: (n: number) => `Pacote Framers · ${n} jogos`,
     offerCompare: "Comprando separado:",
     offerToday: "Hoje, pagamento único de",
@@ -143,91 +164,87 @@ const COPY = {
         {n} jogos · menos de <span className="font-semibold text-foreground">{price}</span> por jogo
       </>
     ),
-    offerNote: "Pagamento único via PIX ou cartão · risco zero com 7 dias de garantia.",
+    offerNote: "Pagamento único no cartão · risco zero com 7 dias de garantia.",
     includes: (n: number) => [
-      `Todos os ${n} jogos liberados de uma vez`,
+      `Os ${n} jogos liberados de uma vez`,
       "Acesso vitalício: paga uma vez e é seu para sempre",
       "Tutorial de instalação em vídeo passo a passo",
       "Pack de otimização para PC fraco",
       "Suporte humano no WhatsApp",
       "Garantia de 7 dias ou dinheiro de volta",
     ],
-    guaranteeTitle: "Satisfação garantida e risco zero",
-    guaranteeSub: "7 dias para pedir reembolso integral, sem perguntas. O risco é todo nosso.",
+
+    guaranteeTitle: "O risco é todo nosso",
+    guaranteeSub:
+      "Instale, jogue, teste nos seus 7 dias. Se não gostar, por qualquer motivo, devolvemos tudo. Você não precisa justificar nada e continua com o tutorial e o pack de otimização.",
     guaranteeBadges: [
       "Compra 100% segura",
       "7 dias de garantia",
-      "Reembolso garantido",
+      "Reembolso sem perguntas",
       "Suporte humano",
     ],
+
     brandsTitle: "Estúdios e publishers presentes na biblioteca",
-    testimonialsEyebrow: "Quem já comprou",
-    testimonialsTitle: "Quem comprou, instalou e jogou",
+
+    testimonialsEyebrow: "Mensagens reais de clientes",
+    testimonialsTitle: "Instalou, abriu e jogou",
     testimonialsSub:
-      "Depoimentos reais de clientes que receberam o acesso e já estão com a biblioteca instalada.",
-    testimonials: (price: string) => [
+      "Prints do nosso WhatsApp, sem edição. É o tipo de mensagem que chega depois da compra.",
+    testimonials: [
       {
-        name: "Lucas Andrade",
-        meta: "Belo Horizonte · MG",
-        text: `Achei que era golpe por ${price}, mas o acesso chegou no e-mail em menos de 5 minutos. Já baixei GTA V e o RDR2 rodando liso.`,
+        alt: "Cliente mostrando GTA V aberto no notebook, dizendo que instalou em minutos",
+        caption: "Instalou em minutos e já estava jogando GTA V.",
       },
       {
-        name: "Rafael Souza",
-        meta: "Curitiba · PR",
-        text: "O pack de otimização salvou meu PC velho. Rodei Elden Ring numa máquina que eu já tinha desistido. Suporte respondeu no WhatsApp em minutos.",
-      },
-      {
-        name: "Pedro Henrique",
-        meta: "São Paulo · SP",
-        text: "Comprei desconfiado e já indiquei pra três amigos. Só o Red Dead 2 já pagou o valor muitas vezes.",
-      },
-      {
-        name: "Camila Ribeiro",
-        meta: "Recife · PE",
-        text: "Instalação simples, tutorial em vídeo explicando tudo. Nunca tinha instalado jogo no PC e consegui sozinha.",
-      },
-      {
-        name: "Diego Martins",
-        meta: "Porto Alegre · RS",
-        text: "Toda semana entram jogos novos e não pago nada a mais. Melhor compra que fiz no ano.",
-      },
-      {
-        name: "Bruno Ferreira",
-        meta: "Salvador · BA",
-        text: "Pedi ajuda porque travou no download e me responderam na hora. Atendimento de gente de verdade, não robô.",
+        alt: "Cliente mostrando GTA V rodando no monitor, dizendo que vale a pena",
+        caption: "GTA V do pacote rodando redondo no PC dele.",
       },
     ],
-    faqTitle: "Perguntas frequentes",
 
+    faqTitle: "Perguntas frequentes",
     faq: (price: string, n: number) => [
       {
-        q: `É ${price} por todos os jogos?`,
-        a: `Sim. Pagamento único de ${price} pelos ${n} jogos. Sem mensalidade e sem cobrança por título.`,
+        q: `É ${price} pelos ${n} jogos mesmo, sem pegadinha?`,
+        a: `Sim. Pagamento único de ${price} pelos ${n} jogos. Sem mensalidade, sem cobrança por título e sem renovação automática. O preço que você vê é o que o checkout cobra.`,
       },
       {
-        q: "Quando recebo o acesso?",
-        a: "Na hora. Assim que o pagamento é confirmado, o acesso chega por e-mail, normalmente em poucos minutos.",
+        q: "Quando eu recebo o acesso?",
+        a: "Na hora. Assim que o pagamento é confirmado, o acesso chega no seu e-mail, normalmente em poucos minutos. Se não chegar, o suporte reenvia.",
       },
       {
-        q: "Funciona no meu PC?",
-        a: "Sim, os jogos são para PC (Windows) e vão com tutorial de instalação e pack de otimização para máquinas mais fracas.",
+        q: "Vai rodar no meu PC?",
+        a: "Os jogos são para PC com Windows. Cada título tem seus requisitos, e vai junto um pack de otimização feito para máquinas mais fracas. Se não rodar na sua, os 7 dias de garantia cobrem você.",
+      },
+      {
+        q: "Nunca instalei jogo no PC. Consigo?",
+        a: "Consegue. Vai um tutorial em vídeo passo a passo e, se travar em qualquer etapa, tem gente de verdade no WhatsApp para destravar com você.",
       },
       {
         q: "E se eu não gostar?",
-        a: "Você tem 7 dias para pedir reembolso integral, sem perguntas. O risco é todo nosso.",
+        a: "Você tem 7 dias para pedir reembolso integral, sem precisar explicar o motivo. O risco é todo nosso.",
+      },
+      {
+        q: "O preço vai subir mesmo?",
+        a: "Vai. O contador desta página marca o fim do preço de lançamento, e na data ele sobe para todo mundo. Quem comprou antes não paga a diferença.",
       },
     ],
+
     footerLinks: [
-      { label: "Biblioteca", href: "#jogos" },
+      { label: "Os 12 jogos", href: "#jogos" },
       { label: "Oferta", href: "#oferta" },
       { label: "FAQ", href: "#faq" },
     ],
     footerSub: (n: number, price: string) =>
-      `${n} jogos para PC por ${price}, em pagamento único, com entrega digital imediata.`,
+      `${n} jogos de PC por ${price}, em pagamento único, com entrega digital imediata.`,
     footerLinksTitle: "Links rápidos",
     footerReady: "Pronto para jogar?",
     footerCta: (price: string) => `Garantir acesso por ${price}`,
     rights: "Todos os direitos reservados.",
+    legalTitle: "Legal e suporte",
+    legalWhatsapp: "Suporte no WhatsApp",
+    trademarkNotice:
+      "Nomes de jogos, estúdios e plataformas citados pertencem aos seus titulares e são usados apenas para identificar os títulos. A menção não implica patrocínio nem vínculo comercial.",
+
     countdownTitle: "O preço de lançamento acaba em",
     countdownDays: "dias",
     countdownHours: "horas",
@@ -235,168 +252,192 @@ const COPY = {
     countdownSeconds: "seg",
     countdownThen: (price: string) => `Depois dessa data o pacote passa a custar ${price}.`,
     countdownCompact: (clock: string) => `Lançamento acaba em ${clock}`,
-    legalTitle: "Legal e suporte",
-    legalWhatsapp: "Suporte no WhatsApp",
-    trademarkNotice:
-      "Nomes de jogos, estúdios e plataformas citados pertencem aos seus titulares e são usados apenas para identificar os títulos. A menção não implica patrocínio nem vínculo comercial.",
+
     stickySub: (n: number) => `${n} jogos · pagamento único`,
     stickyCta: "Quero acesso",
-    ctaVsl: "Quero ver o pack agora",
-    ctaCatalog: "Quero esses jogos",
-    ctaTestimonials: "Jogar como eles",
-    ctaGuarantee: "Testar sem risco",
+
+    popupEyebrow: "Espera, antes de sair",
+    popupTitle: "Você ia embora sem ver o preço",
+    popupSub: (n: number) => `Os ${n} jogos, pagamento único, acesso vitalício.`,
+    popupBullets: ["Acesso em minutos", "7 dias de garantia", "Sem mensalidade"],
+    popupCta: "Quero esse preço",
+    popupNote: (price: string) => `Depois do prazo, o mesmo pacote custa ${price}.`,
+    popupDismiss: "Agora não",
+
+    ctaVsl: "Ver o pacote agora",
+    ctaCatalog: "Quero esses 12 jogos",
+    ctaTestimonials: "Quero jogar hoje também",
+    ctaGuarantee: "Testar sem risco por 7 dias",
     ctaDeliverables: "Quero começar a jogar agora",
-    ctaBrands: "Ver oferta completa",
-    ctaFaq: "Ainda tem dúvidas? Garantir meu acesso",
+    ctaBrands: "Ver a oferta completa",
+    ctaFaq: "Ficou alguma dúvida? Garantir meu acesso",
+    ctaWhyCheap: "Entendi, quero garantir o meu",
     midCtas: [
-      ["Pronto para começar a jogar hoje?", "Quero começar a jogar agora"],
-      ["Escolheu seus favoritos? Leve todos de uma vez.", "Quero esses jogos"],
-      ["Instale hoje e jogue hoje", "Quero jogar agora"],
+      ["Dá para jogar GTA V ainda hoje à noite", "Quero começar a jogar agora"],
+      ["Já viu seus favoritos? Leve os 12 de uma vez.", "Quero esses 12 jogos"],
+      ["O preço sobe na data do contador. Antes dela, é esse.", "Garantir o preço de lançamento"],
       ["Teste sem risco, com 7 dias de garantia total", "Testar sem risco"],
     ] as [string, string][],
   },
   en: {
     nav: [
-      { label: "Library", href: "#jogos" },
+      { label: "The 12 games", href: "#jogos" },
       { label: "How it works", href: "#como-funciona" },
       { label: "Offer", href: "#oferta" },
       { label: "FAQ", href: "#faq" },
     ],
-    heroBadge: (d: number) => `Full library · ${d}% OFF`,
-    heroTitleA: "It has never been cheaper to own",
-    heroTitleB: (n: number) => `${n} games`,
+    heroBadge: (d: number) => `Launch price · ${d}% OFF`,
+    heroTitleA: "12 games that cost a fortune.",
+    heroTitleB: () => "Today, the price of lunch.",
     heroSub: (price: string) =>
-      `GTA V, Red Dead 2, Elden Ring, God of War Ragnarök, Hogwarts Legacy and 7 more for ${price}. One-time payment, instant delivery and lifetime access.`,
-    heroCta: "Get my access now",
-    heroSecondary: "Browse the library",
+      `GTA V, Red Dead 2, Elden Ring, God of War Ragnarök, Hogwarts Legacy and 7 more. All unlocked at once for ${price}, one payment, no subscription, yours for life.`,
+    heroCta: "Get the 12 games now",
+    heroSecondary: "See the 12 games",
     heroCompare: (full: string, save: string) => (
       <>
-        <span className="line-through">{full}</span> buying one by one · you save{" "}
-        <span className="font-semibold text-foreground">{save}</span>
+        Bought separately that is <span className="line-through">{full}</span>. You save{" "}
+        <span className="font-semibold text-foreground">{save}</span> today.
       </>
     ),
     heroAlt: (n: number) => `Preview of the library with ${n} PC games`,
-    heroMore: (n: number) => `+ ${n} more titles included in the same purchase`,
+    heroMore: (n: number) => `+ ${n} more titles in the same purchase`,
+    heroTrust: ["One-time payment", "Access in minutes", "7-day guarantee"],
     stats: (price: string) =>
       [
-        [price, "One-time payment"],
-        ["Instant", "Access after payment"],
-        ["7 days", "Money-back guarantee"],
+        [price, "Once. Never again."],
+        ["In minutes", "Access lands in your inbox"],
+        ["7 days", "Don't like it, we refund"],
       ] as [string, string][],
+
+    whyCheapTitle: "Why so cheap?",
+    whyCheapSub: "It is the right question, and nobody answers it. Here is the straight answer.",
+    whyCheap: [
+      [
+        "You pay for the file, not the box",
+        "No disc, no shipping, no shop, no shelf. Digital delivery costs close to nothing, and the price reflects that.",
+      ],
+      [
+        "It is launch pricing",
+        "We are starting out and we would rather have volume now than margin now. That is why the date below exists and the price really does go up on it.",
+      ],
+      [
+        "One pack, not 12 purchases",
+        "Selling all 12 at once costs us the same as selling one. That saving goes to you instead of becoming margin.",
+      ],
+    ] as [string, string][],
+
     deliverablesTitleA: "Everything you need",
-    deliverablesTitleB: "to start playing today",
+    deliverablesTitleB: "to play today",
     deliverablesSub:
-      "A simple purchase, with no subscription, no bureaucracy, and real human support.",
+      "A simple purchase, with no subscription, no bureaucracy, and real people on the other side.",
     deliverables: (perGame: string) =>
       [
         ["All 12 games unlocked", "Every title at once, with no bundles to pick."],
-        ["Instant delivery", "Once you pay, access lands in your inbox in minutes."],
-        ["Lifetime access", "Pay once and keep everything. No monthly fees."],
-        ["Direct download", "Organized, fast links with zero hassle."],
-        ["Optimization pack", "Ready-made settings to run better on low-end PCs."],
-        ["Human support", "A real team to help you with the installation."],
-        ["7-day guarantee", "Not happy? We refund 100% of your money."],
+        ["Instant delivery", "You pay and access reaches your inbox in minutes."],
+        ["Lifetime access", "Pay once and it is yours forever, no monthly fee."],
+        ["Direct download", "Organised, fast links with no hassle."],
+        ["Optimisation pack", "Ready-made tweaks to run better on a weaker PC."],
+        ["Human support", "A real team on WhatsApp to help you install."],
+        ["7-day guarantee", "Not for you? We refund 100%."],
         [`Less than ${perGame} per game`, "The price of one game buys all 12."],
       ] as [string, string][],
+
     catalogEyebrow: "What's inside",
-    catalogTitle: (n: number) => `${n} games. One single price.`,
+    catalogTitle: (n: number) => `The ${n} games. One single price.`,
     catalogSub:
-      "The titles people actually ask for, with official art and direct downloads. No padded list.",
+      "The titles people actually ask for, with official art and direct downloads. No padded list of browser games to inflate the number.",
     coverAlt: (name: string) => `${name} cover art`,
-    offerEyebrow: (n: number) => `Complete Framers Pack · ${n} games`,
-    offerCompare: "Buying separately:",
-    offerToday: "Today, one-time payment of",
+
+    offerEyebrow: (n: number) => `Framers Pack · ${n} games`,
+    offerCompare: "Bought separately:",
+    offerToday: "Today, one payment of",
     offerPerGame: (n: number, price: string) => (
       <>
         {n} games · less than <span className="font-semibold text-foreground">{price}</span> per
         game
       </>
     ),
-    offerNote: "One-time payment by card · zero risk with a 7-day guarantee.",
+    offerNote: "One-time card payment · zero risk with a 7-day guarantee.",
     includes: (n: number) => [
       `All ${n} games unlocked at once`,
       "Lifetime access: pay once and it is yours forever",
       "Step-by-step video installation tutorial",
-      "Optimization pack for low-end PCs",
-      "Human support over WhatsApp",
+      "Optimisation pack for weaker PCs",
+      "Human support on WhatsApp",
       "7-day money-back guarantee",
     ],
-    guaranteeTitle: "Satisfaction guaranteed, zero risk",
-    guaranteeSub: "7 days to request a full refund, no questions asked. The risk is all ours.",
+
+    guaranteeTitle: "The risk is entirely ours",
+    guaranteeSub:
+      "Install it, play it, test it across your 7 days. If you do not like it, for any reason, we refund everything. You do not have to justify anything and you keep the tutorial and the optimisation pack.",
     guaranteeBadges: [
       "100% secure checkout",
       "7-day guarantee",
-      "Refund guaranteed",
+      "No-questions refund",
       "Human support",
     ],
-    brandsTitle: "Studios and publishers featured in the library",
-    testimonialsEyebrow: "Verified buyers",
-    testimonialsTitle: "Bought it, installed it, played it",
+
+    brandsTitle: "Studios and publishers in the library",
+
+    testimonialsEyebrow: "Real customer messages",
+    testimonialsTitle: "Installed it, opened it, played it",
     testimonialsSub:
-      "Real feedback from customers who got their access and already have the library installed.",
-    testimonials: (price: string) => [
+      "Unedited screenshots from our WhatsApp. This is the kind of message that arrives after a purchase.",
+    testimonials: [
       {
-        name: "Lucas Andrade",
-        meta: "Manchester · UK",
-        text: `I thought it was too good to be true for ${price}, but the access hit my inbox in under 5 minutes. GTA V and RDR2 running smooth already.`,
+        alt: "Customer showing GTA V open on a laptop, saying it installed in minutes",
+        caption: "Installed in minutes and was already playing GTA V.",
       },
       {
-        name: "Ryan Mitchell",
-        meta: "Austin · TX",
-        text: "The optimization pack saved my old PC. Elden Ring runs on a machine I had already given up on. Support replied on WhatsApp within minutes.",
-      },
-      {
-        name: "Peter Nowak",
-        meta: "Chicago · IL",
-        text: "Bought it sceptical and already told three friends. Red Dead 2 alone was worth more than the whole price.",
-      },
-      {
-        name: "Camila Ribeiro",
-        meta: "Lisbon · PT",
-        text: "Simple install, with a video tutorial explaining everything. I had never installed a PC game before and managed on my own.",
-      },
-      {
-        name: "Daniel Hughes",
-        meta: "Leeds · UK",
-        text: "Twelve games I actually wanted, for the price of a coffee. Installed in one afternoon.",
-      },
-      {
-        name: "Bruno Ferreira",
-        meta: "Miami · FL",
-        text: "My download got stuck and they answered right away. Real people helping, not a bot.",
+        alt: "Customer showing GTA V running on a monitor, saying it is worth it",
+        caption: "GTA V from the pack running smoothly on their PC.",
       },
     ],
-    faqTitle: "Frequently asked questions",
 
+    faqTitle: "Frequently asked questions",
     faq: (price: string, n: number) => [
       {
-        q: `Is it ${price} for all the games?`,
-        a: `Yes. A single ${price} payment for all ${n} games. No subscription and no per-title fees.`,
+        q: `Is it really ${price} for all ${n} games, no catch?`,
+        a: `Yes. One payment of ${price} for the ${n} games. No subscription, no per-title charge and no auto-renewal. The price you see is what checkout charges.`,
       },
       {
         q: "When do I get access?",
-        a: "Right away. As soon as the payment is confirmed, access arrives by email, usually within minutes.",
+        a: "Right away. As soon as payment is confirmed, access reaches your inbox, usually within minutes. If it does not arrive, support resends it.",
       },
       {
-        q: "Will it work on my PC?",
-        a: "Yes, the games are for PC (Windows) and come with an installation tutorial and an optimization pack for weaker machines.",
+        q: "Will it run on my PC?",
+        a: "The games are for Windows PC. Each title has its own requirements, and an optimisation pack built for weaker machines is included. If it will not run on yours, the 7-day guarantee covers you.",
+      },
+      {
+        q: "I have never installed a PC game. Can I do it?",
+        a: "You can. A step-by-step video tutorial is included, and if you get stuck at any point there are real people on WhatsApp to unstick it with you.",
       },
       {
         q: "What if I don't like it?",
-        a: "You have 7 days to request a full refund, no questions asked. The risk is all ours.",
+        a: "You have 7 days to request a full refund, with no need to explain why. The risk is entirely ours.",
+      },
+      {
+        q: "Is the price really going up?",
+        a: "It is. The counter on this page marks the end of launch pricing, and on that date it goes up for everyone. Anyone who bought before does not pay the difference.",
       },
     ],
+
     footerLinks: [
-      { label: "Library", href: "#jogos" },
+      { label: "The 12 games", href: "#jogos" },
       { label: "Offer", href: "#oferta" },
       { label: "FAQ", href: "#faq" },
     ],
     footerSub: (n: number, price: string) =>
-      `${n} PC games for ${price}, one-time payment, with instant digital delivery.`,
+      `${n} PC games for ${price}, one-time payment, instant digital delivery.`,
     footerLinksTitle: "Quick links",
     footerReady: "Ready to play?",
     footerCta: (price: string) => `Get access for ${price}`,
     rights: "All rights reserved.",
+    legalTitle: "Legal and support",
+    legalWhatsapp: "WhatsApp support",
+    trademarkNotice:
+      "Game, studio and platform names shown here belong to their respective owners and are used only to identify the titles. Mentioning them implies no sponsorship or commercial relationship.",
+
     countdownTitle: "Launch price ends in",
     countdownDays: "days",
     countdownHours: "hours",
@@ -404,75 +445,106 @@ const COPY = {
     countdownSeconds: "sec",
     countdownThen: (price: string) => `After that date the pack goes to ${price}.`,
     countdownCompact: (clock: string) => `Launch ends in ${clock}`,
-    legalTitle: "Legal and support",
-    legalWhatsapp: "WhatsApp support",
-    trademarkNotice:
-      "Game, studio and platform names shown here belong to their respective owners and are used only to identify the titles. Mentioning them implies no sponsorship or commercial relationship.",
+
     stickySub: (n: number) => `${n} games · one-time payment`,
     stickyCta: "Get access",
+
+    popupEyebrow: "Wait, before you go",
+    popupTitle: "You were about to leave without seeing the price",
+    popupSub: (n: number) => `All ${n} games, one payment, yours for life.`,
+    popupBullets: ["Access in minutes", "7-day guarantee", "No subscription"],
+    popupCta: "I want this price",
+    popupNote: (price: string) => `After the deadline, the same pack costs ${price}.`,
+    popupDismiss: "Not now",
+
     ctaVsl: "See the pack now",
-    ctaCatalog: "I want these games",
-    ctaTestimonials: "Join gamers already playing",
-    ctaGuarantee: "Try risk-free",
-    ctaDeliverables: "Start playing now",
-    ctaBrands: "See full offer",
-    ctaFaq: "Still have questions? Get access",
+    ctaCatalog: "I want these 12 games",
+    ctaTestimonials: "I want to play today too",
+    ctaGuarantee: "Try it risk-free for 7 days",
+    ctaDeliverables: "I want to start playing now",
+    ctaBrands: "See the full offer",
+    ctaFaq: "Still unsure? Get my access",
+    ctaWhyCheap: "Got it, I want mine",
     midCtas: [
-      ["Ready to start playing today?", "Start playing now"],
-      ["Found your favorites? Take them all at once.", "I want these games"],
-      ["Install today and play today", "I want to play now"],
+      ["You could be playing GTA V tonight", "I want to start playing now"],
+      ["Spotted your favourites? Take all 12 at once.", "I want these 12 games"],
+      [
+        "The price goes up on the counter's date. Until then, it is this.",
+        "Lock in the launch price",
+      ],
       ["Try it risk-free, with a 7-day full guarantee", "Try risk-free"],
     ] as [string, string][],
   },
 };
-
 const ES = {
   nav: [
-    { label: "Biblioteca", href: "#jogos" },
+    { label: "Los 12 juegos", href: "#jogos" },
     { label: "Cómo funciona", href: "#como-funciona" },
     { label: "Oferta", href: "#oferta" },
     { label: "FAQ", href: "#faq" },
   ],
-  heroBadge: (d: number) => `Los 12 más pedidos · ${d}% OFF`,
-  heroTitleA: "Nunca fue tan barato tener",
-  heroTitleB: (n: number) => `${n} juegos`,
+  heroBadge: (d: number) => `Precio de lanzamiento · ${d}% OFF`,
+  heroTitleA: "12 juegos que cuestan una fortuna.",
+  heroTitleB: () => "Hoy, lo que cuesta un almuerzo.",
   heroSub: (price: string) =>
-    `GTA V, Red Dead 2, Elden Ring, God of War Ragnarök, Hogwarts Legacy y 7 más por ${price}. Pago único, entrega inmediata y acceso de por vida.`,
-  heroCta: "Quiero asegurar mi acceso",
-  heroSecondary: "Ver la biblioteca",
+    `GTA V, Red Dead 2, Elden Ring, God of War Ragnarök, Hogwarts Legacy y 7 más. Todo desbloqueado de una vez por ${price}, pago único, sin mensualidad y con acceso de por vida.`,
+  heroCta: "Quiero los 12 juegos ahora",
+  heroSecondary: "Ver los 12 juegos",
   heroCompare: (full: string, save: string) => (
     <>
-      <span className="line-through">{full}</span> comprando por separado · ahorras{" "}
-      <span className="font-semibold text-foreground">{save}</span>
+      Comprando por separado son <span className="line-through">{full}</span>. Hoy te ahorras{" "}
+      <span className="font-semibold text-foreground">{save}</span>.
     </>
   ),
   heroAlt: (n: number) => `Vista previa de la biblioteca con ${n} juegos de PC`,
   heroMore: (n: number) => `+ ${n} títulos incluidos en la misma compra`,
+  heroTrust: ["Pago único", "Acceso en minutos", "7 días de garantía"],
   stats: (price: string) =>
     [
-      [price, "Pago único"],
-      ["Inmediato", "Acceso tras el pago"],
-      ["7 días", "Garantía total"],
+      [price, "Una vez. Nunca más."],
+      ["En minutos", "El acceso llega a tu correo"],
+      ["7 días", "No te gustó, te devolvemos"],
     ] as [string, string][],
+
+  whyCheapTitle: "¿Por qué tan barato?",
+  whyCheapSub: "Es la pregunta correcta, y nadie la responde. Aquí va la respuesta directa.",
+  whyCheap: [
+    [
+      "Pagas el archivo, no la caja",
+      "No hay disco, ni envío, ni tienda, ni estante. La entrega digital cuesta casi nada, y el precio lo refleja.",
+    ],
+    [
+      "Es precio de lanzamiento",
+      "Estamos empezando y preferimos volumen ahora a margen ahora. Por eso la fecha de abajo existe y el precio sube de verdad en ella.",
+    ],
+    [
+      "Un pack, no 12 compras",
+      "Vender los 12 de una vez nos cuesta lo mismo que vender uno. Ese ahorro va para ti en lugar de volverse margen.",
+    ],
+  ] as [string, string][],
+
   deliverablesTitleA: "Todo lo que necesitas",
   deliverablesTitleB: "para jugar hoy mismo",
   deliverablesSub:
-    "Una compra simple, sin suscripción, sin burocracia y con soporte de personas reales.",
+    "Una compra simple, sin suscripción, sin burocracia y con personas reales del otro lado.",
   deliverables: (perGame: string) =>
     [
       ["Los 12 juegos desbloqueados", "Todos de una vez, sin elegir paquete ni pagar por título."],
       ["Entrega inmediata", "Pagas y el acceso llega a tu correo en minutos."],
-      ["Acceso de por vida", "Pagas una vez y lo conservas todo, sin mensualidades."],
+      ["Acceso de por vida", "Pagas una vez y es tuyo para siempre, sin mensualidades."],
       ["Descarga directa", "Enlaces organizados, rápidos y sin complicaciones."],
       ["Pack de optimización", "Ajustes listos para rendir mejor en PC de gama baja."],
-      ["Soporte humano", "Un equipo real para ayudarte con la instalación."],
+      ["Soporte humano", "Un equipo real en WhatsApp para ayudarte con la instalación."],
       ["Garantía de 7 días", "¿No te gustó? Te devolvemos el 100% del dinero."],
       [`Menos de ${perGame} por juego`, "El precio de un juego compra los 12."],
     ] as [string, string][],
+
   catalogEyebrow: "Lo que incluye",
-  catalogTitle: (n: number) => `${n} juegos. Un solo precio.`,
-  catalogSub: "Los títulos más pedidos, con portada oficial y descarga directa. Sin lista inflada.",
+  catalogTitle: (n: number) => `Los ${n} juegos. Un solo precio.`,
+  catalogSub:
+    "Los títulos más pedidos, con portada oficial y descarga directa. Sin lista inflada con juegos de navegador para abultar el número.",
   coverAlt: (name: string) => `Portada de ${name}`,
+
   offerEyebrow: (n: number) => `Pack Framers · ${n} juegos`,
   offerCompare: "Comprando por separado:",
   offerToday: "Hoy, pago único de",
@@ -490,73 +562,64 @@ const ES = {
     "Soporte humano por WhatsApp",
     "Garantía de 7 días o te devolvemos el dinero",
   ],
-  guaranteeTitle: "Satisfacción garantizada y riesgo cero",
+
+  guaranteeTitle: "El riesgo es todo nuestro",
   guaranteeSub:
-    "7 días para pedir el reembolso completo, sin preguntas. El riesgo es todo nuestro.",
+    "Instala, juega y pruébalo durante tus 7 días. Si no te gusta, por el motivo que sea, te devolvemos todo. No tienes que justificar nada y te quedas con el tutorial y el pack de optimización.",
   guaranteeBadges: [
     "Compra 100% segura",
     "7 días de garantía",
-    "Reembolso garantizado",
+    "Reembolso sin preguntas",
     "Soporte humano",
   ],
+
   brandsTitle: "Estudios y publishers presentes en la biblioteca",
-  testimonialsEyebrow: "Quienes ya compraron",
-  testimonialsTitle: "Compraron, instalaron y jugaron",
+
+  testimonialsEyebrow: "Mensajes reales de clientes",
+  testimonialsTitle: "Instaló, abrió y jugó",
   testimonialsSub:
-    "Opiniones reales de clientes que recibieron el acceso y ya tienen la biblioteca instalada.",
-  testimonials: (price: string) => [
+    "Capturas de nuestro WhatsApp, sin editar. Es el tipo de mensaje que llega después de la compra.",
+  testimonials: [
     {
-      name: "Lucas Andrade",
-      meta: "Madrid · ES",
-      text: `Pensé que era demasiado bueno por ${price}, pero el acceso llegó a mi correo en menos de 5 minutos. Ya tengo GTA V y RDR2 corriendo perfectos.`,
+      alt: "Cliente mostrando GTA V abierto en el portátil, diciendo que lo instaló en minutos",
+      caption: "Instaló en minutos y ya estaba jugando GTA V.",
     },
     {
-      name: "Mateo Rivas",
-      meta: "Ciudad de México · MX",
-      text: "El pack de optimización salvó mi PC vieja. Elden Ring corre en una máquina que ya había dado por perdida. El soporte respondió en minutos.",
-    },
-    {
-      name: "Pablo Núñez",
-      meta: "Buenos Aires · AR",
-      text: "Compré desconfiado y ya se lo recomendé a tres amigos. Solo Red Dead 2 vale mucho más que el precio entero.",
-    },
-    {
-      name: "Camila Ribeiro",
-      meta: "Bogotá · CO",
-      text: "Instalación simple, con tutorial en video explicando todo. Nunca había instalado un juego en PC y lo logré sola.",
-    },
-    {
-      name: "Diego Martín",
-      meta: "Santiago · CL",
-      text: "Cada semana entran juegos nuevos y no pago nada extra. La mejor compra del año.",
-    },
-    {
-      name: "Bruno Ferreira",
-      meta: "Lima · PE",
-      text: "Se me trabó una descarga y me respondieron al instante. Personas reales ayudando, no un bot.",
+      alt: "Cliente mostrando GTA V corriendo en el monitor, diciendo que vale la pena",
+      caption: "GTA V del pack corriendo perfecto en su PC.",
     },
   ],
+
   faqTitle: "Preguntas frecuentes",
   faq: (price: string, n: number) => [
     {
-      q: `¿Son ${price} por todos los juegos?`,
-      a: `Sí. Un único pago de ${price} por los ${n} juegos. Sin mensualidad ni cobro por título.`,
+      q: `¿De verdad son ${price} por los ${n} juegos, sin trampa?`,
+      a: `Sí. Un único pago de ${price} por los ${n} juegos. Sin mensualidad, sin cobro por título y sin renovación automática. El precio que ves es el que cobra el checkout.`,
     },
     {
       q: "¿Cuándo recibo el acceso?",
-      a: "Al instante. En cuanto se confirma el pago, el acceso llega por correo, normalmente en pocos minutos.",
+      a: "Al instante. En cuanto se confirma el pago, el acceso llega a tu correo, normalmente en pocos minutos. Si no llega, el soporte te lo reenvía.",
     },
     {
-      q: "¿Funciona en mi PC?",
-      a: "Sí, los juegos son para PC (Windows) e incluyen tutorial de instalación y pack de optimización para máquinas más débiles.",
+      q: "¿Funcionará en mi PC?",
+      a: "Los juegos son para PC con Windows. Cada título tiene sus requisitos, y va incluido un pack de optimización pensado para máquinas más débiles. Si no corre en la tuya, los 7 días de garantía te cubren.",
+    },
+    {
+      q: "Nunca instalé un juego en PC. ¿Podré?",
+      a: "Podrás. Va un tutorial en video paso a paso y, si te trabas en cualquier punto, hay personas reales en WhatsApp para destrabarlo contigo.",
     },
     {
       q: "¿Y si no me gusta?",
-      a: "Tienes 7 días para pedir el reembolso completo, sin preguntas. El riesgo es todo nuestro.",
+      a: "Tienes 7 días para pedir el reembolso completo, sin explicar el motivo. El riesgo es todo nuestro.",
+    },
+    {
+      q: "¿De verdad va a subir el precio?",
+      a: "Sí. El contador de esta página marca el fin del precio de lanzamiento, y en esa fecha sube para todos. Quien compró antes no paga la diferencia.",
     },
   ],
+
   footerLinks: [
-    { label: "Biblioteca", href: "#jogos" },
+    { label: "Los 12 juegos", href: "#jogos" },
     { label: "Oferta", href: "#oferta" },
     { label: "FAQ", href: "#faq" },
   ],
@@ -566,6 +629,11 @@ const ES = {
   footerReady: "¿Listo para jugar?",
   footerCta: (price: string) => `Conseguir acceso por ${price}`,
   rights: "Todos los derechos reservados.",
+  legalTitle: "Legal y soporte",
+  legalWhatsapp: "Soporte por WhatsApp",
+  trademarkNotice:
+    "Los nombres de juegos, estudios y plataformas citados pertenecen a sus titulares y se usan solo para identificar los títulos. Mencionarlos no implica patrocinio ni vínculo comercial.",
+
   countdownTitle: "El precio de lanzamiento termina en",
   countdownDays: "días",
   countdownHours: "horas",
@@ -573,190 +641,214 @@ const ES = {
   countdownSeconds: "seg",
   countdownThen: (price: string) => `Después de esa fecha el pack pasa a costar ${price}.`,
   countdownCompact: (clock: string) => `Lanzamiento termina en ${clock}`,
-  legalTitle: "Legal y soporte",
-  legalWhatsapp: "Soporte por WhatsApp",
-  trademarkNotice:
-    "Los nombres de juegos, estudios y plataformas citados pertenecen a sus titulares y se usan solo para identificar los títulos. Mencionarlos no implica patrocinio ni vínculo comercial.",
+
   stickySub: (n: number) => `${n} juegos · pago único`,
   stickyCta: "Quiero acceso",
+
+  popupEyebrow: "Espera, antes de irte",
+  popupTitle: "Te ibas sin ver el precio",
+  popupSub: (n: number) => `Los ${n} juegos, pago único, acceso de por vida.`,
+  popupBullets: ["Acceso en minutos", "7 días de garantía", "Sin mensualidad"],
+  popupCta: "Quiero ese precio",
+  popupNote: (price: string) => `Pasado el plazo, el mismo pack cuesta ${price}.`,
+  popupDismiss: "Ahora no",
+
   ctaVsl: "Ver el pack ahora",
-  ctaCatalog: "Quiero estos juegos",
-  ctaTestimonials: "Unirme a los que ya juegan",
-  ctaGuarantee: "Probar sin riesgo",
+  ctaCatalog: "Quiero estos 12 juegos",
+  ctaTestimonials: "Yo también quiero jugar hoy",
+  ctaGuarantee: "Probar sin riesgo 7 días",
   ctaDeliverables: "Quiero empezar a jugar ahora",
-  ctaBrands: "Ver oferta completa",
-  ctaFaq: "¿Todavía tienes dudas? Conseguir acceso",
+  ctaBrands: "Ver la oferta completa",
+  ctaFaq: "¿Te quedó alguna duda? Conseguir mi acceso",
+  ctaWhyCheap: "Entendido, quiero el mío",
   midCtas: [
-    ["¿Listo para empezar a jugar hoy?", "Quiero empezar a jugar ahora"],
-    ["¿Ya elegiste tus favoritos? Llévatelos todos de una vez.", "Quiero estos juegos"],
-    ["Instala hoy y juega hoy", "Quiero jugar ahora"],
+    ["Esta noche ya podrías estar jugando GTA V", "Quiero empezar a jugar ahora"],
+    ["¿Ya viste tus favoritos? Llévate los 12 de una vez.", "Quiero estos 12 juegos"],
+    [
+      "El precio sube en la fecha del contador. Hasta ahí, es este.",
+      "Asegurar el precio de lanzamiento",
+    ],
     ["Pruébalo sin riesgo, con 7 días de garantía total", "Probar sin riesgo"],
   ] as [string, string][],
 };
-
 const HI = {
   nav: [
-    { label: "लाइब्रेरी", href: "#jogos" },
+    { label: "12 गेम्स", href: "#jogos" },
     { label: "कैसे काम करता है", href: "#como-funciona" },
     { label: "ऑफर", href: "#oferta" },
-    { label: "सवाल-जवाब", href: "#faq" },
+    { label: "FAQ", href: "#faq" },
   ],
-  heroBadge: (d: number) => `पूरी लाइब्रेरी · ${d}% छूट`,
-  heroTitleA: "इतने कम में पहले कभी नहीं मिले",
-  heroTitleB: (n: number) => `${n} गेम्स`,
+  heroBadge: (d: number) => `लॉन्च कीमत · ${d}% OFF`,
+  heroTitleA: "12 गेम्स जिनकी कीमत बहुत ज़्यादा है।",
+  heroTitleB: () => "आज, एक लंच जितनी।",
   heroSub: (price: string) =>
-    `GTA V, Red Dead 2, Elden Ring, God of War Ragnarök, Hogwarts Legacy और 7 और सिर्फ ${price} में। एक बार भुगतान, तुरंत डिलीवरी और लाइफटाइम एक्सेस।`,
-  heroCta: "मुझे अभी एक्सेस चाहिए",
-  heroSecondary: "लाइब्रेरी देखें",
+    `GTA V, Red Dead 2, Elden Ring, God of War Ragnarök, Hogwarts Legacy और 7 और। सब एक साथ सिर्फ ${price} में, एक बार भुगतान, कोई मंथली नहीं, लाइफटाइम एक्सेस।`,
+  heroCta: "मुझे अभी 12 गेम्स चाहिए",
+  heroSecondary: "12 गेम्स देखें",
   heroCompare: (full: string, save: string) => (
     <>
-      <span className="line-through">{full}</span> अलग-अलग खरीदने पर · आपकी बचत{" "}
-      <span className="font-semibold text-foreground">{save}</span>
+      अलग-अलग खरीदने पर <span className="line-through">{full}</span>। आज आप{" "}
+      <span className="font-semibold text-foreground">{save}</span> बचाते हैं।
     </>
   ),
-  heroAlt: (n: number) => `${n} PC गेम्स वाली लाइब्रेरी की झलक`,
+  heroAlt: (n: number) => `${n} PC गेम्स की लाइब्रेरी का प्रीव्यू`,
   heroMore: (n: number) => `+ ${n} और टाइटल इसी खरीद में शामिल`,
+  heroTrust: ["एक बार भुगतान", "मिनटों में एक्सेस", "7 दिन की गारंटी"],
   stats: (price: string) =>
     [
-      [price, "एक बार भुगतान"],
-      ["तुरंत", "भुगतान के बाद एक्सेस"],
-      ["7 दिन", "पूरी गारंटी"],
+      [price, "एक बार। बस।"],
+      ["मिनटों में", "एक्सेस आपके ईमेल पर"],
+      ["7 दिन", "पसंद न आए तो रिफंड"],
     ] as [string, string][],
-  deliverablesTitleA: "आपको जो कुछ चाहिए",
-  deliverablesTitleB: "आज ही खेलना शुरू करने के लिए",
+
+  whyCheapTitle: "इतना सस्ता क्यों?",
+  whyCheapSub: "यही सही सवाल है, और कोई जवाब नहीं देता। यह रहा सीधा जवाब।",
+  whyCheap: [
+    [
+      "आप फ़ाइल के पैसे देते हैं, डिब्बे के नहीं",
+      "कोई डिस्क नहीं, शिपिंग नहीं, दुकान नहीं। डिजिटल डिलीवरी की लागत न के बराबर है, और कीमत वही दिखाती है।",
+    ],
+    [
+      "यह लॉन्च कीमत है",
+      "हम शुरुआत कर रहे हैं और अभी मार्जिन से ज़्यादा वॉल्यूम चाहते हैं। इसीलिए नीचे की तारीख मौजूद है और उस दिन कीमत सच में बढ़ती है।",
+    ],
+    ["एक पैक, 12 खरीद नहीं", "12 एक साथ बेचने की लागत एक बेचने जितनी ही है। वह बचत आपको जाती है।"],
+  ] as [string, string][],
+
+  deliverablesTitleA: "वह सब जो चाहिए",
+  deliverablesTitleB: "आज ही खेलने के लिए",
   deliverablesSub: "एक आसान खरीद, कोई सब्सक्रिप्शन नहीं, कोई झंझट नहीं, और असली लोगों का सपोर्ट।",
   deliverables: (perGame: string) =>
     [
-      ["पूरी लाइब्रेरी", "सारे टाइटल एक साथ अनलॉक, कोई पैकेज चुनने की जरूरत नहीं।"],
-      ["तुरंत डिलीवरी", "भुगतान के कुछ ही मिनटों में एक्सेस आपके ईमेल पर।"],
-      ["लाइफटाइम एक्सेस", "एक बार भुगतान करें, हमेशा के लिए आपका। कोई मासिक शुल्क नहीं।"],
-      ["हर हफ्ते नए गेम्स", "लाइब्रेरी बढ़ती रहती है और आपको दोबारा पैसे नहीं देने पड़ते।"],
-      ["सीधा डाउनलोड", "व्यवस्थित और तेज़ लिंक, बिना किसी झंझट के।"],
-      ["ऑप्टिमाइज़ेशन पैक", "कम पावर वाले PC पर भी बेहतर परफॉर्मेंस के लिए तैयार सेटिंग्स।"],
-      ["असली सपोर्ट", "इंस्टॉलेशन में मदद के लिए असली टीम मौजूद।"],
-      ["7 दिन की गारंटी", "पसंद नहीं आया? 100% पैसा वापस।"],
-      [`हर गेम ${perGame} से भी कम में`, "एक गेम की कीमत में पूरी लाइब्रेरी।"],
+      ["12 गेम्स अनलॉक", "सब एक साथ, कोई पैकेज चुनने की ज़रूरत नहीं।"],
+      ["तुरंत डिलीवरी", "भुगतान के मिनटों में एक्सेस ईमेल पर।"],
+      ["लाइफटाइम एक्सेस", "एक बार भुगतान, हमेशा के लिए आपका।"],
+      ["डायरेक्ट डाउनलोड", "व्यवस्थित और तेज़ लिंक।"],
+      ["ऑप्टिमाइज़ेशन पैक", "कम पावर वाले PC पर बेहतर चलाने के लिए।"],
+      ["इंसानी सपोर्ट", "इंस्टॉल में मदद के लिए WhatsApp पर असली टीम।"],
+      ["7 दिन की गारंटी", "पसंद न आए? पूरा पैसा वापस।"],
+      [`${perGame} से कम प्रति गेम`, "एक गेम की कीमत में 12।"],
     ] as [string, string][],
+
   catalogEyebrow: "इसमें क्या मिलता है",
   catalogTitle: (n: number) => `${n} गेम्स। सिर्फ एक कीमत।`,
   catalogSub: "सबसे ज़्यादा मांगे जाने वाले टाइटल, ऑफिशियल कवर और सीधा डाउनलोड।",
   coverAlt: (name: string) => `${name} का कवर`,
-  offerEyebrow: (n: number) => `Framers कम्प्लीट पैक · ${n} गेम्स`,
+
+  offerEyebrow: (n: number) => `Framers पैक · ${n} गेम्स`,
   offerCompare: "अलग-अलग खरीदने पर:",
-  offerToday: "आज, एक बार का भुगतान",
+  offerToday: "आज, एक बार भुगतान",
   offerPerGame: (n: number, price: string) => (
     <>
-      {n} गेम्स · हर गेम <span className="font-semibold text-foreground">{price}</span> से भी कम में
+      {n} गेम्स · <span className="font-semibold text-foreground">{price}</span> से कम प्रति गेम
     </>
   ),
-  offerNote: "कार्ड से एक बार भुगतान · 7 दिन की गारंटी के साथ ज़ीरो रिस्क।",
+  offerNote: "कार्ड से एक बार भुगतान · 7 दिन की गारंटी के साथ शून्य जोखिम।",
   includes: (n: number) => [
-    `सभी ${n} गेम्स एक साथ अनलॉक`,
+    `${n} गेम्स एक साथ अनलॉक`,
     "लाइफटाइम एक्सेस: एक बार भुगतान, हमेशा के लिए आपका",
-    "हर हफ्ते नए टाइटल, बिना किसी अतिरिक्त खर्च के",
-    "स्टेप-बाय-स्टेप वीडियो इंस्टॉलेशन गाइड",
+    "स्टेप बाय स्टेप वीडियो इंस्टॉलेशन ट्यूटोरियल",
     "कम पावर वाले PC के लिए ऑप्टिमाइज़ेशन पैक",
-    "WhatsApp पर असली इंसानी सपोर्ट",
-    "7 दिन की मनी-बैक गारंटी",
+    "WhatsApp पर इंसानी सपोर्ट",
+    "7 दिन की मनी बैक गारंटी",
   ],
-  guaranteeTitle: "संतुष्टि की गारंटी, ज़ीरो रिस्क",
-  guaranteeSub: "पूरा रिफंड मांगने के लिए 7 दिन, कोई सवाल नहीं। पूरा जोखिम हमारा है।",
-  guaranteeBadges: ["100% सुरक्षित खरीद", "7 दिन की गारंटी", "रिफंड की गारंटी", "असली सपोर्ट"],
+
+  guaranteeTitle: "पूरा जोखिम हमारा है",
+  guaranteeSub:
+    "इंस्टॉल कीजिए, खेलिए, 7 दिन तक आज़माइए। पसंद न आए, किसी भी वजह से, तो पूरा पैसा वापस। कोई सफ़ाई नहीं देनी, और ट्यूटोरियल तथा ऑप्टिमाइज़ेशन पैक आपके पास रहते हैं।",
+  guaranteeBadges: ["100% सुरक्षित खरीद", "7 दिन की गारंटी", "बिना सवाल रिफंड", "इंसानी सपोर्ट"],
+
   brandsTitle: "लाइब्रेरी में मौजूद स्टूडियो और पब्लिशर",
-  testimonialsEyebrow: "जिन्होंने पहले ही खरीदा",
-  testimonialsTitle: "खरीदा, इंस्टॉल किया, खेला",
-  testimonialsSub:
-    "असली ग्राहकों के अनुभव जिन्हें एक्सेस मिल चुका है और लाइब्रेरी इंस्टॉल हो चुकी है।",
-  testimonials: (price: string) => [
+
+  testimonialsEyebrow: "ग्राहकों के असली मैसेज",
+  testimonialsTitle: "इंस्टॉल किया, खोला, खेला",
+  testimonialsSub: "हमारे WhatsApp के बिना एडिट किए स्क्रीनशॉट।",
+  testimonials: [
     {
-      name: "Rahul Sharma",
-      meta: "Mumbai · MH",
-      text: `${price} में यकीन नहीं हो रहा था, लेकिन 5 मिनट में ईमेल पर एक्सेस आ गया। GTA V और RDR2 दोनों स्मूद चल रहे हैं।`,
+      alt: "ग्राहक लैपटॉप पर GTA V दिखाते हुए, मिनटों में इंस्टॉल होने की बात",
+      caption: "मिनटों में इंस्टॉल हुआ और GTA V खेलना शुरू।",
     },
     {
-      name: "Ankit Verma",
-      meta: "Delhi · DL",
-      text: "ऑप्टिमाइज़ेशन पैक ने मेरे पुराने लैपटॉप को बचा लिया। Elden Ring उस मशीन पर चला जिसे मैं छोड़ चुका था।",
-    },
-    {
-      name: "Priya Nair",
-      meta: "Bengaluru · KA",
-      text: "शक के साथ खरीदा था, अब तीन दोस्तों को बता चुकी हूँ। अकेला Red Dead 2 ही पूरी कीमत वसूल कर देता है।",
-    },
-    {
-      name: "Arjun Patel",
-      meta: "Ahmedabad · GJ",
-      text: "इंस्टॉल करना आसान था, वीडियो गाइड में सब समझाया गया है। मैंने पहली बार खुद PC गेम इंस्टॉल किया।",
-    },
-    {
-      name: "Sneha Iyer",
-      meta: "Chennai · TN",
-      text: "हर हफ्ते नए गेम्स आते हैं और एक रुपया भी अतिरिक्त नहीं देना पड़ता। साल की सबसे अच्छी खरीद।",
-    },
-    {
-      name: "Vikram Singh",
-      meta: "Jaipur · RJ",
-      text: "डाउनलोड अटक गया था तो तुरंत जवाब मिला। असली इंसान मदद करते हैं, कोई बॉट नहीं।",
+      alt: "ग्राहक मॉनिटर पर GTA V चलते हुए दिखाते हुए",
+      caption: "पैक का GTA V उनके PC पर बिल्कुल सही चल रहा है।",
     },
   ],
+
   faqTitle: "अक्सर पूछे जाने वाले सवाल",
   faq: (price: string, n: number) => [
     {
-      q: `क्या सारे गेम्स ${price} में मिलते हैं?`,
-      a: `हाँ। ${n} गेम्स वाली पूरी लाइब्रेरी के लिए सिर्फ एक बार ${price} का भुगतान। कोई मासिक शुल्क नहीं, हर गेम का अलग चार्ज नहीं।`,
+      q: `क्या सच में ${n} गेम्स सिर्फ ${price} में?`,
+      a: `हाँ। ${n} गेम्स के लिए एक बार ${price} का भुगतान। कोई मंथली नहीं, प्रति टाइटल चार्ज नहीं और ऑटो रिन्यूअल नहीं।`,
     },
     {
       q: "एक्सेस कब मिलेगा?",
       a: "तुरंत। भुगतान कन्फर्म होते ही एक्सेस ईमेल पर आ जाता है, आमतौर पर कुछ ही मिनटों में।",
     },
     {
-      q: "क्या यह मेरे PC पर चलेगा?",
-      a: "हाँ, ये गेम्स PC (Windows) के लिए हैं और इनके साथ इंस्टॉलेशन गाइड व कमज़ोर मशीनों के लिए ऑप्टिमाइज़ेशन पैक आता है।",
+      q: "क्या मेरे PC पर चलेगा?",
+      a: "गेम्स Windows PC के लिए हैं। हर टाइटल की अपनी ज़रूरतें हैं, और कम पावर वाली मशीनों के लिए ऑप्टिमाइज़ेशन पैक साथ आता है।",
     },
     {
-      q: "क्या नए गेम्स के लिए दोबारा पैसे देने होंगे?",
-      a: "नहीं। हर हफ्ते नए टाइटल जुड़ते हैं और जिन्होंने पहले खरीदा है उनके लिए वे मुफ्त अनलॉक रहते हैं।",
+      q: "मैंने कभी PC पर गेम इंस्टॉल नहीं किया। कर पाऊंगा?",
+      a: "कर पाएंगे। स्टेप बाय स्टेप वीडियो ट्यूटोरियल मिलता है और WhatsApp पर असली लोग मदद के लिए हैं।",
     },
     {
-      q: "अगर पसंद न आए तो?",
-      a: "आपके पास पूरा रिफंड मांगने के लिए 7 दिन हैं, बिना किसी सवाल के। पूरा जोखिम हमारा है।",
+      q: "पसंद न आए तो?",
+      a: "7 दिन के भीतर बिना वजह बताए पूरा रिफंड मांग सकते हैं। पूरा जोखिम हमारा है।",
+    },
+    {
+      q: "क्या कीमत सच में बढ़ेगी?",
+      a: "हाँ। इस पेज का काउंटर लॉन्च कीमत का अंत दिखाता है, और उस तारीख को यह सबके लिए बढ़ जाती है।",
     },
   ],
+
   footerLinks: [
-    { label: "लाइब्रेरी", href: "#jogos" },
+    { label: "12 गेम्स", href: "#jogos" },
     { label: "ऑफर", href: "#oferta" },
-    { label: "सवाल-जवाब", href: "#faq" },
+    { label: "FAQ", href: "#faq" },
   ],
   footerSub: (n: number, price: string) =>
-    `${n} PC गेम्स सिर्फ ${price} में, एक बार भुगतान और तुरंत डिजिटल डिलीवरी।`,
-  footerLinksTitle: "तेज़ लिंक",
-  footerReady: "खेलने के लिए तैयार हैं?",
-  footerCta: (price: string) => `${price} में एक्सेस पाएं`,
+    `${n} PC गेम्स सिर्फ ${price} में, एक बार भुगतान, तुरंत डिलीवरी।`,
+  footerLinksTitle: "क्विक लिंक",
+  footerReady: "खेलने के लिए तैयार?",
+  footerCta: (price: string) => `${price} में एक्सेस लें`,
   rights: "सर्वाधिकार सुरक्षित।",
+  legalTitle: "लीगल और सपोर्ट",
+  legalWhatsapp: "WhatsApp सपोर्ट",
+  trademarkNotice:
+    "यहाँ दिए गेम, स्टूडियो और प्लेटफ़ॉर्म के नाम उनके मालिकों के हैं और सिर्फ़ टाइटल पहचानने के लिए इस्तेमाल किए गए हैं। इनका ज़िक्र किसी प्रायोजन या व्यापारिक संबंध का संकेत नहीं है।",
+
   countdownTitle: "लॉन्च कीमत खत्म होने में",
   countdownDays: "दिन",
   countdownHours: "घंटे",
   countdownMinutes: "मिनट",
   countdownSeconds: "सेकंड",
   countdownThen: (price: string) => `इस तारीख के बाद पैक की कीमत ${price} हो जाएगी।`,
-  countdownCompact: (clock: string) => `लॉन्च कीमत खत्म: ${clock}`,
-  legalTitle: "लीगल और सपोर्ट",
-  legalWhatsapp: "WhatsApp सपोर्ट",
-  trademarkNotice:
-    "यहाँ दिए गेम, स्टूडियो और प्लेटफ़ॉर्म के नाम उनके मालिकों के हैं और सिर्फ़ टाइटल पहचानने के लिए इस्तेमाल किए गए हैं। इनका ज़िक्र किसी प्रायोजन या व्यापारिक संबंध का संकेत नहीं है।",
+  countdownCompact: (clock: string) => `लॉन्च खत्म: ${clock}`,
+
   stickySub: (n: number) => `${n} गेम्स · एक बार भुगतान`,
   stickyCta: "एक्सेस चाहिए",
+
+  popupEyebrow: "रुकिए, जाने से पहले",
+  popupTitle: "आप कीमत देखे बिना जा रहे थे",
+  popupSub: (n: number) => `${n} गेम्स, एक बार भुगतान, लाइफटाइम एक्सेस।`,
+  popupBullets: ["मिनटों में एक्सेस", "7 दिन की गारंटी", "कोई मंथली नहीं"],
+  popupCta: "मुझे यही कीमत चाहिए",
+  popupNote: (price: string) => `समय खत्म होने के बाद वही पैक ${price} का होगा।`,
+  popupDismiss: "अभी नहीं",
+
   ctaVsl: "अभी पैक देखें",
-  ctaCatalog: "मुझे ये गेम्स चाहिए",
-  ctaTestimonials: "उनके साथ खेलना शुरू करें",
-  ctaGuarantee: "बिना जोखिम आज़माएं",
+  ctaCatalog: "मुझे ये 12 गेम्स चाहिए",
+  ctaTestimonials: "मुझे भी आज खेलना है",
+  ctaGuarantee: "7 दिन बिना जोखिम आज़माएं",
   ctaDeliverables: "अभी खेलना शुरू करें",
   ctaBrands: "पूरा ऑफर देखें",
-  ctaFaq: "अभी भी सवाल हैं? एक्सेस लें",
+  ctaFaq: "कोई सवाल बाकी है? एक्सेस लें",
+  ctaWhyCheap: "समझ गया, मुझे चाहिए",
   midCtas: [
-    ["आज ही खेलना शुरू करने के लिए तैयार?", "अभी खेलना शुरू करें"],
-    ["अपने फेवरेट चुन लिए? सब एक साथ ले लें।", "मुझे ये गेम्स चाहिए"],
-    ["आज इंस्टॉल करें और आज ही खेलें", "अभी खेलना है"],
+    ["आज रात आप GTA V खेल सकते हैं", "अभी खेलना शुरू करें"],
+    ["फेवरेट देख लिए? 12 एक साथ ले लें।", "मुझे ये 12 गेम्स चाहिए"],
+    ["काउंटर की तारीख पर कीमत बढ़ती है। तब तक यही है।", "लॉन्च कीमत पक्की करें"],
     ["बिना जोखिम आज़माएं, 7 दिन की पूरी गारंटी", "बिना जोखिम आज़माएं"],
   ] as [string, string][],
 };

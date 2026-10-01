@@ -34,6 +34,9 @@ export const ASSETS = {
   /** Customer photos used as visual proof. */
   proof: [local("proof-1.jpg"), local("proof-2.jpg"), local("proof-3.jpg")],
 
+  /** Unedited WhatsApp screenshots, used as the real social proof. */
+  proofChat: [local("wpp-1.jpg"), local("wpp-2.jpg")],
+
   /** Hero artwork. The pt source was a 1.3 MB PNG, now a 389 KB JPEG. */
   heroPt: local("destaque-gta.jpg"),
   heroDefault: local("destaque-gta-en.png"),
