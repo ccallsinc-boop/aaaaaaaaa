@@ -31,7 +31,8 @@ const COUNTRY_HEADERS = [
 function countryFromNetlifyGeo(raw: string | undefined): string | null {
   if (!raw) return null;
   try {
-    const json = typeof atob === "function" ? atob(raw) : Buffer.from(raw, "base64").toString("utf8");
+    const json =
+      typeof atob === "function" ? atob(raw) : Buffer.from(raw, "base64").toString("utf8");
     const parsed = JSON.parse(json) as { country?: { code?: unknown } };
     const code = parsed?.country?.code;
     return typeof code === "string" && code.trim() ? code.trim().toUpperCase() : null;
