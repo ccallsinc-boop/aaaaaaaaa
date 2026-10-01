@@ -1,10 +1,9 @@
 import { trackMeta } from "@/lib/meta-pixel";
 import { useLocale } from "@/lib/locale";
-import { HOTMART_WIDGET_CLASSES, hotmartWidgetLoaded } from "@/lib/hotmart-widget";
 import { LaunchWindow } from "@/components/landing/LaunchWindow";
 
 export function StickyCta() {
-  const { money, price, hidePrice, currency, totalGames, storeUrl, t, lang, hotmart } = useLocale();
+  const { money, price, hidePrice, currency, totalGames, storeUrl, t, lang } = useLocale();
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 px-4 py-3 backdrop-blur-md md:hidden">
@@ -16,15 +15,14 @@ export function StickyCta() {
         </div>
         <a
           href={storeUrl}
-          onClick={(event) => {
-            if (hotmart && hotmartWidgetLoaded()) event.preventDefault();
+          onClick={() => {
             trackMeta("InitiateCheckout", {
               value: Number(price.toFixed(2)),
               currency,
               cta_location: `${lang}:sticky`,
             });
           }}
-          className={`${hotmart ? HOTMART_WIDGET_CLASSES + " " : ""}rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-soft`}
+          className={`rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-soft`}
         >
           {t.stickyCta}
         </a>

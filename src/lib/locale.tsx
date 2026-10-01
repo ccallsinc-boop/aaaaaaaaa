@@ -295,7 +295,7 @@ const COPY = {
     upsellDecline: "Não, obrigado. Fico só com os 12 jogos",
     upsellWarning:
       "Esta oferta existe apenas nesta página. Se fechar agora, os outros jogos voltam a custar o preço cheio.",
-    upsellFootnote: "O checkout abre aqui mesmo, sem sair desta página.",
+    upsellFootnote: "Checkout seguro. Seus 12 jogos já estão garantidos de qualquer forma.",
     upsellHighlightsTitle: "Alguns dos que entram",
 
     midCtas: [
@@ -514,7 +514,7 @@ const COPY = {
     upsellDecline: "No thanks. I will keep just the 12 games",
     upsellWarning:
       "This offer exists on this page only. Close it now and the other games go back to full price.",
-    upsellFootnote: "Checkout opens right here, without leaving this page.",
+    upsellFootnote: "Secure checkout. Your 12 games are already yours either way.",
     upsellHighlightsTitle: "A few of the titles you unlock",
 
     midCtas: [
@@ -736,7 +736,7 @@ const ES = {
   upsellDecline: "No, gracias. Me quedo solo con los 12 juegos",
   upsellWarning:
     "Esta oferta existe únicamente en esta página. Si la cierras ahora, los demás juegos vuelven a costar el precio completo.",
-  upsellFootnote: "El checkout se abre aquí mismo, sin salir de esta página.",
+  upsellFootnote: "Checkout seguro. Tus 12 juegos ya están garantizados igual.",
   upsellHighlightsTitle: "Algunos de los que entran",
 
   midCtas: [
@@ -946,7 +946,7 @@ const HI = {
   upsellDecline: "नहीं, धन्यवाद। मैं सिर्फ 12 गेम्स रखूंगा",
   upsellWarning:
     "यह ऑफर सिर्फ इसी पेज पर है। अभी बंद किया तो बाकी गेम्स फिर पूरी कीमत के हो जाएंगे।",
-  upsellFootnote: "चेकआउट यहीं खुलता है, पेज छोड़े बिना।",
+  upsellFootnote: "सुरक्षित चेकआउट। आपके 12 गेम्स वैसे भी आपके हैं।",
   upsellHighlightsTitle: "कुछ टाइटल जो इसमें आते हैं",
 
   midCtas: [
@@ -997,8 +997,6 @@ export function buildLocale(lang: Lang, resolved: ResolvedMarket = FALLBACK_RESO
 
   return {
     ...cfg,
-    // Every route checks out through Hotmart, so the widget binds everywhere.
-    hotmart: true,
     storeUrl: checkoutUrlFor(market.currency, cfg.storeUrl),
 
     // Market, live from the request.

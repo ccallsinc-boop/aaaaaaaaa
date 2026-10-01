@@ -24,31 +24,10 @@ import { Logo } from "@/components/landing/Logo";
 import { CATALOG, type CatalogGame } from "@/data/catalog";
 import { useMarket } from "@/lib/use-market";
 import { trackMeta, trackMetaCustom } from "@/lib/meta-pixel";
-import { HOTMART_CHECKOUT_URL } from "@/lib/checkout";
+import { FRONT_CHECKOUT_URL } from "@/lib/checkout";
 import { ASSETS } from "@/lib/assets";
 
-export const ES_QUIZ_CHECKOUT = HOTMART_CHECKOUT_URL;
-export const ES_QUIZ_HOTMART = HOTMART_CHECKOUT_URL;
-
-const HOTMART_SRC = "https://static.hotmart.com/checkout/widget.min.js";
-const HOTMART_CSS = "https://static.hotmart.com/css/hotmart-fb.min.css";
-
-// The Hotmart widget binds to `.hotmart-fb` anchors when its script loads,
-// so it must be (re)loaded after the checkout button exists in the DOM.
-function loadHotmartWidget() {
-  if (!document.querySelector(`link[href="${HOTMART_CSS}"]`)) {
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.type = "text/css";
-    link.href = HOTMART_CSS;
-    document.head.appendChild(link);
-  }
-  document.querySelectorAll(`script[src="${HOTMART_SRC}"]`).forEach((el) => el.remove());
-  const script = document.createElement("script");
-  script.src = HOTMART_SRC;
-  script.async = true;
-  document.head.appendChild(script);
-}
+export const ES_QUIZ_CHECKOUT = FRONT_CHECKOUT_URL;
 
 const TOTAL_SCREENS = 10;
 
@@ -315,13 +294,7 @@ const BENEFITS = [
   },
 ];
 
-export function EsGameQuiz({
-  checkoutUrl = ES_QUIZ_CHECKOUT,
-  hotmartWidget = false,
-}: {
-  checkoutUrl?: string;
-  hotmartWidget?: boolean;
-}) {
+export function EsGameQuiz({ checkoutUrl = ES_QUIZ_CHECKOUT }: { checkoutUrl?: string }) {
   const resolved = useMarket();
   const [screen, setScreen] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
@@ -460,13 +433,7 @@ export function EsGameQuiz({
               />
             )}
             {screen === 8 && <ProofScreen onContinue={() => advance("QuizProofView")} />}
-            {screen === 9 && (
-              <OfferScreen
-                checkoutUrl={hotmartWidget ? ES_QUIZ_HOTMART : checkoutUrl}
-                hotmartWidget={hotmartWidget}
-                onCheckout={checkout}
-              />
-            )}
+            {screen === 9 && <OfferScreen checkoutUrl={checkoutUrl} onCheckout={checkout} />}
           </motion.section>
         </AnimatePresence>
       </div>
@@ -701,22 +668,7 @@ function ProofScreen({ onContinue }: { onContinue: () => void }) {
   );
 }
 
-function OfferScreen({
-  checkoutUrl,
-  hotmartWidget,
-  onCheckout,
-}: {
-  checkoutUrl: string;
-  hotmartWidget?: boolean;
-  onCheckout: () => void;
-}) {
-  useEffect(() => {
-    if (!hotmartWidget) return;
-    // Load after the anchor is painted so the widget can bind to it.
-    const id = window.setTimeout(loadHotmartWidget, 60);
-    return () => window.clearTimeout(id);
-  }, [hotmartWidget]);
-
+function OfferScreen({ checkoutUrl, onCheckout }: { checkoutUrl: string; onCheckout: () => void }) {
   return (
     <div className="mx-auto max-w-4xl text-center">
       <span className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-bold text-primary-foreground">
@@ -750,11 +702,7 @@ function OfferScreen({
           size="lg"
           className="mt-6 h-14 w-full rounded-full bg-foreground text-base text-primary hover:bg-foreground/90"
         >
-          <a
-            href={checkoutUrl}
-            onClick={onCheckout}
-            className={hotmartWidget ? "hotmart-fb hotmart__button-checkout" : undefined}
-          >
+          <a href={checkoutUrl} onClick={onCheckout}>
             Quiero mis 12 juegos <ArrowRight />
           </a>
         </Button>

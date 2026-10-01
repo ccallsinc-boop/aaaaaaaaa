@@ -4,11 +4,6 @@ import { Check, X } from "lucide-react";
 import { trackMeta, trackMetaCustom } from "@/lib/meta-pixel";
 import { useLocale } from "@/lib/locale";
 import { LaunchWindow } from "@/components/landing/LaunchWindow";
-import {
-  loadHotmartWidget,
-  HOTMART_WIDGET_CLASSES,
-  hotmartWidgetLoaded,
-} from "@/lib/hotmart-widget";
 
 /** sessionStorage key so a dismissed popup does not come back on reload. */
 const DISMISS_KEY = "framers:discount-popup-dismissed";
@@ -26,17 +21,10 @@ const TIMER_MS = 25000;
  * window closes.
  */
 export function DiscountPopup() {
-  const { t, storeUrl, price, currency, money, fullValue, priceAfter, totalGames, lang, hotmart } =
+  const { t, storeUrl, price, currency, money, fullValue, priceAfter, totalGames, lang } =
     useLocale();
   const [open, setOpen] = useState(false);
   const [shown, setShown] = useState(false);
-
-  // The popup anchor mounts late, so re-bind the Hotmart widget when it opens.
-  useEffect(() => {
-    if (!open || !hotmart) return;
-    const id = window.setTimeout(loadHotmartWidget, 60);
-    return () => window.clearTimeout(id);
-  }, [open, hotmart]);
 
   useEffect(() => {
     if (shown) return;
@@ -125,8 +113,7 @@ export function DiscountPopup() {
 
         <a
           href={storeUrl}
-          onClick={(event) => {
-            if (hotmart && hotmartWidgetLoaded()) event.preventDefault();
+          onClick={() => {
             trackMeta("InitiateCheckout", {
               value: Number(price.toFixed(2)),
               currency,
@@ -136,7 +123,7 @@ export function DiscountPopup() {
               cta_location: `${lang}:discount-popup`,
             });
           }}
-          className={`${hotmart ? HOTMART_WIDGET_CLASSES + " " : ""}mt-6 inline-flex w-full items-center justify-center rounded-full bg-primary px-7 py-3.5 text-sm font-bold text-primary-foreground shadow-soft transition-transform hover:scale-[1.02]`}
+          className={`mt-6 inline-flex w-full items-center justify-center rounded-full bg-primary px-7 py-3.5 text-sm font-bold text-primary-foreground shadow-soft transition-transform hover:scale-[1.02]`}
         >
           {t.popupCta}
         </a>

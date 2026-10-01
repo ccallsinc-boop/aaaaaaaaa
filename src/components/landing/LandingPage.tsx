@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Nav } from "@/components/landing/Nav";
 import { Hero } from "@/components/landing/Hero";
 import { Deliverables } from "@/components/landing/Deliverables";
@@ -19,7 +18,6 @@ import { Reveal } from "@/components/landing/Reveal";
 import { LocaleProvider, type Lang } from "@/lib/locale";
 import type { MarketLang } from "@/lib/markets";
 import { useMarket } from "@/lib/use-market";
-import { loadHotmartWidget } from "@/lib/hotmart-widget";
 
 /** Market language to the route language the copy is keyed by. */
 const LANG_FOR_MARKET: Record<MarketLang, Lang> = {
@@ -38,14 +36,6 @@ export function LandingPage({ lang: pinned }: { lang?: Lang } = {}) {
   const market = useMarket();
   const lang = pinned ?? LANG_FOR_MARKET[market.market.lang];
   const quizVisual = lang === "pt" || lang === "es";
-
-  // Checkout runs through Hotmart on every route, so the widget binds here once
-  // the CTA anchors exist. It used to load only on /es, where the config had it
-  // disabled, so the script was fetched and never used.
-  useEffect(() => {
-    const id = window.setTimeout(loadHotmartWidget, 60);
-    return () => window.clearTimeout(id);
-  }, []);
 
   return (
     <LocaleProvider lang={lang} market={market}>

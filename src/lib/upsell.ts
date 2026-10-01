@@ -8,18 +8,12 @@
  * Price is a base in BRL, converted per market by the same engine as the front,
  * so a Mexican buyer sees pesos here too instead of jumping currency mid-funnel.
  *
- * STILL NEEDED FROM HOTMART:
- *   ACCEPT_URL   a checkout of the upgrade's OWN, not the front offer's
- *   DECLINE_URL  where a refusal goes (optional, falls back to the members area)
- * Until ACCEPT_URL points somewhere of its own, isUpsellConfigured() is false and
- * the route answers 404, so the page cannot bill the wrong amount.
+ * The route only answers once ACCEPT_URL points at a checkout of its own. Sharing
+ * the front offer's link would bill the front price for the front product, so the
+ * guard below treats that case as "not configured" rather than as ready.
  */
 
-/**
- * The front offer's checkout, inlined so the guard below does not import the
- * checkout module and create a cycle.
- */
-const FRONT_CHECKOUT_FOR_GUARD = "https://pay.hotmart.com/X105105907P?checkoutMode=2&off=s8885qbi";
+import { FRONT_CHECKOUT_URL } from "./checkout";
 
 /**
  * Price of the full library upgrade, in BRL. Confirmed value, not a placeholder.
@@ -28,17 +22,8 @@ const FRONT_CHECKOUT_FOR_GUARD = "https://pay.hotmart.com/X105105907P?checkoutMo
  */
 export const UPSELL_PRICE_BRL = 37;
 
-/**
- * Hotmart checkout for the upgrade, opened through the Hotmart widget.
- *
- * WARNING: this is currently the SAME product and offer code as the front offer
- * (X105105907P, off=s8885qbi). Anyone accepting the upsell is therefore charged
- * the front price for the front product, not R$37 for the remaining 412 titles.
- * Create a separate Hotmart product (or at least a separate offer code) for the
- * upgrade and replace the value here, otherwise the page promises one thing and
- * the checkout bills another, which is how refunds and chargebacks start.
- */
-export const UPSELL_ACCEPT_URL = "https://pay.hotmart.com/X105105907P?checkoutMode=2&off=s8885qbi";
+/** Xpag checkout for the upgrade. A product of its own, separate from the front. */
+export const UPSELL_ACCEPT_URL = "https://xpag.global/pay/omHjCA0j";
 
 /** Where a refusal goes. Empty falls back to the members area route. */
 export const UPSELL_DECLINE_URL = "";
@@ -46,26 +31,14 @@ export const UPSELL_DECLINE_URL = "";
 /** Fallback for the decline link so it is never a dead anchor. */
 export const UPSELL_DECLINE_FALLBACK = "/biblioteca";
 
-/**
- * The page only goes live once it has a checkout of its own.
- *
- * Pointing at the front offer is treated as "not configured", not as ready: that
- * URL bills the front price for the front product, so a live page would charge a
- * buyer a second time for the 12 games they just bought while promising them the
- * other 412. Paste the separate Hotmart offer into UPSELL_ACCEPT_URL and the
- * route starts answering on its own.
- */
-export function isUpsellConfigured(frontUrl: string = FRONT_CHECKOUT_FOR_GUARD): boolean {
+/** The page only goes live once it has a checkout that is not the front one. */
+export function isUpsellConfigured(frontUrl: string = FRONT_CHECKOUT_URL): boolean {
   const url = UPSELL_ACCEPT_URL.trim();
   return url.length > 0 && url !== frontUrl.trim();
 }
 
-/**
- * True while the upgrade still points at the front offer's checkout, which would
- * bill the wrong amount. Surfaced as a console warning in development so the
- * collision is not discovered through a customer complaint.
- */
-export function upsellSharesFrontCheckout(frontUrl: string): boolean {
+/** True while the upgrade still points at the front checkout, which would bill wrong. */
+export function upsellSharesFrontCheckout(frontUrl: string = FRONT_CHECKOUT_URL): boolean {
   return UPSELL_ACCEPT_URL.trim() === frontUrl.trim();
 }
 

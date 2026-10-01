@@ -22,13 +22,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { CATALOG, type CatalogGame } from "@/data/catalog";
 import { trackMeta, trackMetaCustom } from "@/lib/meta-pixel";
-import { HOTMART_CHECKOUT_URL } from "@/lib/checkout";
+import { FRONT_CHECKOUT_URL } from "@/lib/checkout";
 import { ASSETS } from "@/lib/assets";
 // Still on Lovable: the English quiz has its own VSL, not the Spanish one.
 import vslAsset from "@/assets/vsl2.mp4.asset.json";
 import vslPoster from "@/assets/vsl2-poster.jpg.asset.json";
 
-export const EN_QUIZ_CHECKOUT = HOTMART_CHECKOUT_URL;
+export const EN_QUIZ_CHECKOUT = FRONT_CHECKOUT_URL;
 
 const TOTAL_SCREENS = 10;
 

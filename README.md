@@ -44,7 +44,7 @@ data sem mexer no preço transforma a contagem em mentira.
 | Arquivo | O que falta |
 |---|---|
 | `src/lib/company.ts` | Razão social, CNPJ, endereço, e-mail e WhatsApp de suporte. Campo vazio é omitido da página, nunca preenchido com placeholder |
-| `src/lib/upsell.ts` | `UPSELL_ACCEPT_URL` com uma oferta Hotmart **própria**. Enquanto for igual à do front, `/upsell` responde 404 de propósito |
+| `src/lib/checkout.ts` e `src/lib/upsell.ts` | Links da Xpag do front e do upsell. Se os dois ficarem iguais, `/upsell` responde 404 de propósito |
 | `.env` | `VITE_SITE_URL` com o domínio real |
 
 ## Deploy

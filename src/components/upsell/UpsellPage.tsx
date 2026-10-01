@@ -12,12 +12,6 @@ import {
   upsellDeclineHref,
   upsellSharesFrontCheckout,
 } from "@/lib/upsell";
-import { HOTMART_CHECKOUT_URL } from "@/lib/checkout";
-import {
-  loadHotmartWidget,
-  HOTMART_WIDGET_CLASSES,
-  hotmartWidgetLoaded,
-} from "@/lib/hotmart-widget";
 
 /**
  * One-click upsell, shown by the Hotmart funnel right after the front purchase.
@@ -39,15 +33,8 @@ export function UpsellPage() {
   // verifiable. The previous anchor multiplied 412 titles by a reference price and
   // produced a crossed-out figure in the tens of thousands, which reads as fake.
 
-  // Checkout opens in the Hotmart widget overlay, so the script has to bind to
-  // the anchor after it exists in the DOM.
   useEffect(() => {
-    const id = window.setTimeout(loadHotmartWidget, 60);
-    return () => window.clearTimeout(id);
-  }, []);
-
-  useEffect(() => {
-    if (import.meta.env.DEV && upsellSharesFrontCheckout(HOTMART_CHECKOUT_URL)) {
+    if (import.meta.env.DEV && upsellSharesFrontCheckout()) {
       console.warn(
         "[upsell] The accept button points at the front offer's checkout, so it bills " +
           "the front price instead of the upgrade. Create a separate Hotmart offer " +
@@ -124,11 +111,7 @@ export function UpsellPage() {
 
           <a
             href={UPSELL_ACCEPT_URL}
-            onClick={(event) => {
-              // The widget opens its overlay from its own listener on this anchor,
-              // so navigation is cancelled once it is live. The href stays valid as
-              // a fallback if Hotmart's script fails to load.
-              if (hotmartWidgetLoaded()) event.preventDefault();
+            onClick={() => {
               trackMeta("InitiateCheckout", {
                 value: Number(price.toFixed(2)),
                 currency: market.currency,
@@ -138,7 +121,7 @@ export function UpsellPage() {
                 cta_location: `${lang}:upsell-accept`,
               });
             }}
-            className={`${HOTMART_WIDGET_CLASSES} mt-8 inline-flex w-full items-center justify-center rounded-full bg-primary px-7 py-4 text-base font-bold text-primary-foreground shadow-soft transition-transform hover:scale-[1.02]`}
+            className={`mt-8 inline-flex w-full items-center justify-center rounded-full bg-primary px-7 py-4 text-base font-bold text-primary-foreground shadow-soft transition-transform hover:scale-[1.02]`}
           >
             {t.upsellAccept}
           </a>

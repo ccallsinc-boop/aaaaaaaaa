@@ -23,12 +23,12 @@ import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/landing/Logo";
 import { CATALOG, type CatalogGame } from "@/data/catalog";
 import { trackMeta, trackMetaCustom } from "@/lib/meta-pixel";
-import { HOTMART_CHECKOUT_URL } from "@/lib/checkout";
+import { FRONT_CHECKOUT_URL } from "@/lib/checkout";
 import { ASSETS } from "@/lib/assets";
 // Still on Lovable: the Brazilian VSL has not been converted from QuickTime yet.
 import vslAsset from "@/assets/vsl-br.mov.asset.json";
 
-export const BR_QUIZ_CHECKOUT = HOTMART_CHECKOUT_URL;
+export const BR_QUIZ_CHECKOUT = FRONT_CHECKOUT_URL;
 
 const TOTAL_SCREENS = 10;
 

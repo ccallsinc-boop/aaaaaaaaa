@@ -1,27 +1,23 @@
 /**
  * Where the buy buttons go.
  *
- * Checkout moved from Xpag to Hotmart. Hotmart handles local currency and the
- * order bumps and upsells that now carry the rest of the library, so the landing
- * only needs one link.
+ * Checkout runs on Xpag. Unlike Hotmart, Xpag has no overlay widget: the button
+ * is a plain link and the buyer lands on Xpag's own page. All the widget wiring
+ * that used to live here and in the CTA components is gone, along with the two
+ * third-party requests it made on every page load.
  *
- * The link is rendered as an <a> carrying HOTMART_WIDGET_CLASSES, which the
- * Hotmart widget script binds to in order to open the checkout in an overlay.
- * If the widget fails to load, the href still navigates to the same checkout, so
- * the button never becomes dead.
+ * Named by role rather than by provider, so the next switch touches one file.
  */
 
-/** Hotmart product + offer code for the front offer. */
-export const HOTMART_CHECKOUT_URL =
-  "https://pay.hotmart.com/X105105907P?checkoutMode=2&off=s8885qbi";
+/** Xpag checkout for the front offer: the 12 games. */
+export const FRONT_CHECKOUT_URL = "https://xpag.global/pay/GYMl3Clw";
 
 /** Kept as the single default so no component hardcodes a URL. */
-export const DEFAULT_CHECKOUT_URL = HOTMART_CHECKOUT_URL;
+export const DEFAULT_CHECKOUT_URL = FRONT_CHECKOUT_URL;
 
 /**
- * Per-currency overrides, for the day a market needs its own Hotmart offer code.
- * Empty means every market uses the link above, which is what Hotmart's own
- * currency handling expects.
+ * Per-currency overrides, for the day a market needs its own Xpag product.
+ * Empty means every market uses the link above.
  */
 const BY_CURRENCY: Record<string, string> = {};
 
