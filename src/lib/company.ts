@@ -3,9 +3,10 @@
  *
  * Every field is optional on purpose. An empty field is omitted from the page
  * rather than rendered with a placeholder, so the site never publishes an
- * invented company name, tax ID or address. Fill these in before launch:
- * Hotmart and Meta both look for them, and a footer with no identifiable seller
- * is a common reason for ad rejection and for chargebacks going the wrong way.
+ * invented company name, tax ID or address. Fill these in before launch: the
+ * checkout platform and Meta both look for them, and a footer with no identifiable
+ * seller is a common reason for ad rejection and for chargebacks going the wrong
+ * way.
  */
 export type Company = {
   /** Trading name shown in the copyright line. */
@@ -32,8 +33,12 @@ export const COMPANY: Company = {
   address: "",
   supportEmail: "",
   supportWhatsapp: "",
-  platform: "Hotmart",
-  platformUrl: "https://hotmart.com",
+  // O checkout é Xpag. Isto não é cosmético: as páginas de termos, privacidade e
+  // reembolso dizem ao comprador onde o pagamento foi processado e para onde
+  // pedir estorno. Apontar para a Hotmart, que não processou nada, manda o
+  // comprador para o lugar errado e o pedido de estorno volta como chargeback.
+  platform: "Xpag",
+  platformUrl: "https://xpag.global",
 };
 
 /** True when there is enough identity to present a complete legal footer. */

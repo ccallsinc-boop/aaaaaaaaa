@@ -19,7 +19,7 @@ const LANG_FOR_MARKET: Record<MarketLang, Lang> = {
 
 export const Route = createFileRoute("/upsell")({
   /**
-   * Answers 404 until the Hotmart one-click URL is filled in. A live upsell page
+   * Answers 404 until the upsell checkout URL is filled in. A live upsell page
    * whose button goes nowhere is worse than no page: it burns the one moment the
    * buyer is most willing to say yes.
    */
