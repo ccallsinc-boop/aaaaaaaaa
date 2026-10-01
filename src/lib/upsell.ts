@@ -8,12 +8,18 @@
  * Price is a base in BRL, converted per market by the same engine as the front,
  * so a Mexican buyer sees pesos here too instead of jumping currency mid-funnel.
  *
- * TWO VALUES MUST COME FROM HOTMART BEFORE THIS GOES LIVE:
- *   ACCEPT_URL  the one-click upsell link of the Hotmart funnel
- *   DECLINE_URL where Hotmart sends someone who refuses (usually the members area)
- * Until they are filled, isUpsellConfigured() is false and the route answers 404
- * rather than showing a buy button that goes nowhere.
+ * STILL NEEDED FROM HOTMART:
+ *   ACCEPT_URL   a checkout of the upgrade's OWN, not the front offer's
+ *   DECLINE_URL  where a refusal goes (optional, falls back to the members area)
+ * Until ACCEPT_URL points somewhere of its own, isUpsellConfigured() is false and
+ * the route answers 404, so the page cannot bill the wrong amount.
  */
+
+/**
+ * The front offer's checkout, inlined so the guard below does not import the
+ * checkout module and create a cycle.
+ */
+const FRONT_CHECKOUT_FOR_GUARD = "https://pay.hotmart.com/X105105907P?checkoutMode=2&off=s8885qbi";
 
 /**
  * Price of the full library upgrade, in BRL. Confirmed value, not a placeholder.
@@ -40,8 +46,18 @@ export const UPSELL_DECLINE_URL = "";
 /** Fallback for the decline link so it is never a dead anchor. */
 export const UPSELL_DECLINE_FALLBACK = "/biblioteca";
 
-export function isUpsellConfigured(): boolean {
-  return UPSELL_ACCEPT_URL.trim().length > 0;
+/**
+ * The page only goes live once it has a checkout of its own.
+ *
+ * Pointing at the front offer is treated as "not configured", not as ready: that
+ * URL bills the front price for the front product, so a live page would charge a
+ * buyer a second time for the 12 games they just bought while promising them the
+ * other 412. Paste the separate Hotmart offer into UPSELL_ACCEPT_URL and the
+ * route starts answering on its own.
+ */
+export function isUpsellConfigured(frontUrl: string = FRONT_CHECKOUT_FOR_GUARD): boolean {
+  const url = UPSELL_ACCEPT_URL.trim();
+  return url.length > 0 && url !== frontUrl.trim();
 }
 
 /**
