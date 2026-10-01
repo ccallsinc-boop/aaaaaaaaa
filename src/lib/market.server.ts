@@ -11,17 +11,39 @@ import { createServerFn } from "@tanstack/react-start";
 
 import { buildResolvedMarket, type ResolvedMarket } from "./markets";
 
-/** Headers set by the common edge hosts, in order of preference. */
+/** Plain headers that carry a bare country code, in order of preference. */
 const COUNTRY_HEADERS = [
   "cf-ipcountry", // Cloudflare
   "x-vercel-ip-country", // Vercel
-  "x-nf-client-connection-country", // Netlify
+  "x-nf-client-connection-country", // Netlify, when present
+  "x-country", // Netlify / generic
   "fastly-client-country", // Fastly
-  "x-geo-country",
+  "x-geo-country", // injected by an edge function, if one is used
 ];
+
+/**
+ * Netlify sends geo as `x-nf-geo`, a base64 JSON blob rather than a bare code:
+ * {"city":"...","country":{"code":"BR","name":"Brazil"},...}
+ *
+ * Decoded defensively: a malformed or truncated value must fall through to the
+ * default market, never throw during SSR.
+ */
+function countryFromNetlifyGeo(raw: string | undefined): string | null {
+  if (!raw) return null;
+  try {
+    const json = typeof atob === "function" ? atob(raw) : Buffer.from(raw, "base64").toString("utf8");
+    const parsed = JSON.parse(json) as { country?: { code?: unknown } };
+    const code = parsed?.country?.code;
+    return typeof code === "string" && code.trim() ? code.trim().toUpperCase() : null;
+  } catch {
+    return null;
+  }
+}
 
 /** Values an edge sends when it genuinely does not know. */
 const UNKNOWN_COUNTRY = new Set(["", "XX", "T1", "ZZ"]);
+
+export { COUNTRY_HEADERS, countryFromNetlifyGeo };
 
 export const resolveMarket = createServerFn({ method: "GET" }).handler(
   async (): Promise<ResolvedMarket> => {
@@ -38,6 +60,10 @@ export const resolveMarket = createServerFn({ method: "GET" }).handler(
       if (forced) country = forced.trim().toUpperCase();
     } catch {
       /* no request URL in this context */
+    }
+
+    if (!country) {
+      country = countryFromNetlifyGeo(getRequestHeader("x-nf-geo"));
     }
 
     if (!country) {

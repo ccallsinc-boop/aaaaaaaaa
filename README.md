@@ -49,35 +49,65 @@ data sem mexer no preço transforma a contagem em mentira.
 
 ## Deploy
 
-Alvo: Cloudflare Workers. O Nitro gera `.output/server/wrangler.json` no build.
+Alvo: **Netlify**. O `netlify.toml` já define o comando, a pasta publicada e,
+principalmente, `NITRO_PRESET=netlify`. Sem essa variável o build passa mas gera
+um bundle para Cloudflare, que o Netlify não sabe executar.
 
-### Manual
+O build produz duas coisas: os estáticos em `dist/` e a função SSR em
+`.netlify/functions-internal/server`. A função declara `path = "/*"` com
+`preferStatic` no próprio config, então o Netlify a liga sozinha, sem redirect
+manual. O `_redirects` sair vazio é esperado.
+
+### Conectando o repositório
+
+1. Netlify > Add new site > Import an existing project > escolha este repositório
+2. O `netlify.toml` preenche build command e publish directory sozinho
+3. Configure as variáveis abaixo **antes** do primeiro build
+4. Deploy
+
+### Variáveis de ambiente
+
+Em Site settings > Environment variables:
+
+| Variável | Para quê |
+|---|---|
+| `VITE_SITE_URL` | Domínio final. Sem ela o site anuncia framers.lovable.app em canonical, og:image e sitemap |
+| `VITE_SUPABASE_URL` | Área de membros |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | Área de membros |
+| `SUPABASE_URL` | Mesmas credenciais, lado servidor |
+| `SUPABASE_PUBLISHABLE_KEY` | Mesmas credenciais, lado servidor |
+
+As `VITE_` precisam existir **durante o build**, porque o Vite embute o valor no
+bundle. Defini-las depois, sem rebuild, não muda nada.
+
+### Deploy manual pelo CLI
 
 ```bash
-bunx wrangler login
-VITE_SITE_URL=https://seu-dominio.com bun run deploy
+bunx netlify login
+bun run deploy:netlify
 ```
 
-`bun run deploy:dry` faz a mesma coisa sem publicar, útil para conferir o
-tamanho do bundle e os bindings.
+### Conferir a detecção de país logo depois de subir
 
-### Automático
+Abra `https://seu-dominio/api/geo`. Ele mostra qual cabeçalho de geo o host
+mandou e em que mercado o visitante caiu:
 
-`.github/workflows/deploy.yml` publica a cada push na branch padrão. Precisa de:
+```json
+{ "detectedCountry": "BR", "resolvedTo": { "currency": "BRL", "price": 17.99 },
+  "usingFallbackMarket": false }
+```
 
-**Secrets:** `CLOUDFLARE_API_TOKEN` (template "Edit Cloudflare Workers") e
-`CLOUDFLARE_ACCOUNT_ID`.
+Se vier `"usingFallbackMarket": true`, **o Netlify não está mandando geo** e todo
+visitante está vendo dólar. O código aceita `x-nf-geo` (base64, formato do
+Netlify), `x-country`, `cf-ipcountry` e mais alguns. Se nenhum chegar, a saída é
+uma Edge Function do Netlify injetando `x-geo-country` a partir de
+`context.geo.country.code`.
 
-**Variables:** `VITE_SITE_URL`, `VITE_SUPABASE_URL`,
-`VITE_SUPABASE_PUBLISHABLE_KEY` e, opcionalmente, `WORKER_NAME`.
-
-As variáveis `VITE_` precisam existir **no build**, não só em runtime: o Vite
-embute o valor no bundle, então defini-las apenas como variável de runtime do
-Worker chega tarde demais.
+Para testar qualquer moeda sem VPN, em qualquer ambiente: `?country=MX`.
 
 ### Depois do primeiro deploy
 
-1. Aponte o domínio em Workers & Pages > seu worker > Settings > Domains & Routes
+1. Aponte o domínio em Domain management
 2. Rebuild com `VITE_SITE_URL` no domínio final, senão canonical, og:image e
    sitemap continuam apontando para o host antigo
 3. Envie `https://seu-dominio/sitemap.xml` no Search Console

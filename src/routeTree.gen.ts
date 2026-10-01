@@ -30,6 +30,7 @@ import { Route as StoreRouteImport } from './routes/store'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as UkRouteImport } from './routes/uk'
 import { Route as UpsellRouteImport } from './routes/upsell'
+import { Route as ApiGeoRouteImport } from './routes/api.geo'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
 import { Route as ApiPublicHublaRouteImport } from './routes/api/public/hubla'
 
@@ -138,6 +139,11 @@ const UpsellRoute = UpsellRouteImport.update({
   path: '/upsell',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiGeoRoute = ApiGeoRouteImport.update({
+  id: '/api/geo',
+  path: '/api/geo',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductHandleRoute = ProductHandleRouteImport.update({
   id: '/product/$handle',
   path: '/product/$handle',
@@ -171,6 +177,7 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/uk': typeof UkRoute
   '/upsell': typeof UpsellRoute
+  '/api/geo': typeof ApiGeoRoute
   '/product/$handle': typeof ProductHandleRoute
   '/api/public/hubla': typeof ApiPublicHublaRoute
 }
@@ -196,6 +203,7 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/uk': typeof UkRoute
   '/upsell': typeof UpsellRoute
+  '/api/geo': typeof ApiGeoRoute
   '/product/$handle': typeof ProductHandleRoute
   '/api/public/hubla': typeof ApiPublicHublaRoute
 }
@@ -222,6 +230,7 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/uk': typeof UkRoute
   '/upsell': typeof UpsellRoute
+  '/api/geo': typeof ApiGeoRoute
   '/product/$handle': typeof ProductHandleRoute
   '/api/public/hubla': typeof ApiPublicHublaRoute
 }
@@ -249,6 +258,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/uk'
     | '/upsell'
+    | '/api/geo'
     | '/product/$handle'
     | '/api/public/hubla'
   fileRoutesByTo: FileRoutesByTo
@@ -274,6 +284,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/uk'
     | '/upsell'
+    | '/api/geo'
     | '/product/$handle'
     | '/api/public/hubla'
   id:
@@ -299,6 +310,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/uk'
     | '/upsell'
+    | '/api/geo'
     | '/product/$handle'
     | '/api/public/hubla'
   fileRoutesById: FileRoutesById
@@ -325,6 +337,7 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   UkRoute: typeof UkRoute
   UpsellRoute: typeof UpsellRoute
+  ApiGeoRoute: typeof ApiGeoRoute
   ProductHandleRoute: typeof ProductHandleRoute
   ApiPublicHublaRoute: typeof ApiPublicHublaRoute
 }
@@ -478,6 +491,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UpsellRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/geo': {
+      id: '/api/geo'
+      path: '/api/geo'
+      fullPath: '/api/geo'
+      preLoaderRoute: typeof ApiGeoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/product/$handle': {
       id: '/product/$handle'
       path: '/product/$handle'
@@ -517,6 +537,7 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   UkRoute: UkRoute,
   UpsellRoute: UpsellRoute,
+  ApiGeoRoute: ApiGeoRoute,
   ProductHandleRoute: ProductHandleRoute,
   ApiPublicHublaRoute: ApiPublicHublaRoute,
 }

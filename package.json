@@ -13,7 +13,9 @@
     "typecheck": "tsc --noEmit",
     "check": "bun run typecheck && bun run build",
     "deploy": "bun run build && wrangler deploy --config .output/server/wrangler.json --name \"${WORKER_NAME:-framers}\"",
-    "deploy:dry": "bun run build && wrangler deploy --dry-run --config .output/server/wrangler.json --name \"${WORKER_NAME:-framers}\""
+    "deploy:dry": "bun run build && wrangler deploy --dry-run --config .output/server/wrangler.json --name \"${WORKER_NAME:-framers}\"",
+    "build:netlify": "NITRO_PRESET=netlify vite build",
+    "deploy:netlify": "bun run build:netlify && netlify deploy --prod"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

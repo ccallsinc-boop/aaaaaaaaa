@@ -1,0 +1,36 @@
+# Deploy do site no Netlify.
+#
+# O Nitro (via TanStack Start) gera por padrão um bundle para Cloudflare. A
+# variável NITRO_PRESET abaixo é o que troca o alvo para Netlify: sem ela o build
+# passa, mas publica um Worker que o Netlify não sabe executar.
+#
+# A função SSR sai em .netlify/functions-internal/server e declara path "/*" com
+# preferStatic no próprio config, então o Netlify a liga sozinho. Não é preciso
+# redirect manual.
+
+[build]
+  command = "bun run build"
+  publish = "dist"
+
+[build.environment]
+  NITRO_PRESET = "netlify"
+
+# As variáveis VITE_ precisam existir durante o BUILD, porque o Vite as embute no
+# bundle. Defini-las apenas como variável de ambiente do site, sem rebuild, não
+# tem efeito nenhum. Configure em Site settings > Environment variables:
+#
+#   VITE_SITE_URL                  domínio final, ex: https://framers.com.br
+#   VITE_SUPABASE_URL              projeto Supabase
+#   VITE_SUPABASE_PUBLISHABLE_KEY  chave publishable do Supabase
+#   SUPABASE_URL                   mesmas credenciais para o lado servidor
+#   SUPABASE_PUBLISHABLE_KEY
+
+[[headers]]
+  for = "/media/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
