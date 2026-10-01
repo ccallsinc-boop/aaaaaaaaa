@@ -295,7 +295,7 @@ const COPY = {
     upsellDecline: "Não, obrigado. Fico só com os 12 jogos",
     upsellWarning:
       "Esta oferta existe apenas nesta página. Se fechar agora, os outros jogos voltam a custar o preço cheio.",
-    upsellFootnote: "Você não precisa preencher o cartão de novo. É um clique.",
+    upsellFootnote: "O checkout abre aqui mesmo, sem sair desta página.",
     upsellHighlightsTitle: "Alguns dos que entram",
 
     midCtas: [
@@ -514,7 +514,7 @@ const COPY = {
     upsellDecline: "No thanks. I will keep just the 12 games",
     upsellWarning:
       "This offer exists on this page only. Close it now and the other games go back to full price.",
-    upsellFootnote: "You do not have to enter your card again. It is one click.",
+    upsellFootnote: "Checkout opens right here, without leaving this page.",
     upsellHighlightsTitle: "A few of the titles you unlock",
 
     midCtas: [
@@ -736,7 +736,7 @@ const ES = {
   upsellDecline: "No, gracias. Me quedo solo con los 12 juegos",
   upsellWarning:
     "Esta oferta existe únicamente en esta página. Si la cierras ahora, los demás juegos vuelven a costar el precio completo.",
-  upsellFootnote: "No tienes que volver a poner la tarjeta. Es un clic.",
+  upsellFootnote: "El checkout se abre aquí mismo, sin salir de esta página.",
   upsellHighlightsTitle: "Algunos de los que entran",
 
   midCtas: [
@@ -946,7 +946,7 @@ const HI = {
   upsellDecline: "नहीं, धन्यवाद। मैं सिर्फ 12 गेम्स रखूंगा",
   upsellWarning:
     "यह ऑफर सिर्फ इसी पेज पर है। अभी बंद किया तो बाकी गेम्स फिर पूरी कीमत के हो जाएंगे।",
-  upsellFootnote: "कार्ड दोबारा डालने की ज़रूरत नहीं। बस एक क्लिक।",
+  upsellFootnote: "चेकआउट यहीं खुलता है, पेज छोड़े बिना।",
   upsellHighlightsTitle: "कुछ टाइटल जो इसमें आते हैं",
 
   midCtas: [
