@@ -46,7 +46,7 @@ export function LaunchWindow({ compact = false }: { compact?: boolean }) {
 
   if (compact) {
     return (
-      <p className="text-[11px] font-semibold text-primary">
+      <p className="whitespace-nowrap text-[10px] font-semibold text-primary">
         {t.countdownCompact(
           `${pad(remaining.days)}:${pad(remaining.hours)}:${pad(remaining.minutes)}:${pad(remaining.seconds)}`,
         )}

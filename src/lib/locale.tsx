@@ -234,7 +234,7 @@ const COPY = {
     countdownMinutes: "min",
     countdownSeconds: "seg",
     countdownThen: (price: string) => `Depois dessa data o pacote passa a custar ${price}.`,
-    countdownCompact: (clock: string) => `Preço de lançamento acaba em ${clock}`,
+    countdownCompact: (clock: string) => `Lançamento acaba em ${clock}`,
     legalTitle: "Legal e suporte",
     legalWhatsapp: "Suporte no WhatsApp",
     trademarkNotice:
@@ -403,7 +403,7 @@ const COPY = {
     countdownMinutes: "min",
     countdownSeconds: "sec",
     countdownThen: (price: string) => `After that date the pack goes to ${price}.`,
-    countdownCompact: (clock: string) => `Launch price ends in ${clock}`,
+    countdownCompact: (clock: string) => `Launch ends in ${clock}`,
     legalTitle: "Legal and support",
     legalWhatsapp: "WhatsApp support",
     trademarkNotice:
@@ -572,7 +572,7 @@ const ES = {
   countdownMinutes: "min",
   countdownSeconds: "seg",
   countdownThen: (price: string) => `Después de esa fecha el pack pasa a costar ${price}.`,
-  countdownCompact: (clock: string) => `El precio de lanzamiento termina en ${clock}`,
+  countdownCompact: (clock: string) => `Lanzamiento termina en ${clock}`,
   legalTitle: "Legal y soporte",
   legalWhatsapp: "Soporte por WhatsApp",
   trademarkNotice:
