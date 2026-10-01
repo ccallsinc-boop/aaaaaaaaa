@@ -149,10 +149,14 @@ function RootShell({ children }: { children: ReactNode }) {
  */
 const NO_PIXEL_PREFIXES = ["/clips", "/es2", "/terms", "/privacy", "/refund"];
 
+/** Pages that need fbq loaded for their own events but are not a product view. */
+const NO_VIEW_CONTENT_PREFIXES = ["/upsell"];
+
 function StorePixel() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   if (NO_PIXEL_PREFIXES.some((prefix) => pathname.startsWith(prefix))) return null;
-  return <MetaPixel />;
+  const viewContent = !NO_VIEW_CONTENT_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+  return <MetaPixel viewContent={viewContent} />;
 }
 
 function RootComponent() {

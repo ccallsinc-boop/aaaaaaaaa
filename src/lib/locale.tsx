@@ -276,6 +276,29 @@ const COPY = {
     ctaBrands: "Ver a oferta completa",
     ctaFaq: "Ficou alguma dúvida? Garantir meu acesso",
     ctaWhyCheap: "Entendi, quero garantir o meu",
+
+    upsellEyebrow: "Compra confirmada",
+    upsellTitle: "Espera, não feche esta página",
+    upsellSub: (rest: number, total: number) =>
+      `Seus 12 jogos já estão a caminho do seu e-mail. Antes de você sair, tem uma coisa que só aparece aqui: liberar os outros ${rest} jogos da biblioteca e ficar com os ${total}.`,
+    upsellOfferTitle: (rest: number) => `Mais ${rest} jogos, agora`,
+    upsellBullets: (rest: number) => [
+      `Os ${rest} títulos restantes liberados na mesma conta`,
+      "Mesmo acesso, mesmo login, nada para instalar de novo",
+      "Pagamento único, sem mensalidade",
+      "A mesma garantia de 7 dias vale para este upgrade",
+    ],
+    upsellPriceLabel: "Só nesta página",
+    upsellPerGame: (n: number, price: string) => `${n} jogos · ${price} por jogo`,
+    upsellCompareFront: (frontPerGame: string, n: number) =>
+      `Você acabou de pagar ${frontPerGame} por jogo nos 12. Aqui, os outros ${n} saem por uma fração disso.`,
+    upsellAccept: "Sim, quero a biblioteca completa",
+    upsellDecline: "Não, obrigado. Fico só com os 12 jogos",
+    upsellWarning:
+      "Esta oferta existe apenas nesta página. Se fechar agora, os outros jogos voltam a custar o preço cheio.",
+    upsellFootnote: "Você não precisa preencher o cartão de novo. É um clique.",
+    upsellHighlightsTitle: "Alguns dos que entram",
+
     midCtas: [
       ["Dá para jogar GTA V ainda hoje à noite", "Quero começar a jogar agora"],
       ["Já viu seus favoritos? Leve os 12 de uma vez.", "Quero esses 12 jogos"],
@@ -473,6 +496,29 @@ const COPY = {
     ctaBrands: "See the full offer",
     ctaFaq: "Still unsure? Get my access",
     ctaWhyCheap: "Got it, I want mine",
+
+    upsellEyebrow: "Purchase confirmed",
+    upsellTitle: "Wait, do not close this page",
+    upsellSub: (rest: number, total: number) =>
+      `Your 12 games are already on their way to your inbox. Before you go, there is one thing that only appears here: unlocking the other ${rest} games in the library and keeping all ${total}.`,
+    upsellOfferTitle: (rest: number) => `${rest} more games, right now`,
+    upsellBullets: (rest: number) => [
+      `The remaining ${rest} titles unlocked on the same account`,
+      "Same access, same login, nothing to install again",
+      "One-time payment, no subscription",
+      "The same 7-day guarantee covers this upgrade",
+    ],
+    upsellPriceLabel: "On this page only",
+    upsellPerGame: (n: number, price: string) => `${n} games · ${price} per game`,
+    upsellCompareFront: (frontPerGame: string, n: number) =>
+      `You just paid ${frontPerGame} per game for the 12. Here, the other ${n} cost a fraction of that.`,
+    upsellAccept: "Yes, I want the full library",
+    upsellDecline: "No thanks. I will keep just the 12 games",
+    upsellWarning:
+      "This offer exists on this page only. Close it now and the other games go back to full price.",
+    upsellFootnote: "You do not have to enter your card again. It is one click.",
+    upsellHighlightsTitle: "A few of the titles you unlock",
+
     midCtas: [
       ["You could be playing GTA V tonight", "I want to start playing now"],
       ["Spotted your favourites? Take all 12 at once.", "I want these 12 games"],
@@ -673,6 +719,29 @@ const ES = {
   ctaBrands: "Ver la oferta completa",
   ctaFaq: "¿Te quedó alguna duda? Conseguir mi acceso",
   ctaWhyCheap: "Entendido, quiero el mío",
+
+  upsellEyebrow: "Compra confirmada",
+  upsellTitle: "Espera, no cierres esta página",
+  upsellSub: (rest: number, total: number) =>
+    `Tus 12 juegos ya van camino a tu correo. Antes de salir, hay algo que solo aparece aquí: desbloquear los otros ${rest} juegos de la biblioteca y quedarte con los ${total}.`,
+  upsellOfferTitle: (rest: number) => `${rest} juegos más, ahora`,
+  upsellBullets: (rest: number) => [
+    `Los ${rest} títulos restantes desbloqueados en la misma cuenta`,
+    "Mismo acceso, mismo login, nada que instalar de nuevo",
+    "Pago único, sin mensualidad",
+    "La misma garantía de 7 días cubre esta mejora",
+  ],
+  upsellPriceLabel: "Solo en esta página",
+  upsellPerGame: (n: number, price: string) => `${n} juegos · ${price} por juego`,
+  upsellCompareFront: (frontPerGame: string, n: number) =>
+    `Acabas de pagar ${frontPerGame} por juego por los 12. Aquí, los otros ${n} salen por una fracción de eso.`,
+  upsellAccept: "Sí, quiero la biblioteca completa",
+  upsellDecline: "No, gracias. Me quedo solo con los 12 juegos",
+  upsellWarning:
+    "Esta oferta existe únicamente en esta página. Si la cierras ahora, los demás juegos vuelven a costar el precio completo.",
+  upsellFootnote: "No tienes que volver a poner la tarjeta. Es un clic.",
+  upsellHighlightsTitle: "Algunos de los que entran",
+
   midCtas: [
     ["Esta noche ya podrías estar jugando GTA V", "Quiero empezar a jugar ahora"],
     ["¿Ya viste tus favoritos? Llévate los 12 de una vez.", "Quiero estos 12 juegos"],
@@ -861,6 +930,29 @@ const HI = {
   ctaBrands: "पूरा ऑफर देखें",
   ctaFaq: "कोई सवाल बाकी है? एक्सेस लें",
   ctaWhyCheap: "समझ गया, मुझे चाहिए",
+
+  upsellEyebrow: "खरीद कन्फर्म",
+  upsellTitle: "रुकिए, यह पेज बंद न करें",
+  upsellSub: (rest: number, total: number) =>
+    `आपके 12 गेम्स ईमेल पर आ रहे हैं। जाने से पहले, सिर्फ यहाँ दिखने वाली एक चीज़: बाकी ${rest} गेम्स अनलॉक करके पूरे ${total} पा लीजिए।`,
+  upsellOfferTitle: (rest: number) => `${rest} और गेम्स, अभी`,
+  upsellBullets: (rest: number) => [
+    `बाकी ${rest} टाइटल उसी अकाउंट में अनलॉक`,
+    "वही एक्सेस, वही लॉगिन, दोबारा कुछ इंस्टॉल नहीं",
+    "एक बार भुगतान, कोई मंथली नहीं",
+    "वही 7 दिन की गारंटी इस अपग्रेड पर भी",
+  ],
+  upsellPriceLabel: "सिर्फ इस पेज पर",
+  upsellPerGame: (n: number, price: string) => `${n} गेम्स · ${price} प्रति गेम`,
+  upsellCompareFront: (frontPerGame: string, n: number) =>
+    `आपने अभी 12 गेम्स के लिए ${frontPerGame} प्रति गेम दिए। यहाँ बाकी ${n} उसके एक अंश में।`,
+  upsellAccept: "हाँ, मुझे पूरी लाइब्रेरी चाहिए",
+  upsellDecline: "नहीं, धन्यवाद। मैं सिर्फ 12 गेम्स रखूंगा",
+  upsellWarning:
+    "यह ऑफर सिर्फ इसी पेज पर है। अभी बंद किया तो बाकी गेम्स फिर पूरी कीमत के हो जाएंगे।",
+  upsellFootnote: "कार्ड दोबारा डालने की ज़रूरत नहीं। बस एक क्लिक।",
+  upsellHighlightsTitle: "कुछ टाइटल जो इसमें आते हैं",
+
   midCtas: [
     ["आज रात आप GTA V खेल सकते हैं", "अभी खेलना शुरू करें"],
     ["फेवरेट देख लिए? 12 एक साथ ले लें।", "मुझे ये 12 गेम्स चाहिए"],

@@ -4,7 +4,14 @@ import { useMarket } from "@/lib/use-market";
 
 let initialized = false;
 
-export function MetaPixel() {
+export function MetaPixel({
+  /**
+   * Post-purchase pages load the pixel but must not report a product view: the
+   * visitor already bought, and counting them as a front-offer view poisons both
+   * the conversion rate and the value optimisation.
+   */
+  viewContent = true,
+}: { viewContent?: boolean } = {}) {
   const { price, market } = useMarket();
 
   useEffect(() => {
@@ -38,13 +45,15 @@ export function MetaPixel() {
     trackMeta("PageView");
     // This used to report a fixed 37.99 BRL on every locale, so Meta optimised the
     // Spanish and English traffic against a price nobody was ever charged.
-    trackMeta("ViewContent", {
-      value: Number(price.toFixed(2)),
-      currency: market.currency,
-      content_name: "Framers Full Pack",
-      content_type: "product",
-      content_ids: ["pacote-framers"],
-    });
+    if (viewContent) {
+      trackMeta("ViewContent", {
+        value: Number(price.toFixed(2)),
+        currency: market.currency,
+        content_name: "Framers Full Pack",
+        content_type: "product",
+        content_ids: ["pacote-framers"],
+      });
+    }
 
     // Engagement signals help Meta's algorithm find buyers → lower CPA.
     const onScroll = () => {
