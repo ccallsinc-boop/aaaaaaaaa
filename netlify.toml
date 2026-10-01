@@ -12,6 +12,10 @@
   # cache pode ser reaproveitado e o build falha com "vite: command not found".
   command = "bun install --frozen-lockfile && bun run build"
   publish = "dist"
+  # Edge Function que injeta o país do visitante (netlify/edge-functions/geo.ts).
+  # O diretório é o padrão do Netlify, mas fica explícito porque o roteamento
+  # aqui já é todo declarado à mão.
+  edge_functions = "netlify/edge-functions"
 
 [build.environment]
   NITRO_PRESET = "netlify"
