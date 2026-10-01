@@ -72,10 +72,14 @@ Em Site settings > Environment variables:
 | Variável | Para quê |
 |---|---|
 | `VITE_SITE_URL` | Domínio final. Sem ela o site anuncia framers.lovable.app em canonical, og:image e sitemap |
-| `VITE_SUPABASE_URL` | Área de membros |
-| `VITE_SUPABASE_PUBLISHABLE_KEY` | Área de membros |
+| `VITE_SUPABASE_URL` | Área de membros. **Opcional**: o funil funciona sem |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | Idem |
 | `SUPABASE_URL` | Mesmas credenciais, lado servidor |
 | `SUPABASE_PUBLISHABLE_KEY` | Mesmas credenciais, lado servidor |
+
+Só `VITE_SITE_URL` é obrigatória. Sem as do Supabase, landing, quizzes, upsell e
+páginas legais funcionam normalmente; apenas `/auth` e `/biblioteca` ficam sem
+backend.
 
 As `VITE_` precisam existir **durante o build**, porque o Vite embute o valor no
 bundle. Defini-las depois, sem rebuild, não muda nada.
