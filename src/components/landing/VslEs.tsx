@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
 import { Play } from "lucide-react";
 import vslAsset from "@/assets/vsl-es2.mov.asset.json";
-import demoAsset from "@/assets/produto-funcionando.mp4.asset.json";
 import proof1 from "@/assets/proof-1.jpg.asset.json";
 import proof2 from "@/assets/proof-2.jpg.asset.json";
 import proof3 from "@/assets/proof-3.jpg.asset.json";
 import { useLocale } from "@/lib/locale";
+import { ASSETS } from "@/lib/assets";
 
 const PHOTOS = [proof1, proof2, proof3];
 const PHOTO_ALTS = [
@@ -30,11 +30,14 @@ function DemoVideo() {
     <div className="relative mt-8 overflow-hidden rounded-2xl border border-border bg-black shadow-soft">
       <video
         ref={videoRef}
-        src={demoAsset.url}
+        src={ASSETS.demoVideo}
+        poster={ASSETS.demoPoster}
         className="aspect-[1882/932] w-full"
         controls={playing}
         playsInline
-        preload="metadata"
+        // The poster carries the first impression, so the file itself only
+        // downloads once the visitor presses play.
+        preload="none"
         onClick={() => {
           if (!playing) start();
         }}
