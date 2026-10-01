@@ -1,0 +1,457 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-surface: var(--surface);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@theme {
+  --font-display: "Urbanist", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Urbanist", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 1rem;
+
+  --background: oklch(100% 0 0);
+  --foreground: oklch(18% 0.03 265);
+  --card: oklch(100% 0 0);
+  --card-foreground: oklch(18% 0.03 265);
+  --popover: oklch(100% 0 0);
+  --popover-foreground: oklch(18% 0.03 265);
+
+  --primary: oklch(48% 0.24 264);
+  --primary-foreground: oklch(99% 0 0);
+  --primary-soft: oklch(96% 0.03 264);
+
+  --secondary: oklch(97% 0.012 264);
+  --secondary-foreground: oklch(22% 0.04 265);
+  --muted: oklch(97% 0.012 264);
+  --muted-foreground: oklch(55% 0.03 258);
+  --accent: oklch(62% 0.18 250);
+  --accent-foreground: oklch(99% 0 0);
+  --surface: oklch(98.5% 0.008 264);
+  --destructive: oklch(57.7% 0.245 27.325);
+  --destructive-foreground: oklch(98.4% 0.003 247.858);
+  --border: oklch(92% 0.015 258);
+  --input: oklch(92% 0.015 258);
+  --ring: oklch(48% 0.24 264);
+
+  --sidebar: oklch(98.4% 0.003 247.858);
+  --sidebar-foreground: oklch(12.9% 0.042 264.695);
+  --sidebar-primary: oklch(48% 0.24 264);
+  --sidebar-primary-foreground: oklch(98.4% 0.003 247.858);
+  --sidebar-accent: oklch(96.8% 0.007 247.896);
+  --sidebar-accent-foreground: oklch(20.8% 0.042 265.755);
+  --sidebar-border: oklch(92.9% 0.013 255.508);
+  --sidebar-ring: oklch(70.4% 0.04 256.788);
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+}
+
+@utility shadow-soft {
+  box-shadow:
+    0 18px 40px -24px oklch(48% 0.24 264 / 45%),
+    0 2px 6px -3px oklch(18% 0.03 265 / 12%);
+}
+
+@utility hero-glow {
+  background-image: radial-gradient(
+    90% 60% at 50% 0%,
+    oklch(48% 0.24 264 / 10%) 0%,
+    oklch(48% 0.24 264 / 3%) 45%,
+    transparent 72%
+  );
+}
+
+/* Soft blue gradient backdrop, inspired by clarasight.com */
+@utility bg-blue-gradient {
+  background-image:
+    radial-gradient(70% 55% at 15% 0%, oklch(70% 0.14 240 / 35%) 0%, transparent 60%),
+    radial-gradient(65% 50% at 85% 8%, oklch(62% 0.19 264 / 40%) 0%, transparent 60%),
+    radial-gradient(90% 70% at 50% -10%, oklch(88% 0.07 250 / 45%) 0%, transparent 70%),
+    linear-gradient(180deg, oklch(95% 0.03 255) 0%, oklch(98% 0.012 264) 45%, oklch(100% 0 0) 100%);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes logo-3d-spin {
+  0% {
+    transform: perspective(800px) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(800px) rotateY(360deg);
+  }
+}
+
+.logo-3d-spin {
+  animation: logo-3d-spin 8s linear infinite;
+  transform-style: preserve-3d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .logo-3d-spin {
+    animation: none;
+  }
+}
+
+@font-face {
+  font-family: "DIN Next";
+  src: url("/__l5e/assets-v1/43187fca-7a10-4f7d-8f23-359df79ffa86/DINNextW1G-Regular.woff") format("woff");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Wise Sans";
+  src: url("/__l5e/assets-v1/dde22c88-25d9-413a-a803-b134963fbd86/WiseSans-Heavy.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 800 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Averta";
+  src: url("/__l5e/assets-v1/9250d015-8bd2-4a13-b2c8-ca8cbf30e9b9/TW-Averta-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Averta";
+  src: url("/__l5e/assets-v1/dbf302f3-faeb-4b63-8d88-66319693391e/TW-Averta-Semibold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DIN Next";
+  src: url("/__l5e/assets-v1/e18e1733-811b-4915-a588-37e71046bd4b/DINNextW1G-Bold.woff") format("woff");
+  font-style: normal;
+  font-weight: 700 900;
+  font-display: swap;
+}
+
+.theme-playbox {
+  --primary: oklch(63% 0.24 25);
+  --primary-foreground: oklch(100% 0 0);
+  --primary-soft: oklch(96% 0.035 25);
+  --accent: oklch(65% 0.18 235);
+  --accent-foreground: oklch(100% 0 0);
+  --surface: oklch(98.8% 0 0);
+  --border: oklch(90% 0 0);
+  --ring: oklch(63% 0.24 25);
+  font-family: "DIN Next", ui-sans-serif, system-ui, sans-serif;
+}
+
+.theme-playbox h1,
+.theme-playbox h2,
+.theme-playbox h3,
+.theme-playbox .font-display {
+  font-family: "DIN Next", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.theme-playbox .shadow-soft {
+  box-shadow: 0 15px 35px -22px oklch(20% 0 0 / 35%);
+}
+
+.theme-playbox a.bg-primary {
+  border-radius: 0.55rem;
+  text-transform: uppercase;
+}
+
+/* Scoped theme for the Generative Energy ebook page (/es2) — True Paleo palette */
+.theme-ge {
+  --background: oklch(99% 0.006 90);
+  --foreground: oklch(24% 0.02 60);
+  --card: oklch(100% 0 0);
+  --card-foreground: oklch(24% 0.02 60);
+  --popover: oklch(100% 0 0);
+  --popover-foreground: oklch(24% 0.02 60);
+
+  --primary: oklch(53% 0.17 25);
+  --primary-foreground: oklch(99% 0.006 90);
+  --primary-soft: oklch(95% 0.03 40);
+
+  --secondary: oklch(94% 0.02 75);
+  --secondary-foreground: oklch(30% 0.03 60);
+  --muted: oklch(96% 0.012 80);
+  --muted-foreground: oklch(50% 0.02 65);
+  --accent: oklch(80% 0.06 70);
+  --accent-foreground: oklch(25% 0.03 60);
+  --surface: oklch(97% 0.014 85);
+  --border: oklch(89% 0.015 80);
+  --input: oklch(89% 0.015 80);
+  --ring: oklch(53% 0.17 25);
+  color-scheme: light;
+  font-family: "Urbanist", ui-sans-serif, system-ui, sans-serif;
+}
+
+.theme-ge h1,
+.theme-ge h2,
+.theme-ge h3,
+.theme-ge .font-display {
+  font-family: "Urbanist", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.theme-ge .shadow-soft {
+  box-shadow: 0 18px 40px -26px oklch(30% 0.03 60 / 40%);
+}
+
+/* Scoped theme for the Clips webapp offer page (/clips) */
+.theme-clips {
+  --background: oklch(16% 0.03 265);
+  --foreground: oklch(97% 0.01 265);
+  --card: oklch(20% 0.035 265);
+  --card-foreground: oklch(97% 0.01 265);
+  --popover: oklch(20% 0.035 265);
+  --popover-foreground: oklch(97% 0.01 265);
+
+  --primary: oklch(86% 0.21 130);
+  --primary-foreground: oklch(18% 0.05 140);
+  --primary-soft: oklch(26% 0.06 140);
+
+  --secondary: oklch(24% 0.035 265);
+  --secondary-foreground: oklch(97% 0.01 265);
+  --muted: oklch(24% 0.035 265);
+  --muted-foreground: oklch(72% 0.02 265);
+  --accent: oklch(30% 0.05 265);
+  --accent-foreground: oklch(97% 0.01 265);
+  --surface: oklch(19% 0.03 265);
+  --border: oklch(30% 0.03 265);
+  --input: oklch(30% 0.03 265);
+  --ring: oklch(86% 0.21 130);
+  color-scheme: dark;
+}
+
+.theme-clips .hero-glow {
+  background-image: radial-gradient(
+    90% 60% at 50% 0%,
+    oklch(86% 0.21 130 / 18%) 0%,
+    oklch(86% 0.21 130 / 6%) 45%,
+    transparent 72%
+  );
+}
+
+.theme-clips .shadow-soft {
+  box-shadow:
+    0 20px 50px -26px oklch(86% 0.21 130 / 45%),
+    0 2px 8px -4px oklch(0% 0 0 / 55%);
+}
+
+/* Scoped theme for the Spanish game quiz funnel (/es-quiz) */
+.theme-quiz {
+  --background: oklch(99% 0.004 260);
+  --foreground: oklch(22% 0.03 265);
+  --card: oklch(100% 0 0);
+  --card-foreground: oklch(22% 0.03 265);
+  --popover: oklch(100% 0 0);
+  --popover-foreground: oklch(22% 0.03 265);
+
+  --primary: oklch(58% 0.21 260);
+  --primary-foreground: oklch(99% 0.004 260);
+  --primary-soft: oklch(95% 0.035 260);
+
+  --secondary: oklch(95% 0.012 260);
+  --secondary-foreground: oklch(28% 0.03 265);
+  --muted: oklch(96% 0.008 260);
+  --muted-foreground: oklch(52% 0.02 265);
+  --accent: oklch(93% 0.03 260);
+  --accent-foreground: oklch(25% 0.03 265);
+  --surface: oklch(98% 0.006 260);
+  --border: oklch(90% 0.012 260);
+  --input: oklch(90% 0.012 260);
+  --ring: oklch(58% 0.21 260);
+  color-scheme: light;
+  font-family: "Urbanist", ui-sans-serif, system-ui, sans-serif;
+}
+
+.theme-quiz h1,
+.theme-quiz h2,
+.theme-quiz h3,
+.theme-quiz .font-display {
+  font-family: "Urbanist", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+.theme-quiz .shadow-soft {
+  box-shadow: 0 18px 40px -26px oklch(40% 0.08 265 / 40%);
+}
+
+/* Scoped Wise-inspired identity shared by the Brazilian and Spanish quizzes. */
+.theme-quiz-br,
+.theme-quiz-es,
+.theme-quiz-landing {
+  --background: oklch(96% 0.008 210);
+  --foreground: oklch(27% 0.09 132);
+  --card: oklch(100% 0 0);
+  --card-foreground: oklch(27% 0.09 132);
+  --popover: oklch(100% 0 0);
+  --popover-foreground: oklch(27% 0.09 132);
+  --primary: oklch(88% 0.19 132);
+  --primary-foreground: oklch(27% 0.09 132);
+  --primary-soft: oklch(94% 0.08 132);
+  --secondary: oklch(96% 0.008 210);
+  --secondary-foreground: oklch(27% 0.09 132);
+  --muted: oklch(94% 0.012 150);
+  --muted-foreground: oklch(48% 0.035 155);
+  --accent: oklch(88% 0.19 132);
+  --accent-foreground: oklch(27% 0.09 132);
+  --surface: oklch(96% 0.008 210);
+  --border: oklch(27% 0.09 132 / 12%);
+  --input: oklch(27% 0.09 132 / 12%);
+  --ring: oklch(27% 0.09 132);
+  color-scheme: light;
+  font-family: "Averta", ui-sans-serif, system-ui, sans-serif;
+}
+
+.theme-quiz-br h1,
+.theme-quiz-br h2,
+.theme-quiz-br h3,
+.theme-quiz-br .font-display,
+.theme-quiz-es h1,
+.theme-quiz-es h2,
+.theme-quiz-es h3,
+.theme-quiz-es .font-display,
+.theme-quiz-landing h1,
+.theme-quiz-landing h2,
+.theme-quiz-landing h3,
+.theme-quiz-landing .font-display {
+  font-family: "Wise Sans", "Averta", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.02;
+}
+
+.theme-quiz-br .shadow-soft,
+.theme-quiz-es .shadow-soft,
+.theme-quiz-landing .shadow-soft {
+  box-shadow: 0 4px 24px oklch(27% 0.09 132 / 5%);
+}
+
+/* Wise-inspired sales-page treatment, scoped to the Portuguese and Spanish landings. */
+.theme-quiz-landing .bg-blue-gradient {
+  background-color: var(--color-background);
+  background-image: none;
+}
+
+.theme-quiz-landing nav {
+  border-bottom-width: 2px;
+  background-color: color-mix(in oklab, var(--background) 94%, transparent);
+}
+
+.theme-quiz-landing :is(.rounded-2xl, .rounded-3xl) {
+  border-width: 2px;
+  border-radius: 0.9rem;
+}
+
+.theme-quiz-landing :is(a, button).rounded-full {
+  min-height: 3.25rem;
+  border-width: 2px;
+  border-color: var(--foreground);
+  box-shadow: none;
+}
+
+.theme-quiz-landing :is(a, button).bg-primary {
+  color: var(--primary-foreground);
+}
+
+.theme-quiz-landing :is(h1, h2, h3) .text-primary,
+.theme-quiz-landing dt.text-primary,
+.theme-quiz-landing p.text-primary {
+  color: var(--foreground);
+}
+
+.theme-quiz-landing section:nth-of-type(even) {
+  background-color: var(--surface);
+}
+
+.theme-quiz-landing input,
+.theme-quiz-landing select {
+  border-width: 2px;
+  border-color: var(--foreground);
+}
+
+.theme-quiz-landing footer {
+  border-top-width: 2px;
+}
+

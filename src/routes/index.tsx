@@ -1,0 +1,40 @@
+import { createFileRoute } from "@tanstack/react-router";
+
+import { BrGameQuiz } from "@/components/quiz/BrGameQuiz";
+
+const TITLE = "Descubra seu pacote ideal de jogos — Framers";
+const DESCRIPTION =
+  "Responda cinco perguntas e descubra uma biblioteca personalizada com 424 jogos de PC, acesso imediato e 7 dias de garantia.";
+const URL = "https://framers.lovable.app/";
+const IMAGE =
+  "https://framers.lovable.app/__l5e/assets-v1/0a1ff5c3-b68c-4f76-8466-e4237ecb49b0/destaque-gta.png";
+
+export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: TITLE },
+      { name: "description", content: DESCRIPTION },
+      { property: "og:title", content: TITLE },
+      { property: "og:description", content: DESCRIPTION },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: URL },
+      { property: "og:locale", content: "pt_BR" },
+      { property: "og:image", content: IMAGE },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: IMAGE },
+    ],
+    links: [
+      { rel: "canonical", href: URL },
+      { rel: "alternate", hrefLang: "pt-BR", href: URL },
+      { rel: "alternate", hrefLang: "en", href: "https://framers.lovable.app/en" },
+      { rel: "alternate", hrefLang: "en-GB", href: "https://framers.lovable.app/uk" },
+      { rel: "alternate", hrefLang: "es", href: "https://framers.lovable.app/es" },
+      { rel: "alternate", hrefLang: "x-default", href: "https://framers.lovable.app/en" },
+    ],
+  }),
+  component: Index,
+});
+
+function Index() {
+  return <BrGameQuiz />;
+}
