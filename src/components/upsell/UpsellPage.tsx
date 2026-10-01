@@ -27,7 +27,6 @@ export function UpsellPage() {
   // Anchored against what the buyer just paid per game, which is concrete and
   // verifiable. The previous anchor multiplied 412 titles by a reference price and
   // produced a crossed-out figure in the tens of thousands, which reads as fake.
-  const upsellPerGame = price / UPSELL_GAMES_COUNT;
 
   useEffect(() => {
     trackMetaCustom("UpsellView", {
@@ -86,10 +85,11 @@ export function UpsellPage() {
             <p className="mt-1 font-display text-[clamp(2.8rem,14vw,4rem)] leading-none text-primary">
               {money(price)}
             </p>
-            <p className="mt-2 text-sm text-muted-foreground">
-              {t.upsellPerGame(UPSELL_GAMES_COUNT, money(Math.max(upsellPerGame, 0.01)))}
-            </p>
-            <p className="mx-auto mt-3 max-w-sm text-xs text-muted-foreground">
+            {/* No per-game figure here on purpose. Spread over 412 titles it
+                renders as EUR 0.01 or USD 0.02, which reads as junk rather than as
+                value. The comparison below carries the same point using a number
+                the buyer just paid. */}
+            <p className="mx-auto mt-3 max-w-sm text-sm text-muted-foreground">
               {t.upsellCompareFront(money(Math.max(pricePerGame, 0.01)), UPSELL_GAMES_COUNT)}
             </p>
           </div>

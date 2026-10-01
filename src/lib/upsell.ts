@@ -15,7 +15,11 @@
  * rather than showing a buy button that goes nowhere.
  */
 
-/** Price of the full library upgrade, in BRL. */
+/**
+ * Price of the full library upgrade, in BRL. Confirmed value, not a placeholder.
+ * Every other currency is this number at the live rate, same as the front offer,
+ * so the funnel never switches currency on the buyer.
+ */
 export const UPSELL_PRICE_BRL = 37;
 
 /** Hotmart one-click upsell URL. Empty until the funnel is built. */

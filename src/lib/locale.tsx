@@ -289,7 +289,6 @@ const COPY = {
       "A mesma garantia de 7 dias vale para este upgrade",
     ],
     upsellPriceLabel: "Só nesta página",
-    upsellPerGame: (n: number, price: string) => `${n} jogos · ${price} por jogo`,
     upsellCompareFront: (frontPerGame: string, n: number) =>
       `Você acabou de pagar ${frontPerGame} por jogo nos 12. Aqui, os outros ${n} saem por uma fração disso.`,
     upsellAccept: "Sim, quero a biblioteca completa",
@@ -509,7 +508,6 @@ const COPY = {
       "The same 7-day guarantee covers this upgrade",
     ],
     upsellPriceLabel: "On this page only",
-    upsellPerGame: (n: number, price: string) => `${n} games · ${price} per game`,
     upsellCompareFront: (frontPerGame: string, n: number) =>
       `You just paid ${frontPerGame} per game for the 12. Here, the other ${n} cost a fraction of that.`,
     upsellAccept: "Yes, I want the full library",
@@ -732,7 +730,6 @@ const ES = {
     "La misma garantía de 7 días cubre esta mejora",
   ],
   upsellPriceLabel: "Solo en esta página",
-  upsellPerGame: (n: number, price: string) => `${n} juegos · ${price} por juego`,
   upsellCompareFront: (frontPerGame: string, n: number) =>
     `Acabas de pagar ${frontPerGame} por juego por los 12. Aquí, los otros ${n} salen por una fracción de eso.`,
   upsellAccept: "Sí, quiero la biblioteca completa",
@@ -943,7 +940,6 @@ const HI = {
     "वही 7 दिन की गारंटी इस अपग्रेड पर भी",
   ],
   upsellPriceLabel: "सिर्फ इस पेज पर",
-  upsellPerGame: (n: number, price: string) => `${n} गेम्स · ${price} प्रति गेम`,
   upsellCompareFront: (frontPerGame: string, n: number) =>
     `आपने अभी 12 गेम्स के लिए ${frontPerGame} प्रति गेम दिए। यहाँ बाकी ${n} उसके एक अंश में।`,
   upsellAccept: "हाँ, मुझे पूरी लाइब्रेरी चाहिए",
