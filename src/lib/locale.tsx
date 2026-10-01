@@ -199,6 +199,10 @@ const COPY = {
         alt: "Cliente mostrando GTA V rodando no monitor, dizendo que vale a pena",
         caption: "GTA V do pacote rodando redondo no PC dele.",
       },
+      {
+        alt: "Cliente mostrando GTA V pausado no monitor, dizendo que parou o jogo para mandar a mensagem",
+        caption: "Pausou o GTA V só para agradecer.",
+      },
     ],
 
     faqTitle: "Perguntas frequentes",
@@ -391,6 +395,10 @@ const COPY = {
       {
         alt: "Customer showing GTA V running on a monitor, saying it is worth it",
         caption: "GTA V from the pack running smoothly on their PC.",
+      },
+      {
+        alt: "Customer showing GTA V paused on a monitor, saying they stopped the game to send the message",
+        caption: "Paused GTA V just to say thanks.",
       },
     ],
 
@@ -588,6 +596,10 @@ const ES = {
       alt: "Cliente mostrando GTA V corriendo en el monitor, diciendo que vale la pena",
       caption: "GTA V del pack corriendo perfecto en su PC.",
     },
+    {
+      alt: "Cliente mostrando GTA V en pausa, diciendo que paró el juego para mandar el mensaje",
+      caption: "Pausó el GTA V solo para agradecer.",
+    },
   ],
 
   faqTitle: "Preguntas frecuentes",
@@ -771,6 +783,10 @@ const HI = {
     {
       alt: "ग्राहक मॉनिटर पर GTA V चलते हुए दिखाते हुए",
       caption: "पैक का GTA V उनके PC पर बिल्कुल सही चल रहा है।",
+    },
+    {
+      alt: "ग्राहक GTA V पॉज़ करके मैसेज भेजते हुए",
+      caption: "धन्यवाद कहने के लिए GTA V पॉज़ कर दिया।",
     },
   ],
 

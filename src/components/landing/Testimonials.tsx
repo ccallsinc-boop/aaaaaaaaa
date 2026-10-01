@@ -13,7 +13,6 @@ import { useLocale } from "@/lib/locale";
  */
 export function Testimonials() {
   const { t } = useLocale();
-  const shots = [ASSETS.proofChat[0], ASSETS.proofChat[1]];
 
   return (
     <section id="depoimentos" className="border-t border-border py-20">
@@ -28,16 +27,18 @@ export function Testimonials() {
           {t.testimonialsSub}
         </p>
 
-        <div className="mx-auto mt-12 grid max-w-3xl gap-6 sm:grid-cols-2">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {t.testimonials.map((item, i) => (
-            <figure key={item.caption} className="flex flex-col">
+            <figure key={item.caption} className="flex h-full flex-col">
               <img
-                src={shots[i]}
+                src={ASSETS.proofChat[i]}
                 alt={item.alt}
                 loading="lazy"
                 className="w-full rounded-2xl border border-border shadow-soft"
               />
-              <figcaption className="mt-3 text-center text-sm text-muted-foreground">
+              {/* The screenshots differ slightly in height, so the captions are
+                  pushed to the bottom to keep the row aligned. */}
+              <figcaption className="mt-auto pt-3 text-center text-sm text-muted-foreground">
                 {item.caption}
               </figcaption>
             </figure>
