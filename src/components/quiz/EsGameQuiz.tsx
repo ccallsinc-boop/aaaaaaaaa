@@ -24,13 +24,14 @@ import { Logo } from "@/components/landing/Logo";
 import { CATALOG, type CatalogGame } from "@/data/catalog";
 import { useMarket } from "@/lib/use-market";
 import { trackMeta, trackMetaCustom } from "@/lib/meta-pixel";
+import { HOTMART_CHECKOUT_URL } from "@/lib/checkout";
 import vslAsset from "@/assets/vsl-es2.mov.asset.json";
 import proof1 from "@/assets/proof-1.jpg.asset.json";
 import proof2 from "@/assets/proof-2.jpg.asset.json";
 import proof3 from "@/assets/proof-3.jpg.asset.json";
 
-export const ES_QUIZ_CHECKOUT = "https://xpag.global/pay/VUv0nMnI";
-export const ES_QUIZ_HOTMART = "https://xpag.global/pay/VUv0nMnI";
+export const ES_QUIZ_CHECKOUT = HOTMART_CHECKOUT_URL;
+export const ES_QUIZ_HOTMART = HOTMART_CHECKOUT_URL;
 
 const HOTMART_SRC = "https://static.hotmart.com/checkout/widget.min.js";
 const HOTMART_CSS = "https://static.hotmart.com/css/hotmart-fb.min.css";

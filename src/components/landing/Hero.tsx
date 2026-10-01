@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { CATALOG } from "@/data/catalog";
+import { FRONT_GAMES } from "@/data/front-offer";
 import { Cta } from "@/components/landing/Cta";
 import { Logo } from "@/components/landing/Logo";
 import { VslEs } from "@/components/landing/VslEs";
@@ -7,16 +7,8 @@ import { useLocale } from "@/lib/locale";
 import destaquePt from "@/assets/banners/destaque-gta.png.asset.json";
 import destaqueEn from "@/assets/banners/destaque-gta-en.png.asset.json";
 
-const FEATURED = [
-  "GTA: V",
-  "Red Dead Redemption 2",
-  "Elden Ring",
-  "God of War: Ragnarok",
-  "Spider-Man: Remastered",
-  "Hogwarts Legacy",
-]
-  .map((name) => CATALOG.find((g) => g.name === name))
-  .filter((g): g is NonNullable<typeof g> => !!g);
+/** First six of the front offer, as a teaser. The grid below shows all twelve. */
+const FEATURED = FRONT_GAMES.slice(0, 6);
 
 const ITEM = {
   hidden: { opacity: 0, y: 18 },

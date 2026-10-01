@@ -4,9 +4,9 @@ import { productSchema } from "@/lib/seo";
 
 import { LandingPage } from "@/components/landing/LandingPage";
 
-const TITLE = "Framers — 424 PC गेम्स का पैक";
+const TITLE = "Framers — 12 सबसे लोकप्रिय PC गेम्स";
 const DESCRIPTION =
-  "GTA, FIFA, Call of Duty, Elden Ring, Resident Evil और सैकड़ों गेम्स: 424 PC गेम्स, एक बार भुगतान, तुरंत डिलीवरी और 7 दिन की गारंटी।";
+  "GTA V, Red Dead 2, Elden Ring, God of War Ragnarök और 8 और: 12 PC गेम्स, एक बार भुगतान, तुरंत डिलीवरी और 7 दिन की गारंटी।";
 const URL = "https://framers.lovable.app/in";
 const IMAGE =
   "https://framers.lovable.app/__l5e/assets-v1/5ad32c30-9e9f-4863-a319-5d990406ff51/destaque-gta-en.png";
@@ -38,7 +38,7 @@ export const Route = createFileRoute("/in")({
       {
         type: "application/ld+json",
         children: productSchema({
-          name: "Framers — 424 PC Games Pack",
+          name: "Framers — 12 Most Wanted PC Games",
           description: DESCRIPTION,
           image: IMAGE,
           url: URL,

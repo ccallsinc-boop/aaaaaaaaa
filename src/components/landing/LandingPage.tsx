@@ -2,10 +2,9 @@ import { useEffect } from "react";
 import { Nav } from "@/components/landing/Nav";
 import { Hero } from "@/components/landing/Hero";
 import { Deliverables } from "@/components/landing/Deliverables";
-import { GameCatalog } from "@/components/landing/GameCatalog";
+import { FrontGames } from "@/components/landing/FrontGames";
 import { BrandMarquee } from "@/components/landing/BrandMarquee";
 import { Testimonials } from "@/components/landing/Testimonials";
-import { BonusGames } from "@/components/landing/BonusGames";
 
 import { Offer } from "@/components/landing/Offer";
 
@@ -24,12 +23,13 @@ export function LandingPage({ lang }: { lang: Lang }) {
   const market = useMarket();
   const quizVisual = lang === "pt" || lang === "es";
 
-  // Hotmart widget (ES): binds to `.hotmart-fb` anchors once loaded.
+  // Checkout runs through Hotmart on every route, so the widget binds here once
+  // the CTA anchors exist. It used to load only on /es, where the config had it
+  // disabled, so the script was fetched and never used.
   useEffect(() => {
-    if (lang !== "es") return;
     const id = window.setTimeout(loadHotmartWidget, 60);
     return () => window.clearTimeout(id);
-  }, [lang]);
+  }, []);
 
   return (
     <LocaleProvider lang={lang} market={market}>
@@ -47,7 +47,7 @@ export function LandingPage({ lang }: { lang: Lang }) {
         </Reveal>
 
         <Reveal>
-          <GameCatalog />
+          <FrontGames />
         </Reveal>
         <Reveal>
           <MidCta index={1} />
@@ -59,12 +59,6 @@ export function LandingPage({ lang }: { lang: Lang }) {
           <MidCta index={2} />
         </Reveal>
         <Reveal>
-          <BonusGames />
-        </Reveal>
-        <Reveal>
-          <MidCta index={3} />
-        </Reveal>
-        <Reveal>
           <Offer />
         </Reveal>
 
@@ -72,7 +66,7 @@ export function LandingPage({ lang }: { lang: Lang }) {
           <Guarantee />
         </Reveal>
         <Reveal>
-          <MidCta index={4} />
+          <MidCta index={3} />
         </Reveal>
         <Reveal>
           <Faq />

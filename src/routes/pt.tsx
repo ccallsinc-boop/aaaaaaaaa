@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { LandingPage } from "@/components/landing/LandingPage";
 
-const TITLE = "Framers — Pacote com 424 jogos de PC";
+const TITLE = "Framers — Os 12 jogos de PC mais pedidos";
 const DESCRIPTION =
   "GTA, FIFA, Call of Duty, Elden Ring, Resident Evil e centenas de outros jogos de PC em um único pacote, com entrega imediata e garantia de 7 dias.";
 const URL = "https://framers.lovable.app/pt";

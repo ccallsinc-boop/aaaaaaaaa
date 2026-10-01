@@ -1,6 +1,6 @@
 import { createContext, useContext, type ReactNode } from "react";
-import { TOTAL_GAMES } from "@/data/games";
-import { DEFAULT_CHECKOUT_URL, ES_CHECKOUT_URL, checkoutUrlFor } from "@/lib/checkout";
+import { FRONT_GAMES_COUNT } from "@/data/front-offer";
+import { DEFAULT_CHECKOUT_URL, checkoutUrlFor } from "@/lib/checkout";
 import {
   FALLBACK_RESOLVED,
   formatMoney,
@@ -56,8 +56,7 @@ const CONFIG = {
   },
   es: {
     lang: "es" as Lang,
-    storeUrl: ES_CHECKOUT_URL,
-    hotmart: false,
+    storeUrl: DEFAULT_CHECKOUT_URL,
     home: "/es",
     others: [
       { href: "/", label: "PT" },
@@ -96,11 +95,11 @@ const COPY = {
       { label: "FAQ", href: "#faq" },
     ],
     navCta: "Quero meu acesso",
-    heroBadge: (d: number) => `Biblioteca completa · ${d}% OFF`,
+    heroBadge: (d: number) => `Os 12 mais pedidos · ${d}% OFF`,
     heroTitleA: "Nunca foi tão barato ter",
     heroTitleB: (n: number) => `${n} jogos`,
     heroSub: (price: string) =>
-      `GTA, FIFA, Call of Duty, Elden Ring, Resident Evil e centenas de outros por ${price}. Pagamento único, entrega imediata e acesso vitalício.`,
+      `GTA V, Red Dead 2, Elden Ring, God of War Ragnarök, Hogwarts Legacy e mais 7 por ${price}. Pagamento único, entrega imediata e acesso vitalício.`,
     heroCta: "Quero garantir meu acesso",
     heroSecondary: "Ver a biblioteca",
     heroCompare: (full: string, save: string) => (
@@ -123,26 +122,20 @@ const COPY = {
       "Uma compra simples, sem assinatura, sem burocracia e com suporte de gente de verdade.",
     deliverables: (perGame: string) =>
       [
-        ["Biblioteca completa", "Todos os títulos liberados de uma vez, sem escolher pacote."],
+        ["Os 12 jogos liberados", "Todos de uma vez, sem escolher pacote nem pagar por título."],
         ["Entrega imediata", "Pagou, o acesso cai no seu e-mail em minutos."],
         ["Acesso vitalício", "Paga uma vez e continua com tudo, sem mensalidade."],
-        ["Novos jogos toda semana", "A biblioteca cresce e você recebe sem pagar de novo."],
         ["Download direto", "Links organizados, rápidos e sem enrolação."],
         ["Pack de otimização", "Configurações prontas para rodar melhor em PC fraco."],
         ["Suporte humano", "Time no WhatsApp para ajudar na instalação."],
         ["Garantia de 7 dias", "Não gostou? Devolvemos 100% do valor."],
-        [`Menos de ${perGame} por jogo`, "O preço de um jogo compra a biblioteca inteira."],
+        [`Menos de ${perGame} por jogo`, "O preço de um jogo compra os 12."],
       ] as [string, string][],
     catalogEyebrow: "O que vem dentro",
     catalogTitle: (n: number) => `${n} jogos. Um preço só.`,
-    search: "Pesquisar jogos...",
-    all: "Todos",
-    found: (n: number) => `${n} títulos encontrados`,
-    sortBy: "Ordenar por",
-    sortAz: "Nome A-Z",
-    sortZa: "Nome Z-A",
+    catalogSub:
+      "Os títulos mais pedidos, com capa oficial e download direto. Nada de lista inflada.",
     coverAlt: (name: string) => `Capa de ${name}`,
-    seeMore: "Ver mais jogos",
     offerEyebrow: (n: number) => `Pacote Framers Completo · ${n} jogos`,
     offerCompare: "Comprando separado:",
     offerToday: "Hoje, pagamento único de",
@@ -154,15 +147,14 @@ const COPY = {
     offerNote: "Pagamento único via PIX ou cartão · risco zero com 7 dias de garantia.",
     includes: (n: number) => [
       `Todos os ${n} jogos liberados de uma vez`,
-      "Acesso vitalício — paga uma vez, é seu para sempre",
-      "Novos títulos toda semana, sem custo adicional",
+      "Acesso vitalício: paga uma vez e é seu para sempre",
       "Tutorial de instalação em vídeo passo a passo",
       "Pack de otimização para PC fraco",
       "Suporte humano no WhatsApp",
       "Garantia de 7 dias ou dinheiro de volta",
     ],
     guaranteeTitle: "Satisfação garantida e risco zero",
-    guaranteeSub: "7 dias para pedir reembolso integral. Sem perguntas — o risco é todo nosso.",
+    guaranteeSub: "7 dias para pedir reembolso integral, sem perguntas. O risco é todo nosso.",
     guaranteeBadges: [
       "Compra 100% segura",
       "7 dias de garantia",
@@ -188,7 +180,7 @@ const COPY = {
       {
         name: "Pedro Henrique",
         meta: "São Paulo · SP",
-        text: "Comprei desconfiado e já indiquei pra três amigos. Só a saga Resident Evil inteira já pagou o valor umas 50 vezes.",
+        text: "Comprei desconfiado e já indiquei pra três amigos. Só o Red Dead 2 já pagou o valor muitas vezes.",
       },
       {
         name: "Camila Ribeiro",
@@ -211,19 +203,15 @@ const COPY = {
     faq: (price: string, n: number) => [
       {
         q: `É ${price} por todos os jogos?`,
-        a: `Sim. Pagamento único de ${price} pela biblioteca inteira com ${n} jogos. Sem mensalidade e sem cobrança por título.`,
+        a: `Sim. Pagamento único de ${price} pelos ${n} jogos. Sem mensalidade e sem cobrança por título.`,
       },
       {
         q: "Quando recebo o acesso?",
-        a: "Na hora. Assim que o pagamento é confirmado, o acesso chega por e-mail — normalmente em poucos minutos.",
+        a: "Na hora. Assim que o pagamento é confirmado, o acesso chega por e-mail, normalmente em poucos minutos.",
       },
       {
         q: "Funciona no meu PC?",
         a: "Sim, os jogos são para PC (Windows) e vão com tutorial de instalação e pack de otimização para máquinas mais fracas.",
-      },
-      {
-        q: "Preciso pagar de novo pelos jogos novos?",
-        a: "Não. Novos títulos entram na biblioteca toda semana e ficam liberados sem custo adicional para quem já comprou.",
       },
       {
         q: "E se eu não gostar?",
@@ -244,7 +232,6 @@ const COPY = {
     stickySub: (n: number) => `${n} jogos · pagamento único`,
     stickyCta: "Quero acesso",
     ctaVsl: "Quero ver o pack agora",
-    ctaBonus: "Garantir meu pack com bônus",
     ctaCatalog: "Quero esses jogos",
     ctaTestimonials: "Jogar como eles",
     ctaGuarantee: "Testar sem risco",
@@ -255,8 +242,7 @@ const COPY = {
       ["Pronto para começar a jogar hoje?", "Quero começar a jogar agora"],
       ["Escolheu seus favoritos? Leve todos de uma vez.", "Quero esses jogos"],
       ["Junte-se a mais de 4.000 gamers que já estão jogando", "Jogar como eles"],
-      ["Não deixe os bônus escaparem", "Garantir meu pack com bônus"],
-      ["Teste sem risco — 7 dias de garantia total", "Testar sem risco"],
+      ["Teste sem risco, com 7 dias de garantia total", "Testar sem risco"],
     ] as [string, string][],
   },
   en: {
@@ -271,7 +257,7 @@ const COPY = {
     heroTitleA: "It has never been cheaper to own",
     heroTitleB: (n: number) => `${n} games`,
     heroSub: (price: string) =>
-      `GTA, FIFA, Call of Duty, Elden Ring, Resident Evil and hundreds more for ${price}. One-time payment, instant delivery and lifetime access.`,
+      `GTA V, Red Dead 2, Elden Ring, God of War Ragnarök, Hogwarts Legacy and 7 more for ${price}. One-time payment, instant delivery and lifetime access.`,
     heroCta: "Get my access now",
     heroSecondary: "Browse the library",
     heroCompare: (full: string, save: string) => (
@@ -290,29 +276,24 @@ const COPY = {
       ] as [string, string][],
     deliverablesTitleA: "Everything you need",
     deliverablesTitleB: "to start playing today",
-    deliverablesSub: "A simple purchase — no subscription, no bureaucracy, and real human support.",
+    deliverablesSub:
+      "A simple purchase, with no subscription, no bureaucracy, and real human support.",
     deliverables: (perGame: string) =>
       [
-        ["Full library", "Every title unlocked at once — no bundles to pick."],
+        ["All 12 games unlocked", "Every title at once, with no bundles to pick."],
         ["Instant delivery", "Once you pay, access lands in your inbox in minutes."],
         ["Lifetime access", "Pay once and keep everything. No monthly fees."],
-        ["New games every week", "The library grows and you get it at no extra cost."],
         ["Direct download", "Organized, fast links with zero hassle."],
         ["Optimization pack", "Ready-made settings to run better on low-end PCs."],
         ["Human support", "A real team to help you with the installation."],
         ["7-day guarantee", "Not happy? We refund 100% of your money."],
-        [`Less than ${perGame} per game`, "The price of one game buys the entire library."],
+        [`Less than ${perGame} per game`, "The price of one game buys all 12."],
       ] as [string, string][],
     catalogEyebrow: "What's inside",
     catalogTitle: (n: number) => `${n} games. One single price.`,
-    search: "Search games...",
-    all: "All",
-    found: (n: number) => `${n} titles found`,
-    sortBy: "Sort by",
-    sortAz: "Name A-Z",
-    sortZa: "Name Z-A",
+    catalogSub:
+      "The titles people actually ask for, with official art and direct downloads. No padded list.",
     coverAlt: (name: string) => `${name} cover art`,
-    seeMore: "Show more games",
     offerEyebrow: (n: number) => `Complete Framers Pack · ${n} games`,
     offerCompare: "Buying separately:",
     offerToday: "Today, one-time payment of",
@@ -325,15 +306,14 @@ const COPY = {
     offerNote: "One-time payment by card · zero risk with a 7-day guarantee.",
     includes: (n: number) => [
       `All ${n} games unlocked at once`,
-      "Lifetime access — pay once, it's yours forever",
-      "New titles every week at no extra cost",
+      "Lifetime access: pay once and it is yours forever",
       "Step-by-step video installation tutorial",
       "Optimization pack for low-end PCs",
       "Human support over WhatsApp",
       "7-day money-back guarantee",
     ],
     guaranteeTitle: "Satisfaction guaranteed, zero risk",
-    guaranteeSub: "7 days to request a full refund. No questions asked — the risk is all ours.",
+    guaranteeSub: "7 days to request a full refund, no questions asked. The risk is all ours.",
     guaranteeBadges: [
       "100% secure checkout",
       "7-day guarantee",
@@ -359,7 +339,7 @@ const COPY = {
       {
         name: "Peter Nowak",
         meta: "Chicago · IL",
-        text: "Bought it sceptical and already told three friends. The full Resident Evil saga alone is worth 50x the price.",
+        text: "Bought it sceptical and already told three friends. Red Dead 2 alone was worth more than the whole price.",
       },
       {
         name: "Camila Ribeiro",
@@ -369,7 +349,7 @@ const COPY = {
       {
         name: "Daniel Hughes",
         meta: "Leeds · UK",
-        text: "New games drop every week and I don't pay a penny extra. Best purchase I've made this year.",
+        text: "Twelve games I actually wanted, for the price of a coffee. Installed in one afternoon.",
       },
       {
         name: "Bruno Ferreira",
@@ -382,19 +362,15 @@ const COPY = {
     faq: (price: string, n: number) => [
       {
         q: `Is it ${price} for all the games?`,
-        a: `Yes. A single ${price} payment for the entire library with ${n} games. No subscription and no per-title fees.`,
+        a: `Yes. A single ${price} payment for all ${n} games. No subscription and no per-title fees.`,
       },
       {
         q: "When do I get access?",
-        a: "Right away. As soon as the payment is confirmed, access arrives by email — usually within minutes.",
+        a: "Right away. As soon as the payment is confirmed, access arrives by email, usually within minutes.",
       },
       {
         q: "Will it work on my PC?",
         a: "Yes, the games are for PC (Windows) and come with an installation tutorial and an optimization pack for weaker machines.",
-      },
-      {
-        q: "Do I pay again for new games?",
-        a: "No. New titles are added every week and are unlocked at no extra cost for everyone who already bought.",
       },
       {
         q: "What if I don't like it?",
@@ -415,7 +391,6 @@ const COPY = {
     stickySub: (n: number) => `${n} games · one-time payment`,
     stickyCta: "Get access",
     ctaVsl: "See the pack now",
-    ctaBonus: "Secure my pack with bonuses",
     ctaCatalog: "I want these games",
     ctaTestimonials: "Join gamers already playing",
     ctaGuarantee: "Try risk-free",
@@ -426,8 +401,7 @@ const COPY = {
       ["Ready to start playing today?", "Start playing now"],
       ["Found your favorites? Take them all at once.", "I want these games"],
       ["Join over 4,000 gamers already playing", "Join gamers already playing"],
-      ["Don't let the bonuses slip away", "Secure my pack with bonuses"],
-      ["Try it risk-free — 7-day full guarantee", "Try risk-free"],
+      ["Try it risk-free, with a 7-day full guarantee", "Try risk-free"],
     ] as [string, string][],
   },
 };
@@ -440,11 +414,11 @@ const ES = {
     { label: "FAQ", href: "#faq" },
   ],
   navCta: "Quiero mi acceso",
-  heroBadge: (d: number) => `Biblioteca completa · ${d}% OFF`,
+  heroBadge: (d: number) => `Los 12 más pedidos · ${d}% OFF`,
   heroTitleA: "Nunca fue tan barato tener",
   heroTitleB: (n: number) => `${n} juegos`,
   heroSub: (price: string) =>
-    `GTA, FIFA, Call of Duty, Elden Ring, Resident Evil y cientos más por ${price}. Pago único, entrega inmediata y acceso de por vida.`,
+    `GTA V, Red Dead 2, Elden Ring, God of War Ragnarök, Hogwarts Legacy y 7 más por ${price}. Pago único, entrega inmediata y acceso de por vida.`,
   heroCta: "Quiero asegurar mi acceso",
   heroSecondary: "Ver la biblioteca",
   heroCompare: (full: string, save: string) => (
@@ -467,26 +441,19 @@ const ES = {
     "Una compra simple, sin suscripción, sin burocracia y con soporte de personas reales.",
   deliverables: (perGame: string) =>
     [
-      ["Biblioteca completa", "Todos los títulos desbloqueados de una vez, sin elegir paquete."],
+      ["Los 12 juegos desbloqueados", "Todos de una vez, sin elegir paquete ni pagar por título."],
       ["Entrega inmediata", "Pagas y el acceso llega a tu correo en minutos."],
       ["Acceso de por vida", "Pagas una vez y lo conservas todo, sin mensualidades."],
-      ["Juegos nuevos cada semana", "La biblioteca crece y tú lo recibes sin pagar de nuevo."],
       ["Descarga directa", "Enlaces organizados, rápidos y sin complicaciones."],
       ["Pack de optimización", "Ajustes listos para rendir mejor en PC de gama baja."],
       ["Soporte humano", "Un equipo real para ayudarte con la instalación."],
       ["Garantía de 7 días", "¿No te gustó? Te devolvemos el 100% del dinero."],
-      [`Menos de ${perGame} por juego`, "El precio de un juego compra la biblioteca entera."],
+      [`Menos de ${perGame} por juego`, "El precio de un juego compra los 12."],
     ] as [string, string][],
   catalogEyebrow: "Lo que incluye",
   catalogTitle: (n: number) => `${n} juegos. Un solo precio.`,
-  search: "Buscar juegos...",
-  all: "Todos",
-  found: (n: number) => `${n} títulos encontrados`,
-  sortBy: "Ordenar por",
-  sortAz: "Nombre A-Z",
-  sortZa: "Nombre Z-A",
+  catalogSub: "Los títulos más pedidos, con portada oficial y descarga directa. Sin lista inflada.",
   coverAlt: (name: string) => `Portada de ${name}`,
-  seeMore: "Ver más juegos",
   offerEyebrow: (n: number) => `Pack Framers Completo · ${n} juegos`,
   offerCompare: "Comprando por separado:",
   offerToday: "Hoy, pago único de",
@@ -498,8 +465,7 @@ const ES = {
   offerNote: "Pago único con tarjeta · riesgo cero con 7 días de garantía.",
   includes: (n: number) => [
     `Los ${n} juegos desbloqueados de una vez`,
-    "Acceso de por vida — pagas una vez y es tuyo para siempre",
-    "Títulos nuevos cada semana sin costo adicional",
+    "Acceso de por vida: pagas una vez y es tuyo para siempre",
     "Tutorial de instalación en video paso a paso",
     "Pack de optimización para PC de gama baja",
     "Soporte humano por WhatsApp",
@@ -507,7 +473,7 @@ const ES = {
   ],
   guaranteeTitle: "Satisfacción garantizada y riesgo cero",
   guaranteeSub:
-    "7 días para pedir el reembolso completo. Sin preguntas — el riesgo es todo nuestro.",
+    "7 días para pedir el reembolso completo, sin preguntas. El riesgo es todo nuestro.",
   guaranteeBadges: [
     "Compra 100% segura",
     "7 días de garantía",
@@ -533,7 +499,7 @@ const ES = {
     {
       name: "Pablo Núñez",
       meta: "Buenos Aires · AR",
-      text: "Compré desconfiado y ya se lo recomendé a tres amigos. Solo la saga completa de Resident Evil vale 50 veces el precio.",
+      text: "Compré desconfiado y ya se lo recomendé a tres amigos. Solo Red Dead 2 vale mucho más que el precio entero.",
     },
     {
       name: "Camila Ribeiro",
@@ -555,19 +521,15 @@ const ES = {
   faq: (price: string, n: number) => [
     {
       q: `¿Son ${price} por todos los juegos?`,
-      a: `Sí. Un único pago de ${price} por la biblioteca entera con ${n} juegos. Sin mensualidad ni cobro por título.`,
+      a: `Sí. Un único pago de ${price} por los ${n} juegos. Sin mensualidad ni cobro por título.`,
     },
     {
       q: "¿Cuándo recibo el acceso?",
-      a: "Al instante. En cuanto se confirma el pago, el acceso llega por correo — normalmente en pocos minutos.",
+      a: "Al instante. En cuanto se confirma el pago, el acceso llega por correo, normalmente en pocos minutos.",
     },
     {
       q: "¿Funciona en mi PC?",
       a: "Sí, los juegos son para PC (Windows) e incluyen tutorial de instalación y pack de optimización para máquinas más débiles.",
-    },
-    {
-      q: "¿Tengo que pagar de nuevo por los juegos nuevos?",
-      a: "No. Los títulos nuevos entran cada semana y quedan desbloqueados sin costo adicional para quien ya compró.",
     },
     {
       q: "¿Y si no me gusta?",
@@ -588,7 +550,6 @@ const ES = {
   stickySub: (n: number) => `${n} juegos · pago único`,
   stickyCta: "Quiero acceso",
   ctaVsl: "Ver el pack ahora",
-  ctaBonus: "Asegurar mi pack con bonuses",
   ctaCatalog: "Quiero estos juegos",
   ctaTestimonials: "Unirme a los que ya juegan",
   ctaGuarantee: "Probar sin riesgo",
@@ -599,8 +560,7 @@ const ES = {
     ["¿Listo para empezar a jugar hoy?", "Quiero empezar a jugar ahora"],
     ["¿Ya elegiste tus favoritos? Llévatelos todos de una vez.", "Quiero estos juegos"],
     ["Únete a más de 4.000 gamers que ya están jugando", "Unirme a los que ya juegan"],
-    ["No dejes escapar los bonos", "Asegurar mi pack con bonos"],
-    ["Pruébalo sin riesgo — 7 días de garantía total", "Probar sin riesgo"],
+    ["Pruébalo sin riesgo, con 7 días de garantía total", "Probar sin riesgo"],
   ] as [string, string][],
 };
 
@@ -616,7 +576,7 @@ const HI = {
   heroTitleA: "इतने कम में पहले कभी नहीं मिले",
   heroTitleB: (n: number) => `${n} गेम्स`,
   heroSub: (price: string) =>
-    `GTA, FIFA, Call of Duty, Elden Ring, Resident Evil और सैकड़ों गेम्स सिर्फ ${price} में। एक बार भुगतान, तुरंत डिलीवरी और लाइफटाइम एक्सेस।`,
+    `GTA V, Red Dead 2, Elden Ring, God of War Ragnarök, Hogwarts Legacy और 7 और सिर्फ ${price} में। एक बार भुगतान, तुरंत डिलीवरी और लाइफटाइम एक्सेस।`,
   heroCta: "मुझे अभी एक्सेस चाहिए",
   heroSecondary: "लाइब्रेरी देखें",
   heroCompare: (full: string, save: string) => (
@@ -635,7 +595,7 @@ const HI = {
     ] as [string, string][],
   deliverablesTitleA: "आपको जो कुछ चाहिए",
   deliverablesTitleB: "आज ही खेलना शुरू करने के लिए",
-  deliverablesSub: "एक आसान खरीद — कोई सब्सक्रिप्शन नहीं, कोई झंझट नहीं, और असली लोगों का सपोर्ट।",
+  deliverablesSub: "एक आसान खरीद, कोई सब्सक्रिप्शन नहीं, कोई झंझट नहीं, और असली लोगों का सपोर्ट।",
   deliverables: (perGame: string) =>
     [
       ["पूरी लाइब्रेरी", "सारे टाइटल एक साथ अनलॉक, कोई पैकेज चुनने की जरूरत नहीं।"],
@@ -650,14 +610,8 @@ const HI = {
     ] as [string, string][],
   catalogEyebrow: "इसमें क्या मिलता है",
   catalogTitle: (n: number) => `${n} गेम्स। सिर्फ एक कीमत।`,
-  search: "गेम्स खोजें...",
-  all: "सभी",
-  found: (n: number) => `${n} टाइटल मिले`,
-  sortBy: "क्रमबद्ध करें",
-  sortAz: "नाम A-Z",
-  sortZa: "नाम Z-A",
+  catalogSub: "सबसे ज़्यादा मांगे जाने वाले टाइटल, ऑफिशियल कवर और सीधा डाउनलोड।",
   coverAlt: (name: string) => `${name} का कवर`,
-  seeMore: "और गेम्स देखें",
   offerEyebrow: (n: number) => `Framers कम्प्लीट पैक · ${n} गेम्स`,
   offerCompare: "अलग-अलग खरीदने पर:",
   offerToday: "आज, एक बार का भुगतान",
@@ -669,7 +623,7 @@ const HI = {
   offerNote: "कार्ड से एक बार भुगतान · 7 दिन की गारंटी के साथ ज़ीरो रिस्क।",
   includes: (n: number) => [
     `सभी ${n} गेम्स एक साथ अनलॉक`,
-    "लाइफटाइम एक्सेस — एक बार भुगतान, हमेशा के लिए आपका",
+    "लाइफटाइम एक्सेस: एक बार भुगतान, हमेशा के लिए आपका",
     "हर हफ्ते नए टाइटल, बिना किसी अतिरिक्त खर्च के",
     "स्टेप-बाय-स्टेप वीडियो इंस्टॉलेशन गाइड",
     "कम पावर वाले PC के लिए ऑप्टिमाइज़ेशन पैक",
@@ -677,7 +631,7 @@ const HI = {
     "7 दिन की मनी-बैक गारंटी",
   ],
   guaranteeTitle: "संतुष्टि की गारंटी, ज़ीरो रिस्क",
-  guaranteeSub: "पूरा रिफंड मांगने के लिए 7 दिन। कोई सवाल नहीं — पूरा जोखिम हमारा है।",
+  guaranteeSub: "पूरा रिफंड मांगने के लिए 7 दिन, कोई सवाल नहीं। पूरा जोखिम हमारा है।",
   guaranteeBadges: ["100% सुरक्षित खरीद", "7 दिन की गारंटी", "रिफंड की गारंटी", "असली सपोर्ट"],
   brandsTitle: "लाइब्रेरी में मौजूद स्टूडियो और पब्लिशर",
   testimonialsEyebrow: "जिन्होंने पहले ही खरीदा",
@@ -698,7 +652,7 @@ const HI = {
     {
       name: "Priya Nair",
       meta: "Bengaluru · KA",
-      text: "शक के साथ खरीदा था, अब तीन दोस्तों को बता चुकी हूँ। अकेली Resident Evil सीरीज ही कीमत वसूल कर देती है।",
+      text: "शक के साथ खरीदा था, अब तीन दोस्तों को बता चुकी हूँ। अकेला Red Dead 2 ही पूरी कीमत वसूल कर देता है।",
     },
     {
       name: "Arjun Patel",
@@ -724,7 +678,7 @@ const HI = {
     },
     {
       q: "एक्सेस कब मिलेगा?",
-      a: "तुरंत। भुगतान कन्फर्म होते ही एक्सेस ईमेल पर आ जाता है — आमतौर पर कुछ ही मिनटों में।",
+      a: "तुरंत। भुगतान कन्फर्म होते ही एक्सेस ईमेल पर आ जाता है, आमतौर पर कुछ ही मिनटों में।",
     },
     {
       q: "क्या यह मेरे PC पर चलेगा?",
@@ -753,7 +707,6 @@ const HI = {
   stickySub: (n: number) => `${n} गेम्स · एक बार भुगतान`,
   stickyCta: "एक्सेस चाहिए",
   ctaVsl: "अभी पैक देखें",
-  ctaBonus: "बोनस के साथ मेरा पैक लें",
   ctaCatalog: "मुझे ये गेम्स चाहिए",
   ctaTestimonials: "उनके साथ खेलना शुरू करें",
   ctaGuarantee: "बिना जोखिम आज़माएं",
@@ -764,8 +717,7 @@ const HI = {
     ["आज ही खेलना शुरू करने के लिए तैयार?", "अभी खेलना शुरू करें"],
     ["अपने फेवरेट चुन लिए? सब एक साथ ले लें।", "मुझे ये गेम्स चाहिए"],
     ["4,000+ गेमर्स से जुड़ें जो पहले से खेल रहे हैं", "उनके साथ खेलना शुरू करें"],
-    ["बोनस मिस न करें", "बोनस के साथ मेरा पैक लें"],
-    ["बिना जोखिम आज़माएं — 7 दिन की पूरी गारंटी", "बिना जोखिम आज़माएं"],
+    ["बिना जोखिम आज़माएं, 7 दिन की पूरी गारंटी", "बिना जोखिम आज़माएं"],
   ] as [string, string][],
 };
 
@@ -790,7 +742,7 @@ export function buildLocale(lang: Lang, resolved: ResolvedMarket = FALLBACK_RESO
   const { market, price } = resolved;
 
   const money = (value: number) => formatMoney(value, market);
-  const fullValue = TOTAL_GAMES * resolved.perGameValue;
+  const fullValue = FRONT_GAMES_COUNT * resolved.perGameValue;
   const hidePrice = !SHOW_PRICE;
 
   /**
@@ -809,7 +761,8 @@ export function buildLocale(lang: Lang, resolved: ResolvedMarket = FALLBACK_RESO
 
   return {
     ...cfg,
-    hotmart: (cfg as { hotmart?: boolean }).hotmart === true,
+    // Every route checks out through Hotmart, so the widget binds everywhere.
+    hotmart: true,
     storeUrl: checkoutUrlFor(market.currency, cfg.storeUrl),
 
     // Market, live from the request.
@@ -825,9 +778,9 @@ export function buildLocale(lang: Lang, resolved: ResolvedMarket = FALLBACK_RESO
     price,
     hidePrice,
     priceLabel,
-    totalGames: TOTAL_GAMES,
+    totalGames: FRONT_GAMES_COUNT,
     fullValue,
-    pricePerGame: price / TOTAL_GAMES,
+    pricePerGame: price / FRONT_GAMES_COUNT,
     discount: Math.min(99, Math.round((1 - price / fullValue) * 100)),
     t: COPY_BY_LANG[lang],
   };

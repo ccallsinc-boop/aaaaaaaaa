@@ -1,6 +1,6 @@
 import { trackMeta } from "@/lib/meta-pixel";
 import { useLocale } from "@/lib/locale";
-import { HOTMART_WIDGET_CLASSES } from "@/lib/hotmart-widget";
+import { HOTMART_WIDGET_CLASSES, hotmartWidgetLoaded } from "@/lib/hotmart-widget";
 
 type Props = {
   children: React.ReactNode;
@@ -21,7 +21,10 @@ export function Cta({ children, variant = "solid", className = "", location = "p
   return (
     <a
       href={storeUrl}
-      onClick={() =>
+      onClick={(event) => {
+        // The Hotmart widget opens an overlay from its own listener on this
+        // anchor, so navigation has to be cancelled once it is live.
+        if (hotmart && hotmartWidgetLoaded()) event.preventDefault();
         trackMeta("InitiateCheckout", {
           value: Number(price.toFixed(2)),
           currency,
@@ -29,8 +32,8 @@ export function Cta({ children, variant = "solid", className = "", location = "p
           content_type: "product",
           content_ids: ["pacote-framers"],
           cta_location: `${lang}:${location}`,
-        })
-      }
+        });
+      }}
       className={`${hotmart ? HOTMART_WIDGET_CLASSES + " " : ""}${base} ${styles} ${className}`}
     >
       {children}

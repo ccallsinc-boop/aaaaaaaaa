@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { trackMeta } from "@/lib/meta-pixel";
 import { Logo } from "@/components/landing/Logo";
 import { useLocale } from "@/lib/locale";
-import { HOTMART_WIDGET_CLASSES } from "@/lib/hotmart-widget";
+import { HOTMART_WIDGET_CLASSES, hotmartWidgetLoaded } from "@/lib/hotmart-widget";
 
 export function Nav() {
   const { t, storeUrl, lang, others, home, hotmart, price, currency } = useLocale();
@@ -37,7 +37,8 @@ export function Nav() {
           ))}
           <a
             href={storeUrl}
-            onClick={() =>
+            onClick={(event) => {
+              if (hotmart && hotmartWidgetLoaded()) event.preventDefault();
               trackMeta("InitiateCheckout", {
                 value: Number(price.toFixed(2)),
                 currency,
@@ -45,8 +46,8 @@ export function Nav() {
                 content_type: "product",
                 content_ids: ["pacote-framers"],
                 cta_location: `${lang}:nav`,
-              })
-            }
+              });
+            }}
             className={`${hotmart ? HOTMART_WIDGET_CLASSES + " " : ""}rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-soft transition-transform hover:scale-[1.03]`}
           >
             {t.navCta}

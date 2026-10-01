@@ -22,13 +22,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { CATALOG, type CatalogGame } from "@/data/catalog";
 import { trackMeta, trackMetaCustom } from "@/lib/meta-pixel";
+import { HOTMART_CHECKOUT_URL } from "@/lib/checkout";
 import vslAsset from "@/assets/vsl2.mp4.asset.json";
 import vslPoster from "@/assets/vsl2-poster.jpg.asset.json";
 import proof1 from "@/assets/proof-1.jpg.asset.json";
 import proof2 from "@/assets/proof-2.jpg.asset.json";
 import proof3 from "@/assets/proof-3.jpg.asset.json";
 
-export const EN_QUIZ_CHECKOUT = "https://xpag.global/pay/2Kf006h0";
+export const EN_QUIZ_CHECKOUT = HOTMART_CHECKOUT_URL;
 
 const TOTAL_SCREENS = 10;
 
@@ -41,9 +42,24 @@ const QUESTIONS: Question[] = [
     title: "What kind of game can never be missing from your PC?",
     subtitle: "Pick the option that sounds most like you.",
     answers: [
-      { id: "action", title: "Action & adventure", detail: "Open worlds, combat and story", icon: Trophy },
-      { id: "rpg", title: "RPG & fantasy", detail: "Exploration, progression and big challenges", icon: Sparkles },
-      { id: "sports", title: "Sports & fighting", detail: "Football, fighting and competition", icon: Gamepad2 },
+      {
+        id: "action",
+        title: "Action & adventure",
+        detail: "Open worlds, combat and story",
+        icon: Trophy,
+      },
+      {
+        id: "rpg",
+        title: "RPG & fantasy",
+        detail: "Exploration, progression and big challenges",
+        icon: Sparkles,
+      },
+      {
+        id: "sports",
+        title: "Sports & fighting",
+        detail: "Football, fighting and competition",
+        icon: Gamepad2,
+      },
       { id: "racing", title: "Racing", detail: "Speed, cars and simulation", icon: Gauge },
     ],
   },
@@ -52,9 +68,24 @@ const QUESTIONS: Question[] = [
     title: "Which saga do you want to play first?",
     subtitle: "They are all inside the same pack.",
     answers: [
-      { id: "gta", title: "Grand Theft Auto", detail: "GTA III, Vice City, San Andreas, IV and V", icon: Trophy },
-      { id: "red-dead", title: "Red Dead Redemption", detail: "The old west in a living world", icon: Gamepad2 },
-      { id: "assassins", title: "Assassin's Creed", detail: "The full saga to explore", icon: Sparkles },
+      {
+        id: "gta",
+        title: "Grand Theft Auto",
+        detail: "GTA III, Vice City, San Andreas, IV and V",
+        icon: Trophy,
+      },
+      {
+        id: "red-dead",
+        title: "Red Dead Redemption",
+        detail: "The old west in a living world",
+        icon: Gamepad2,
+      },
+      {
+        id: "assassins",
+        title: "Assassin's Creed",
+        detail: "The full saga to explore",
+        icon: Sparkles,
+      },
       { id: "resident", title: "Resident Evil", detail: "Classic survival horror", icon: Zap },
     ],
   },
@@ -63,7 +94,12 @@ const QUESTIONS: Question[] = [
     title: "How would you describe your PC?",
     subtitle: "This helps us show the benefit that matters most to you.",
     answers: [
-      { id: "basic", title: "Basic", detail: "I need lighter games and optimization", icon: Monitor },
+      {
+        id: "basic",
+        title: "Basic",
+        detail: "I need lighter games and optimization",
+        icon: Monitor,
+      },
       { id: "mid", title: "Mid-range", detail: "I run most titles fine", icon: Gauge },
       { id: "powerful", title: "Powerful", detail: "I want maxed-out graphics", icon: Zap },
       { id: "not-sure", title: "Not sure", detail: "I'd rather get help choosing", icon: Gamepad2 },
@@ -74,10 +110,30 @@ const QUESTIONS: Question[] = [
     title: "What matters most when you buy games?",
     subtitle: "Select your main priority.",
     answers: [
-      { id: "variety", title: "Lots of variety", detail: "Switch games whenever I want", icon: Gamepad2 },
-      { id: "easy", title: "Simple install", detail: "A clear step-by-step tutorial", icon: Download },
-      { id: "performance", title: "Good performance", detail: "Tweaks so my PC runs better", icon: Gauge },
-      { id: "support", title: "Human support", detail: "Real help whenever I need it", icon: ShieldCheck },
+      {
+        id: "variety",
+        title: "Lots of variety",
+        detail: "Switch games whenever I want",
+        icon: Gamepad2,
+      },
+      {
+        id: "easy",
+        title: "Simple install",
+        detail: "A clear step-by-step tutorial",
+        icon: Download,
+      },
+      {
+        id: "performance",
+        title: "Good performance",
+        detail: "Tweaks so my PC runs better",
+        icon: Gauge,
+      },
+      {
+        id: "support",
+        title: "Human support",
+        detail: "Real help whenever I need it",
+        icon: ShieldCheck,
+      },
     ],
   },
   {
@@ -85,10 +141,30 @@ const QUESTIONS: Question[] = [
     title: "How much do you usually pay for a single game?",
     subtitle: "Your answer does not change the offer price.",
     answers: [
-      { id: "under-20", title: "Under $20", detail: "I always hunt for deals", icon: CircleDollarSign },
-      { id: "20-40", title: "Between $20 and $40", detail: "I buy when it's worth it", icon: CircleDollarSign },
-      { id: "40-60", title: "Between $40 and $60", detail: "I pay for great titles", icon: CircleDollarSign },
-      { id: "over-60", title: "More than $60", detail: "I want to play new releases", icon: CircleDollarSign },
+      {
+        id: "under-20",
+        title: "Under $20",
+        detail: "I always hunt for deals",
+        icon: CircleDollarSign,
+      },
+      {
+        id: "20-40",
+        title: "Between $20 and $40",
+        detail: "I buy when it's worth it",
+        icon: CircleDollarSign,
+      },
+      {
+        id: "40-60",
+        title: "Between $40 and $60",
+        detail: "I pay for great titles",
+        icon: CircleDollarSign,
+      },
+      {
+        id: "over-60",
+        title: "More than $60",
+        detail: "I want to play new releases",
+        icon: CircleDollarSign,
+      },
     ],
   },
 ];
@@ -110,7 +186,14 @@ const GAME_GROUPS: Record<string, string[]> = {
     "The Witcher 3: Wild Hunt",
     "Sekiro: Shadows Die Twice",
   ],
-  sports: ["FIFA 22", "Mortal Kombat 11", "TEKKEN 8", "WWE 2K24", "eFootball 2024", "Rocket League"],
+  sports: [
+    "FIFA 22",
+    "Mortal Kombat 11",
+    "TEKKEN 8",
+    "WWE 2K24",
+    "eFootball 2024",
+    "Rocket League",
+  ],
   racing: [
     "Forza Horizon 5",
     "Assetto Corsa",
@@ -136,8 +219,8 @@ function gamesFor(answer?: string) {
     .map((name) => CATALOG.find((game) => game.name.toLowerCase() === name.toLowerCase()))
     .filter((game): game is CatalogGame => Boolean(game?.img));
   if (games.length >= 4) return games;
-  return FALLBACK_GAMES.map((name) => CATALOG.find((game) => game.name === name)).filter((game): game is CatalogGame =>
-    Boolean(game?.img),
+  return FALLBACK_GAMES.map((name) => CATALOG.find((game) => game.name === name)).filter(
+    (game): game is CatalogGame => Boolean(game?.img),
   );
 }
 
@@ -166,12 +249,28 @@ const TESTIMONIALS = [
 ];
 
 const BENEFITS = [
-  { icon: Gamepad2, title: "424 games", text: "Action, sports, racing, RPG, horror and much more." },
-  { icon: Download, title: "Instant delivery", text: "You get access and the tutorial right after payment." },
-  { icon: InfinityIcon, title: "Lifetime access", text: "One-time payment, no subscription or monthly fee." },
+  {
+    icon: Gamepad2,
+    title: "424 games",
+    text: "Action, sports, racing, RPG, horror and much more.",
+  },
+  {
+    icon: Download,
+    title: "Instant delivery",
+    text: "You get access and the tutorial right after payment.",
+  },
+  {
+    icon: InfinityIcon,
+    title: "Lifetime access",
+    text: "One-time payment, no subscription or monthly fee.",
+  },
   { icon: Gauge, title: "Optimization pack", text: "Ready-made tweaks to improve performance." },
   { icon: BadgeCheck, title: "Human support", text: "Real help to install and start playing." },
-  { icon: ShieldCheck, title: "7-day guarantee", text: "Try your purchase with complete peace of mind." },
+  {
+    icon: ShieldCheck,
+    title: "7-day guarantee",
+    text: "Try your purchase with complete peace of mind.",
+  },
 ];
 
 export function EnGameQuiz({ checkoutUrl = EN_QUIZ_CHECKOUT }: { checkoutUrl?: string }) {
@@ -188,8 +287,10 @@ export function EnGameQuiz({ checkoutUrl = EN_QUIZ_CHECKOUT }: { checkoutUrl?: s
   }, []);
 
   useEffect(() => {
-    if (screen === 6) trackMetaCustom("QuizComplete", { funnel: "en-games", total_questions: QUESTIONS.length });
-    if (screen === 9) trackMetaCustom("QuizOfferView", { funnel: "en-games", value: price, currency });
+    if (screen === 6)
+      trackMetaCustom("QuizComplete", { funnel: "en-games", total_questions: QUESTIONS.length });
+    if (screen === 9)
+      trackMetaCustom("QuizOfferView", { funnel: "en-games", value: price, currency });
   }, [screen]);
 
   const choose = (id: string) => {
@@ -247,9 +348,15 @@ export function EnGameQuiz({ checkoutUrl = EN_QUIZ_CHECKOUT }: { checkoutUrl?: s
             {screen < 5 ? `Step ${screen + 1} of 5` : "Your selection"}
           </span>
         </div>
-        <div className="grid grid-cols-10 gap-1 px-1 pb-1" aria-label={`Progress ${screen + 1} of ${TOTAL_SCREENS}`}>
+        <div
+          className="grid grid-cols-10 gap-1 px-1 pb-1"
+          aria-label={`Progress ${screen + 1} of ${TOTAL_SCREENS}`}
+        >
           {Array.from({ length: TOTAL_SCREENS }).map((_, index) => (
-            <span key={index} className={`h-1 rounded-full ${index <= screen ? "bg-primary" : "bg-muted"}`} />
+            <span
+              key={index}
+              className={`h-1 rounded-full ${index <= screen ? "bg-primary" : "bg-muted"}`}
+            />
           ))}
         </div>
       </header>
@@ -270,11 +377,17 @@ export function EnGameQuiz({ checkoutUrl = EN_QUIZ_CHECKOUT }: { checkoutUrl?: s
             transition={{ duration: 0.28 }}
           >
             {screen < QUESTIONS.length && (
-              <QuestionScreen question={QUESTIONS[screen]} selected={answers[screen]} onChoose={choose} />
+              <QuestionScreen
+                question={QUESTIONS[screen]}
+                selected={answers[screen]}
+                onChoose={choose}
+              />
             )}
 
             {screen === 5 && <AnalysisScreen onContinue={() => advance("QuizAnalysisComplete")} />}
-            {screen === 6 && <ResultScreen games={results} onContinue={() => advance("QuizGamesView")} />}
+            {screen === 6 && (
+              <ResultScreen games={results} onContinue={() => advance("QuizGamesView")} />
+            )}
             {screen === 7 && (
               <VslScreen
                 videoRef={videoRef}
@@ -303,7 +416,9 @@ function QuestionScreen({
 }) {
   return (
     <div className="mx-auto max-w-3xl text-center">
-      <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">{question.eyebrow}</p>
+      <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
+        {question.eyebrow}
+      </p>
       <h1 className="mx-auto mt-4 max-w-2xl text-[clamp(2rem,7vw,3.6rem)]">{question.title}</h1>
       <p className="mx-auto mt-4 max-w-xl text-muted-foreground">{question.subtitle}</p>
       <div className="mt-9 grid gap-3 sm:grid-cols-2">
@@ -322,14 +437,18 @@ function QuestionScreen({
               </span>
               <span>
                 <span className="block text-base font-bold">{answer.title}</span>
-                <span className="mt-1 block text-sm font-normal text-muted-foreground">{answer.detail}</span>
+                <span className="mt-1 block text-sm font-normal text-muted-foreground">
+                  {answer.detail}
+                </span>
               </span>
               <ArrowRight className="ml-auto text-muted-foreground" />
             </Button>
           );
         })}
       </div>
-      <p className="mt-8 text-xs text-muted-foreground">Your answer is only used to personalize this experience.</p>
+      <p className="mt-8 text-xs text-muted-foreground">
+        Your answer is only used to personalize this experience.
+      </p>
     </div>
   );
 }
@@ -340,7 +459,9 @@ function AnalysisScreen({ onContinue }: { onContinue: () => void }) {
       <span className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-primary-soft text-primary">
         <Sparkles className="h-9 w-9" />
       </span>
-      <p className="mt-7 text-xs font-bold uppercase tracking-[0.2em] text-primary">Analysis complete</p>
+      <p className="mt-7 text-xs font-bold uppercase tracking-[0.2em] text-primary">
+        Analysis complete
+      </p>
       <h1 className="mt-4 text-[clamp(2rem,7vw,3.8rem)]">We found the perfect pack for you</h1>
       <p className="mx-auto mt-5 max-w-xl text-muted-foreground">
         Your answers show you want variety, an easy setup and a smarter way to discover new games.
@@ -370,8 +491,12 @@ function AnalysisScreen({ onContinue }: { onContinue: () => void }) {
 function ResultScreen({ games, onContinue }: { games: CatalogGame[]; onContinue: () => void }) {
   return (
     <div className="text-center">
-      <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Personalized selection</p>
-      <h1 className="mx-auto mt-4 max-w-3xl text-[clamp(2rem,7vw,3.8rem)]">These titles match your profile</h1>
+      <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
+        Personalized selection
+      </p>
+      <h1 className="mx-auto mt-4 max-w-3xl text-[clamp(2rem,7vw,3.8rem)]">
+        These titles match your profile
+      </h1>
       <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
         And you don't have to pick just one: they all belong to a library with 424 games.
       </p>
@@ -414,8 +539,12 @@ function VslScreen({
 }) {
   return (
     <div className="mx-auto max-w-4xl text-center">
-      <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Before you continue</p>
-      <h1 className="mx-auto mt-4 max-w-2xl text-[clamp(2rem,7vw,3.8rem)]">See how you get your library</h1>
+      <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
+        Before you continue
+      </p>
+      <h1 className="mx-auto mt-4 max-w-2xl text-[clamp(2rem,7vw,3.8rem)]">
+        See how you get your library
+      </h1>
       <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
         This video explains the access, the delivery and everything included.
       </p>
@@ -454,7 +583,9 @@ function ProofScreen({ onContinue }: { onContinue: () => void }) {
   return (
     <div className="text-center">
       <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Real customers</p>
-      <h1 className="mx-auto mt-4 max-w-3xl text-[clamp(2rem,7vw,3.8rem)]">Thousands of players already got access</h1>
+      <h1 className="mx-auto mt-4 max-w-3xl text-[clamp(2rem,7vw,3.8rem)]">
+        Thousands of players already got access
+      </h1>
       <div className="mt-8 grid gap-3 sm:grid-cols-3">
         {PROOFS.map((proof) => (
           <img
@@ -492,7 +623,9 @@ function OfferScreen({ checkoutUrl, onCheckout }: { checkoutUrl: string; onCheck
       <span className="inline-flex items-center gap-2 rounded-full bg-primary-soft px-4 py-2 text-xs font-bold text-primary">
         <Gift /> Offer unlocked for your profile
       </span>
-      <h1 className="mx-auto mt-5 max-w-3xl text-[clamp(2rem,7vw,4rem)]">Your complete library is ready</h1>
+      <h1 className="mx-auto mt-5 max-w-3xl text-[clamp(2rem,7vw,4rem)]">
+        Your complete library is ready
+      </h1>
       <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
         Everything you need to start today, in a single access and with no monthly fee.
       </p>
@@ -506,8 +639,12 @@ function OfferScreen({ checkoutUrl, onCheckout }: { checkoutUrl: string; onCheck
         ))}
       </div>
       <div className="mx-auto mt-8 max-w-xl rounded-xl border border-primary/30 bg-card p-6 shadow-soft sm:p-8">
-        <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Framers complete pack</p>
-        <p className="mt-4 text-sm font-semibold text-primary">Special price revealed at checkout</p>
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
+          Framers complete pack
+        </p>
+        <p className="mt-4 text-sm font-semibold text-primary">
+          Special price revealed at checkout
+        </p>
         <p className="mt-2 text-sm font-semibold">One-time payment · lifetime access</p>
         <Button asChild size="lg" className="mt-6 h-14 w-full rounded-xl text-base">
           <a href={checkoutUrl} onClick={onCheckout}>

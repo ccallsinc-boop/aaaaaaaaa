@@ -4,9 +4,9 @@ import { productSchema } from "@/lib/seo";
 
 import { LandingPage } from "@/components/landing/LandingPage";
 
-const TITLE = "Framers — 424 PC Games Bundle";
+const TITLE = "Framers — The 12 Most Wanted PC Games";
 const DESCRIPTION =
-  "GTA, FIFA, Call of Duty, Elden Ring, Resident Evil and hundreds more: 424 PC games in a single payment, instant delivery and a 7-day money-back guarantee.";
+  "GTA V, Red Dead 2, Elden Ring, God of War Ragnarök and 8 more: 12 PC games in one payment, instant delivery and a 7-day money-back guarantee.";
 const URL = "https://framers.lovable.app/uk";
 const IMAGE =
   "https://framers.lovable.app/__l5e/assets-v1/5ad32c30-9e9f-4863-a319-5d990406ff51/destaque-gta-en.png";
@@ -37,7 +37,7 @@ export const Route = createFileRoute("/uk")({
       {
         type: "application/ld+json",
         children: productSchema({
-          name: "Framers — 424 PC Games Bundle",
+          name: "Framers — The 12 Most Wanted PC Games",
           description: DESCRIPTION,
           image: IMAGE,
           url: URL,
