@@ -4,9 +4,8 @@
 # variável NITRO_PRESET abaixo é o que troca o alvo para Netlify: sem ela o build
 # passa, mas publica um Worker que o Netlify não sabe executar.
 #
-# A função SSR sai em .netlify/functions-internal/server e declara path "/*" com
-# preferStatic no próprio config, então o Netlify a liga sozinho. Não é preciso
-# redirect manual.
+# A pasta publicada (dist) não tem index.html: numa app SSR toda rota depende da
+# função. Por isso o bloco [functions] abaixo é obrigatório, e não opcional.
 
 [build]
   command = "bun run build"
@@ -14,6 +13,19 @@
 
 [build.environment]
   NITRO_PRESET = "netlify"
+
+# Onde está a função de SSR.
+#
+# Sem esta linha o Netlify publica só a pasta dist/, que não tem index.html
+# nenhum: numa app SSR toda rota depende da função. O resultado é o 404 do
+# próprio Netlify em todas as URLs, inclusive a raiz.
+#
+# O Nitro gera a função em .netlify/functions-internal/server/, com o roteamento
+# declarado no próprio arquivo (path "/*" e preferStatic). Declarar o diretório
+# aqui faz tanto o build do Netlify quanto o `netlify deploy` pelo CLI
+# enxergarem e publicarem a função.
+[functions]
+  directory = ".netlify/functions-internal"
 
 # As variáveis VITE_ precisam existir durante o BUILD, porque o Vite as embute no
 # bundle. Defini-las apenas como variável de ambiente do site, sem rebuild, não
@@ -34,3 +46,12 @@
   for = "/fonts/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Rede de segurança: se o roteamento declarativo da função não for aplicado, esta
+# regra manda tudo para ela. Não é forçada (sem "!"), então arquivo estático
+# existente continua ganhando, e /media, /fonts e /assets seguem servidos direto
+# do CDN sem passar pela função.
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/server"
+  status = 200
