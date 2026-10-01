@@ -21,9 +21,12 @@ import { Route as EsQuizRouteImport } from './routes/es-quiz'
 import { Route as EsQuiz2RouteImport } from './routes/es-quiz2'
 import { Route as Es2RouteImport } from './routes/es2'
 import { Route as InRouteImport } from './routes/in'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PtRouteImport } from './routes/pt'
+import { Route as RefundRouteImport } from './routes/refund'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as StoreRouteImport } from './routes/store'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as UkRouteImport } from './routes/uk'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
 import { Route as ApiPublicHublaRouteImport } from './routes/api/public/hubla'
@@ -88,9 +91,19 @@ const InRoute = InRouteImport.update({
   path: '/in',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PtRoute = PtRouteImport.update({
   id: '/pt',
   path: '/pt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RefundRoute = RefundRouteImport.update({
+  id: '/refund',
+  path: '/refund',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -101,6 +114,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const StoreRoute = StoreRouteImport.update({
   id: '/store',
   path: '/store',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UkRoute = UkRouteImport.update({
@@ -132,9 +150,12 @@ export interface FileRoutesByFullPath {
   '/es-quiz2': typeof EsQuiz2Route
   '/es2': typeof Es2Route
   '/in': typeof InRoute
+  '/privacy': typeof PrivacyRoute
   '/pt': typeof PtRoute
+  '/refund': typeof RefundRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/store': typeof StoreRoute
+  '/terms': typeof TermsRoute
   '/uk': typeof UkRoute
   '/product/$handle': typeof ProductHandleRoute
   '/api/public/hubla': typeof ApiPublicHublaRoute
@@ -152,9 +173,12 @@ export interface FileRoutesByTo {
   '/es-quiz2': typeof EsQuiz2Route
   '/es2': typeof Es2Route
   '/in': typeof InRoute
+  '/privacy': typeof PrivacyRoute
   '/pt': typeof PtRoute
+  '/refund': typeof RefundRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/store': typeof StoreRoute
+  '/terms': typeof TermsRoute
   '/uk': typeof UkRoute
   '/product/$handle': typeof ProductHandleRoute
   '/api/public/hubla': typeof ApiPublicHublaRoute
@@ -173,9 +197,12 @@ export interface FileRoutesById {
   '/es-quiz2': typeof EsQuiz2Route
   '/es2': typeof Es2Route
   '/in': typeof InRoute
+  '/privacy': typeof PrivacyRoute
   '/pt': typeof PtRoute
+  '/refund': typeof RefundRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/store': typeof StoreRoute
+  '/terms': typeof TermsRoute
   '/uk': typeof UkRoute
   '/product/$handle': typeof ProductHandleRoute
   '/api/public/hubla': typeof ApiPublicHublaRoute
@@ -195,9 +222,12 @@ export interface FileRouteTypes {
     | '/es-quiz2'
     | '/es2'
     | '/in'
+    | '/privacy'
     | '/pt'
+    | '/refund'
     | '/sitemap.xml'
     | '/store'
+    | '/terms'
     | '/uk'
     | '/product/$handle'
     | '/api/public/hubla'
@@ -215,9 +245,12 @@ export interface FileRouteTypes {
     | '/es-quiz2'
     | '/es2'
     | '/in'
+    | '/privacy'
     | '/pt'
+    | '/refund'
     | '/sitemap.xml'
     | '/store'
+    | '/terms'
     | '/uk'
     | '/product/$handle'
     | '/api/public/hubla'
@@ -235,9 +268,12 @@ export interface FileRouteTypes {
     | '/es-quiz2'
     | '/es2'
     | '/in'
+    | '/privacy'
     | '/pt'
+    | '/refund'
     | '/sitemap.xml'
     | '/store'
+    | '/terms'
     | '/uk'
     | '/product/$handle'
     | '/api/public/hubla'
@@ -256,9 +292,12 @@ export interface RootRouteChildren {
   EsQuiz2Route: typeof EsQuiz2Route
   Es2Route: typeof Es2Route
   InRoute: typeof InRoute
+  PrivacyRoute: typeof PrivacyRoute
   PtRoute: typeof PtRoute
+  RefundRoute: typeof RefundRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StoreRoute: typeof StoreRoute
+  TermsRoute: typeof TermsRoute
   UkRoute: typeof UkRoute
   ProductHandleRoute: typeof ProductHandleRoute
   ApiPublicHublaRoute: typeof ApiPublicHublaRoute
@@ -350,11 +389,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pt': {
       id: '/pt'
       path: '/pt'
       fullPath: '/pt'
       preLoaderRoute: typeof PtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/refund': {
+      id: '/refund'
+      path: '/refund'
+      fullPath: '/refund'
+      preLoaderRoute: typeof RefundRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -369,6 +422,13 @@ declare module '@tanstack/react-router' {
       path: '/store'
       fullPath: '/store'
       preLoaderRoute: typeof StoreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/uk': {
@@ -408,9 +468,12 @@ const rootRouteChildren: RootRouteChildren = {
   EsQuiz2Route: EsQuiz2Route,
   Es2Route: Es2Route,
   InRoute: InRoute,
+  PrivacyRoute: PrivacyRoute,
   PtRoute: PtRoute,
+  RefundRoute: RefundRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StoreRoute: StoreRoute,
+  TermsRoute: TermsRoute,
   UkRoute: UkRoute,
   ProductHandleRoute: ProductHandleRoute,
   ApiPublicHublaRoute: ApiPublicHublaRoute,

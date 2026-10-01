@@ -21,6 +21,11 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/es", changefreq: "weekly", priority: "0.9" },
           { path: "/in", changefreq: "weekly", priority: "0.9" },
           { path: "/clips", changefreq: "weekly", priority: "0.8" },
+          // Listed so the pages are discoverable; they carry robots noindex, which
+          // keeps them out of search while remaining reachable and auditable.
+          { path: "/terms", changefreq: "yearly", priority: "0.2" },
+          { path: "/privacy", changefreq: "yearly", priority: "0.2" },
+          { path: "/refund", changefreq: "yearly", priority: "0.2" },
         ];
 
         const urls = entries.map((e) =>

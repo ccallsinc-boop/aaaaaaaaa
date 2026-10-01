@@ -229,6 +229,10 @@ const COPY = {
     footerReady: "Pronto para jogar?",
     footerCta: (price: string) => `Garantir acesso por ${price}`,
     rights: "Todos os direitos reservados.",
+    legalTitle: "Legal e suporte",
+    legalWhatsapp: "Suporte no WhatsApp",
+    trademarkNotice:
+      "Nomes de jogos, estúdios e plataformas citados pertencem aos seus titulares e são usados apenas para identificar os títulos. A menção não implica patrocínio nem vínculo comercial.",
     stickySub: (n: number) => `${n} jogos · pagamento único`,
     stickyCta: "Quero acesso",
     ctaVsl: "Quero ver o pack agora",
@@ -388,6 +392,10 @@ const COPY = {
     footerReady: "Ready to play?",
     footerCta: (price: string) => `Get access for ${price}`,
     rights: "All rights reserved.",
+    legalTitle: "Legal and support",
+    legalWhatsapp: "WhatsApp support",
+    trademarkNotice:
+      "Game, studio and platform names shown here belong to their respective owners and are used only to identify the titles. Mentioning them implies no sponsorship or commercial relationship.",
     stickySub: (n: number) => `${n} games · one-time payment`,
     stickyCta: "Get access",
     ctaVsl: "See the pack now",
@@ -547,6 +555,10 @@ const ES = {
   footerReady: "¿Listo para jugar?",
   footerCta: (price: string) => `Conseguir acceso por ${price}`,
   rights: "Todos los derechos reservados.",
+  legalTitle: "Legal y soporte",
+  legalWhatsapp: "Soporte por WhatsApp",
+  trademarkNotice:
+    "Los nombres de juegos, estudios y plataformas citados pertenecen a sus titulares y se usan solo para identificar los títulos. Mencionarlos no implica patrocinio ni vínculo comercial.",
   stickySub: (n: number) => `${n} juegos · pago único`,
   stickyCta: "Quiero acceso",
   ctaVsl: "Ver el pack ahora",
@@ -704,6 +716,10 @@ const HI = {
   footerReady: "खेलने के लिए तैयार हैं?",
   footerCta: (price: string) => `${price} में एक्सेस पाएं`,
   rights: "सर्वाधिकार सुरक्षित।",
+  legalTitle: "लीगल और सपोर्ट",
+  legalWhatsapp: "WhatsApp सपोर्ट",
+  trademarkNotice:
+    "यहाँ दिए गेम, स्टूडियो और प्लेटफ़ॉर्म के नाम उनके मालिकों के हैं और सिर्फ़ टाइटल पहचानने के लिए इस्तेमाल किए गए हैं। इनका ज़िक्र किसी प्रायोजन या व्यापारिक संबंध का संकेत नहीं है।",
   stickySub: (n: number) => `${n} गेम्स · एक बार भुगतान`,
   stickyCta: "एक्सेस चाहिए",
   ctaVsl: "अभी पैक देखें",
