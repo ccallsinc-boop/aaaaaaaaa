@@ -1,0 +1,154 @@
+import { motion } from "framer-motion";
+import { Check } from "lucide-react";
+import { FRONT_GAMES } from "@/data/front-offer";
+import { Logo } from "@/components/landing/Logo";
+import { VslEs } from "@/components/landing/VslEs";
+import { useLocale } from "@/lib/locale";
+import { ASSETS } from "@/lib/assets";
+
+/** First six of the front offer, as a teaser. The grid below shows all twelve. */
+const FEATURED = FRONT_GAMES.slice(0, 6);
+
+const ITEM = {
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+} as const;
+
+export function Hero() {
+  const {
+    t,
+    money,
+    price,
+    priceLabel,
+    hidePrice,
+    fullValue,
+    discount,
+    totalGames,
+    lang,
+    marketLang,
+  } = useLocale();
+  const destaque = lang === "pt" ? ASSETS.heroPt : ASSETS.heroDefault;
+
+  return (
+    <header id="topo" className="bg-blue-gradient relative overflow-hidden">
+      <motion.div
+        className="relative mx-auto max-w-6xl px-5 pb-16 pt-10 text-center sm:pt-14"
+        initial="hidden"
+        animate="show"
+        variants={{
+          hidden: {},
+          show: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
+        }}
+      >
+        {marketLang !== "es" && (
+          <motion.div variants={ITEM}>
+            <Logo
+              variant="3d"
+              className={`mx-auto mb-6 w-auto ${lang === "pt" ? "h-16 sm:h-20" : "h-10 sm:h-12"}`}
+            />
+          </motion.div>
+        )}
+        <motion.span
+          variants={ITEM}
+          className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-1.5 text-xs font-semibold text-primary"
+        >
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
+          {t.heroBadge(discount)}
+        </motion.span>
+
+        <motion.h1
+          variants={ITEM}
+          className="mx-auto mt-6 max-w-4xl text-[clamp(2.2rem,7vw,4.5rem)]"
+        >
+          {t.heroTitleA} <span className="block text-primary">{t.heroTitleB()}</span>
+        </motion.h1>
+
+        <motion.p
+          variants={ITEM}
+          className="mx-auto mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg"
+        >
+          {t.heroSub(priceLabel)}
+        </motion.p>
+
+        <motion.div
+          variants={ITEM}
+          className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:justify-center"
+        >
+          {/* No checkout button in the hero on purpose: the first screen sends
+              people into the offer, and the buying decision happens further down. */}
+          <a
+            href="#jogos"
+            className="inline-flex items-center justify-center rounded-full border border-border px-7 py-3.5 text-sm font-bold transition-colors hover:border-primary/40 hover:text-primary"
+          >
+            {t.heroSecondary}
+          </a>
+        </motion.div>
+
+        {!hidePrice && (
+          <motion.p variants={ITEM} className="mt-5 text-xs text-muted-foreground">
+            {t.heroCompare(money(fullValue), money(fullValue - price))}
+          </motion.p>
+        )}
+
+        <motion.ul
+          variants={ITEM}
+          className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-semibold text-muted-foreground"
+        >
+          {t.heroTrust.map((item) => (
+            <li key={item} className="inline-flex items-center gap-1.5">
+              <Check className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
+              {item}
+            </li>
+          ))}
+        </motion.ul>
+
+        {marketLang === "es" ? (
+          <motion.div variants={ITEM} className="mt-12">
+            <VslEs />
+          </motion.div>
+        ) : (
+          <motion.img
+            variants={ITEM}
+            src={destaque}
+            alt={t.heroAlt(totalGames)}
+            className="mt-12 w-full rounded-3xl border border-border object-cover shadow-soft"
+            loading="eager"
+          />
+        )}
+
+        <motion.div
+          variants={ITEM}
+          className="mt-6 rounded-3xl border border-border bg-surface p-4 sm:p-6"
+        >
+          <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
+            {FEATURED.map((game) => (
+              <img
+                key={game.name}
+                src={game.img}
+                alt={game.name}
+                loading="lazy"
+                className="aspect-[2/3] w-full rounded-xl border border-border object-cover transition-transform duration-300 hover:-translate-y-1 hover:scale-[1.04]"
+              />
+            ))}
+          </div>
+          <p className="mt-4 text-xs text-muted-foreground">
+            {t.heroMore(totalGames - FEATURED.length)}
+          </p>
+        </motion.div>
+
+        <dl className="mt-8 grid gap-4 sm:grid-cols-3">
+          {t.stats(priceLabel).map(([title, sub]) => (
+            <motion.div
+              key={title}
+              variants={ITEM}
+              className="rounded-2xl border border-border bg-background p-6 transition-shadow duration-300 hover:shadow-soft"
+            >
+              <dt className="font-display text-2xl text-primary">{title}</dt>
+              <dd className="mt-1 text-sm text-muted-foreground">{sub}</dd>
+            </motion.div>
+          ))}
+        </dl>
+      </motion.div>
+    </header>
+  );
+}

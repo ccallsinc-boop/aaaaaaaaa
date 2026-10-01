@@ -1,60 +1,143 @@
-# CRM Quiz Funnel
+# Framers
 
-Esta é uma landing page em formato de quiz interativo (funil) construída com Next.js 14, Tailwind CSS e TypeScript. Ela foi desenhada para atuar como frontend de captura de leads para um CRM low-ticket, com rastreamento completo de Meta Ads (Pixel Client-Side + Conversions API Server-Side).
+Landing e funil de venda do pacote de jogos para PC. TanStack Start (React 19,
+SSR) com Tailwind 4, build por Vite e deploy em Cloudflare Workers via Nitro.
 
-## 🚀 Como iniciar o projeto
+## Rodar local
 
-Como o projeto base foi gerado manualmente para facilitar a integração no seu repositório:
+```bash
+bun install
+cp .env.example .env   # preencha os valores
+bun run dev            # http://127.0.0.1:8080
+```
 
-1. Instale as dependências:
-\`\`\`bash
-npm install
-\`\`\`
+`bun run check` roda typecheck e build, que é o mesmo que o CI executa.
 
-2. Inicie o servidor de desenvolvimento:
-\`\`\`bash
-npm run dev
-\`\`\`
+## Estrutura do funil
 
-3. Acesse `http://localhost:3000/quiz` no seu navegador.
+| Rota | O que é |
+|---|---|
+| `/` | Landing unificada. Idioma e moeda vêm do país do visitante |
+| `/pt` `/es` `/en` `/uk` `/in` | Mesma landing com idioma fixo, para os anúncios que já apontam para elas |
+| `/br-quiz` `/es-quiz` `/en-quiz` | Quizzes que levam ao mesmo checkout |
+| `/upsell` | Oferta pós-compra. Responde 404 até ter checkout próprio |
+| `/terms` `/privacy` `/refund` | Páginas legais, servidas no idioma do visitante |
+| `/biblioteca` `/auth` | Área de membros (Supabase) |
+| `/store` `/clips` `/es2` | Outros produtos, não fazem parte deste funil |
 
-## ⚙️ Variáveis de Ambiente
+## Preço e moeda
 
-Crie um arquivo `.env.local` na raiz do projeto com as seguintes variáveis:
+Existe **um** preço, em real, em `src/lib/campaign.ts`. Todas as outras moedas
+são esse número na cotação do momento.
 
-\`\`\`env
-# O ID do seu Pixel no Gerenciador de Eventos da Meta
-NEXT_PUBLIC_META_PIXEL_ID=SEU_PIXEL_ID
-META_PIXEL_ID=SEU_PIXEL_ID
+- O país vem do header da borda (`CF-IPCountry` na Cloudflare), sem custo e sem cota
+- A cotação é buscada no servidor, com cache de 6 horas, dois provedores em
+  sequência e uma tabela estática como último recurso em `src/lib/fx.server.ts`
+- Para testar qualquer moeda sem VPN: `?country=MX`, `?country=CO`, etc.
 
-# Token da Conversions API (Gerado nas configurações do Pixel > API de Conversões > Gerar Token de Acesso)
-META_CAPI_ACCESS_TOKEN=SEU_TOKEN_AQUI
+A janela de lançamento em `src/lib/campaign.ts` é cumprida pelo código: enquanto
+aberta o preço é um, quando fecha o servidor passa a cobrar o outro. Estender a
+data sem mexer no preço transforma a contagem em mentira.
 
-# A URL do Webhook do seu CRM (onde os leads capturados no final do quiz serão enviados)
-CRM_WEBHOOK_URL=https://seu-crm.com/api/public/leads
-\`\`\`
+## O que precisa ser preenchido
 
-## 📊 Rastreamento e Eventos (Meta Ads)
+| Arquivo | O que falta |
+|---|---|
+| `src/lib/company.ts` | Razão social, CNPJ, endereço, e-mail e WhatsApp de suporte. Campo vazio é omitido da página, nunca preenchido com placeholder |
+| `src/lib/checkout.ts` e `src/lib/upsell.ts` | Links da Xpag do front e do upsell. Se os dois ficarem iguais, `/upsell` responde 404 de propósito |
+| `.env` | `VITE_SITE_URL` com o domínio real |
 
-O funil está instrumentado para enviar dados precisos para o Meta Ads, incluindo deduplicação automática via `event_id`. 
+## Deploy
 
-- **PageView**: Disparado ao acessar a página.
-- **ViewContent**: Disparado a cada resposta do quiz. Envia o parâmetro `question_number`.
-- **Lead**: Disparado assim que o formulário de captura é enviado. Este evento é enviado de duas formas:
-  1. Pelo Navegador (Client-side Pixel)
-  2. Pelo Servidor (CAPI) - com os dados do usuário (e-mail/telefone) em hash SHA-256.
-- **InitiateCheckout**: Disparado quando o usuário clica no botão "Quero Assinar Agora" na tela de resultados.
+Alvo: **Netlify**. O `netlify.toml` já define o comando, a pasta publicada e,
+principalmente, `NITRO_PRESET=netlify`. Sem essa variável o build passa mas gera
+um bundle para Cloudflare, que o Netlify não sabe executar.
 
-Além disso, parâmetros UTM e `fbclid` presentes na URL de entrada são capturados e persistidos via LocalStorage, sendo enviados junto com o payload do Lead para o seu webhook.
+O build produz duas coisas: os estáticos em `dist/` e a função SSR em
+`.netlify/functions-internal/server`. A função declara `path = "/*"` com
+`preferStatic` no próprio config, então o Netlify a liga sozinha, sem redirect
+manual. O `_redirects` sair vazio é esperado.
 
-## 🧪 Como testar os eventos
+### Conectando o repositório
 
-1. Instale a extensão **Meta Pixel Helper** no Chrome para validar os disparos no navegador.
-2. Acesse a aba **Gerenciador de Eventos** no painel da Meta > Fontes de Dados > Seu Pixel > **Testar Eventos**.
-3. Pegue o código de teste (ex: `TEST54321`) e adicione nos payloads do arquivo `app/api/capi/route.ts` durante seus testes (caso queira forçar o modo de teste na CAPI).
-4. Preencha o Quiz e veja os eventos chegando tanto via Navegador quanto via Servidor no Gerenciador da Meta.
-5. Verifique a coluna de "Deduplicação" no painel para confirmar que os eventos Server/Browser de mesmo `event_id` estão sendo agrupados.
+1. Netlify > Add new site > Import an existing project > escolha este repositório
+2. O `netlify.toml` preenche build command e publish directory sozinho
+3. Configure as variáveis abaixo **antes** do primeiro build
+4. Deploy
 
-## 🎨 Estilização
+### Variáveis de ambiente
 
-As cores principais (Granola e Terracota) estão configuradas em `tailwind.config.ts`. Modifique as chaves lá caso deseje alterar a paleta base do projeto.
+Em Site settings > Environment variables:
+
+| Variável | Para quê |
+|---|---|
+| `VITE_SITE_URL` | Domínio final. Sem ela o site anuncia framers.lovable.app em canonical, og:image e sitemap |
+| `VITE_SUPABASE_URL` | Área de membros. **Opcional**: o funil funciona sem |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | Idem |
+| `SUPABASE_URL` | Mesmas credenciais, lado servidor |
+| `SUPABASE_PUBLISHABLE_KEY` | Mesmas credenciais, lado servidor |
+
+Só `VITE_SITE_URL` é obrigatória. Sem as do Supabase, landing, quizzes, upsell e
+páginas legais funcionam normalmente; apenas `/auth` e `/biblioteca` ficam sem
+backend.
+
+As `VITE_` precisam existir **durante o build**, porque o Vite embute o valor no
+bundle. Defini-las depois, sem rebuild, não muda nada.
+
+### Deploy manual pelo CLI
+
+```bash
+bunx netlify login
+bun run deploy:netlify
+```
+
+### Conferir a detecção de país logo depois de subir
+
+Abra `https://seu-dominio/api/geo`. Ele mostra qual cabeçalho de geo o host
+mandou e em que mercado o visitante caiu:
+
+```json
+{ "detectedCountry": "BR", "resolvedTo": { "currency": "BRL", "price": 17.99 },
+  "usingFallbackMarket": false }
+```
+
+Se vier `"usingFallbackMarket": true`, **o Netlify não está mandando geo** e todo
+visitante está vendo dólar. O código aceita `x-nf-geo` (base64, formato do
+Netlify), `x-country`, `cf-ipcountry` e mais alguns. Se nenhum chegar, a saída é
+uma Edge Function do Netlify injetando `x-geo-country` a partir de
+`context.geo.country.code`.
+
+Para testar qualquer moeda sem VPN, em qualquer ambiente: `?country=MX`.
+
+### Depois do primeiro deploy
+
+1. Aponte o domínio em Domain management
+2. Rebuild com `VITE_SITE_URL` no domínio final, senão canonical, og:image e
+   sitemap continuam apontando para o host antigo
+3. Envie `https://seu-dominio/sitemap.xml` no Search Console
+
+## Assets
+
+Tudo que as landings usam está em `public/media` e `public/fonts`. O que ainda
+depende do CDN do Lovable está listado em `MISSING_ASSETS`, em
+`src/lib/assets.ts`: os vídeos dos quizzes BR e EN e as imagens do `/clips`.
+Essas rotas ficam com vídeo quebrado fora do Lovable.
+
+Vídeo novo entra reencodado. O VSL original era um `.mov` de 55 MB que o Chrome
+do Android frequentemente recusa:
+
+```bash
+ffmpeg -i entrada.mov -vf "scale=900:-2" \
+  -c:v libx264 -profile:v high -preset slow -crf 27 -pix_fmt yuv420p \
+  -movflags +faststart -c:a aac -b:a 112k -ac 2 saida.mp4
+```
+
+## Rastreamento
+
+Dois pixels do Meta em `src/lib/meta-pixel.ts`. Eventos: `PageView`,
+`ViewContent`, `InitiateCheckout` (com `cta_location` em cada um dos 16 pontos),
+`Scroll50`, `Scroll90`, `TimeOnPage30s`, mais `OfferPopupView`, `UpsellView` e
+`UpsellDecline`.
+
+Valor e moeda em todo evento são os do visitante. Páginas legais e o upsell não
+disparam `ViewContent`.
