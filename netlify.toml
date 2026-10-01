@@ -8,7 +8,9 @@
 # função. Por isso o bloco [functions] abaixo é obrigatório, e não opcional.
 
 [build]
-  command = "bun run build"
+  # Instala as dependências antes do build: sem isso um node_modules antigo em
+  # cache pode ser reaproveitado e o build falha com "vite: command not found".
+  command = "bun install --frozen-lockfile && bun run build"
   publish = "dist"
 
 [build.environment]

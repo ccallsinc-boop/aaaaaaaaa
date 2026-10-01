@@ -39,3 +39,6 @@ dist-ssr
 # Netlify build output
 .netlify
 dist
+
+# Credenciais do projeto legado, nunca versionar
+_legacy-crm-quiz/.env.local
