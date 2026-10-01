@@ -1,12 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { productSchema } from "@/lib/seo";
+
 import { LandingPage } from "@/components/landing/LandingPage";
 
-const TITLE = "Framers — 424 PC Games Bundle for $8.30";
+const TITLE = "Framers — 424 PC Games Bundle";
 const DESCRIPTION =
   "GTA, FIFA, Call of Duty, Elden Ring, Resident Evil and hundreds more: 424 PC games for 7.20. One-time payment, instant delivery and a 7-day money-back guarantee.";
 const URL = "https://framers.lovable.app/en";
-const IMAGE = "https://framers.lovable.app/__l5e/assets-v1/5ad32c30-9e9f-4863-a319-5d990406ff51/destaque-gta-en.png";
+const IMAGE =
+  "https://framers.lovable.app/__l5e/assets-v1/5ad32c30-9e9f-4863-a319-5d990406ff51/destaque-gta-en.png";
 
 export const Route = createFileRoute("/en")({
   head: () => ({
@@ -33,20 +36,11 @@ export const Route = createFileRoute("/en")({
     scripts: [
       {
         type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Product",
+        children: productSchema({
           name: "Framers — 424 PC Games Bundle",
           description: DESCRIPTION,
           image: IMAGE,
-          brand: { "@type": "Brand", name: "Framers" },
-          offers: {
-            "@type": "Offer",
-            price: "7.20",
-            priceCurrency: "EUR",
-            availability: "https://schema.org/InStock",
-            url: URL,
-          },
+          url: URL,
         }),
       },
     ],

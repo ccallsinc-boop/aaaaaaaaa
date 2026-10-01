@@ -1,12 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { productSchema } from "@/lib/seo";
+
 import { LandingPage } from "@/components/landing/LandingPage";
 
-const TITLE = "Framers — 424 PC गेम्स का पैक सिर्फ $5.30 USD में";
+const TITLE = "Framers — 424 PC गेम्स का पैक";
 const DESCRIPTION =
-  "GTA, FIFA, Call of Duty, Elden Ring, Resident Evil और सैकड़ों गेम्स: 424 PC गेम्स सिर्फ $5.30 USD में। एक बार भुगतान, तुरंत डिलीवरी और 7 दिन की गारंटी।";
+  "GTA, FIFA, Call of Duty, Elden Ring, Resident Evil और सैकड़ों गेम्स: 424 PC गेम्स, एक बार भुगतान, तुरंत डिलीवरी और 7 दिन की गारंटी।";
 const URL = "https://framers.lovable.app/in";
-const IMAGE = "https://framers.lovable.app/__l5e/assets-v1/5ad32c30-9e9f-4863-a319-5d990406ff51/destaque-gta-en.png";
+const IMAGE =
+  "https://framers.lovable.app/__l5e/assets-v1/5ad32c30-9e9f-4863-a319-5d990406ff51/destaque-gta-en.png";
 
 export const Route = createFileRoute("/in")({
   head: () => ({
@@ -34,20 +37,11 @@ export const Route = createFileRoute("/in")({
     scripts: [
       {
         type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Product",
+        children: productSchema({
           name: "Framers — 424 PC Games Pack",
           description: DESCRIPTION,
           image: IMAGE,
-          brand: { "@type": "Brand", name: "Framers" },
-          offers: {
-            "@type": "Offer",
-            price: "7.20",
-            priceCurrency: "EUR",
-            availability: "https://schema.org/InStock",
-            url: URL,
-          },
+          url: URL,
         }),
       },
     ],

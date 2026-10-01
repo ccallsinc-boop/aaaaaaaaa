@@ -56,12 +56,12 @@ function DemoVideo() {
 }
 
 export function VslEs() {
-  const { lang } = useLocale();
+  const { marketLang } = useLocale();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
 
-  // ES-only VSL section
-  if (lang !== "es") return null;
+  // The VSL audio is in Spanish, so it only renders for Spanish-speaking markets.
+  if (marketLang !== "es") return null;
 
   const start = () => {
     const v = videoRef.current;
@@ -76,7 +76,7 @@ export function VslEs() {
       <div className="mx-auto max-w-4xl text-center">
         <h2 className="text-[clamp(1.6rem,4vw,2.4rem)]">
           <span id="vsl-title">
-          Mira este video antes de <span className="text-primary">conseguir tu pack</span>
+            Mira este video antes de <span className="text-primary">conseguir tu pack</span>
           </span>
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:text-base">

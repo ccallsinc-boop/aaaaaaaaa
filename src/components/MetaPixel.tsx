@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import { META_PIXEL_IDS, trackMeta, trackMetaOnce } from "@/lib/meta-pixel";
-import { BUNDLE_PRICE } from "@/data/games";
+import { useMarket } from "@/lib/use-market";
 
 let initialized = false;
 
 export function MetaPixel() {
+  const { price, market } = useMarket();
+
   useEffect(() => {
     // Guards against React StrictMode / remounts firing PageView twice.
     if (initialized) return;
@@ -34,10 +36,12 @@ export function MetaPixel() {
     }
 
     trackMeta("PageView");
+    // This used to report a fixed 37.99 BRL on every locale, so Meta optimised the
+    // Spanish and English traffic against a price nobody was ever charged.
     trackMeta("ViewContent", {
-      value: BUNDLE_PRICE,
-      currency: "BRL",
-      content_name: "Pacote Framers Completo",
+      value: Number(price.toFixed(2)),
+      currency: market.currency,
+      content_name: "Framers Full Pack",
       content_type: "product",
       content_ids: ["pacote-framers"],
     });
@@ -45,22 +49,23 @@ export function MetaPixel() {
     // Engagement signals help Meta's algorithm find buyers → lower CPA.
     const onScroll = () => {
       const scrolled =
-        (window.scrollY + window.innerHeight) /
-        document.documentElement.scrollHeight;
+        (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
       if (scrolled > 0.5) trackMetaOnce("scroll50", "Scroll50");
       if (scrolled > 0.9) trackMetaOnce("scroll90", "Scroll90");
     };
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    const timer = window.setTimeout(
-      () => trackMetaOnce("engaged", "TimeOnPage30s"),
-      30000,
-    );
+    const timer = window.setTimeout(() => trackMetaOnce("engaged", "TimeOnPage30s"), 30000);
 
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.clearTimeout(timer);
     };
+    // Deps stay empty on purpose: the pixel must init exactly once, and the
+    // `initialized` guard would otherwise skip re-registering the scroll listeners
+    // after a cleanup. price/currency come from the root loader and are already
+    // final on first render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

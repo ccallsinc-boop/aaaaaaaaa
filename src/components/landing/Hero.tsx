@@ -24,8 +24,18 @@ const ITEM = {
 } as const;
 
 export function Hero() {
-  const { t, money, price, priceLabel, hidePrice, fullValue, discount, totalGames, lang } =
-    useLocale();
+  const {
+    t,
+    money,
+    price,
+    priceLabel,
+    hidePrice,
+    fullValue,
+    discount,
+    totalGames,
+    lang,
+    marketLang,
+  } = useLocale();
   const destaque = lang === "pt" ? destaquePt : destaqueEn;
 
   return (
@@ -59,8 +69,7 @@ export function Hero() {
           variants={ITEM}
           className="mx-auto mt-6 max-w-4xl text-[clamp(2.2rem,7vw,4.5rem)]"
         >
-          {t.heroTitleA}{" "}
-          <span className="block text-primary">{t.heroTitleB(totalGames)}</span>
+          {t.heroTitleA} <span className="block text-primary">{t.heroTitleB(totalGames)}</span>
         </motion.h1>
 
         <motion.p
@@ -89,7 +98,7 @@ export function Hero() {
           </motion.p>
         )}
 
-        {lang === "es" ? (
+        {marketLang === "es" ? (
           <motion.div variants={ITEM} className="mt-12">
             <VslEs />
           </motion.div>
@@ -136,7 +145,6 @@ export function Hero() {
           ))}
         </dl>
       </motion.div>
-
     </header>
   );
 }

@@ -13,6 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { MetaPixel } from "@/components/MetaPixel";
+import { resolveMarket } from "@/lib/market.server";
 
 function NotFoundComponent() {
   return (
@@ -75,6 +76,13 @@ function ErrorComponent({ error, reset }: { error: unknown; reset: () => void })
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  /**
+   * Country and live exchange rate, resolved once per request on the server so the
+   * converted price is in the SSR HTML instead of appearing after hydration.
+   * staleTime keeps client-side navigation from re-requesting it.
+   */
+  loader: () => resolveMarket(),
+  staleTime: Infinity,
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -101,7 +109,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
     ],
-
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -112,13 +119,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootShell({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   return (
-    <html lang={pathname.startsWith("/en")
-        ? "en"
-        : pathname.startsWith("/uk")
-          ? "en-GB"
-          : pathname.startsWith("/es")
-            ? "es"
-            : "pt-BR"}>
+    <html
+      lang={
+        pathname.startsWith("/en")
+          ? "en"
+          : pathname.startsWith("/uk")
+            ? "en-GB"
+            : pathname.startsWith("/es")
+              ? "es"
+              : "pt-BR"
+      }
+    >
       <head>
         <HeadContent />
       </head>

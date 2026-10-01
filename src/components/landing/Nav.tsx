@@ -5,7 +5,7 @@ import { useLocale } from "@/lib/locale";
 import { HOTMART_WIDGET_CLASSES } from "@/lib/hotmart-widget";
 
 export function Nav() {
-  const { t, storeUrl, lang, others, home, hotmart } = useLocale();
+  const { t, storeUrl, lang, others, home, hotmart, price, currency } = useLocale();
   const quizVisual = lang === "pt" || lang === "es";
 
   return (
@@ -38,7 +38,14 @@ export function Nav() {
           <a
             href={storeUrl}
             onClick={() =>
-              trackMeta("InitiateCheckout", { cta_location: `${lang}:nav` })
+              trackMeta("InitiateCheckout", {
+                value: Number(price.toFixed(2)),
+                currency,
+                content_name: "Framers Full Pack",
+                content_type: "product",
+                content_ids: ["pacote-framers"],
+                cta_location: `${lang}:nav`,
+              })
             }
             className={`${hotmart ? HOTMART_WIDGET_CLASSES + " " : ""}rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-soft transition-transform hover:scale-[1.03]`}
           >

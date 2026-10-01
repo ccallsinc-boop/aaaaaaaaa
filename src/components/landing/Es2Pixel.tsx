@@ -13,11 +13,7 @@ export function trackEs2(eventName: string, params: Record<string, unknown> = {}
 
 const fired = new Set<string>();
 
-export function trackEs2Once(
-  key: string,
-  eventName: string,
-  params: Record<string, unknown> = {},
-) {
+export function trackEs2Once(key: string, eventName: string, params: Record<string, unknown> = {}) {
   if (fired.has(key)) return;
   fired.add(key);
   trackEs2(eventName, params);
@@ -30,7 +26,7 @@ function getCookie(name: string) {
 
 let initialized = false;
 
-export function Es2Pixel({ price }: { price: number }) {
+export function Es2Pixel({ price, currency }: { price: number; currency: string }) {
   useEffect(() => {
     if (!initialized) {
       initialized = true;
@@ -60,7 +56,7 @@ export function Es2Pixel({ price }: { price: number }) {
     trackEs2("PageView");
     trackEs2("ViewContent", {
       value: price,
-      currency: "USD",
+      currency,
       content_name: "Generative Energy",
       content_type: "product",
       content_ids: ["generative-energy"],
@@ -80,7 +76,7 @@ export function Es2Pixel({ price }: { price: number }) {
         eventName: "ViewContent",
         eventId: `es2-vc-${Date.now()}`,
         value: price,
-        currency: "USD",
+        currency,
         ...base,
       },
     });
@@ -93,16 +89,13 @@ export function Es2Pixel({ price }: { price: number }) {
     };
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    const timer = window.setTimeout(
-      () => trackEs2Once("engaged", "TimeOnPage30s"),
-      30000,
-    );
+    const timer = window.setTimeout(() => trackEs2Once("engaged", "TimeOnPage30s"), 30000);
 
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.clearTimeout(timer);
     };
-  }, [price]);
+  }, [price, currency]);
 
   return (
     <noscript>

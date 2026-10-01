@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { trackMeta } from "@/lib/meta-pixel";
 import { useLocale } from "@/lib/locale";
-import { useGeoMarket, formatGeoMoney } from "@/lib/geo";
 import { loadHotmartWidget, HOTMART_WIDGET_CLASSES } from "@/lib/hotmart-widget";
 
 const COPY: Record<string, { title: string; sub: string; cta: string; note: string }> = {
@@ -26,14 +25,11 @@ const COPY: Record<string, { title: string; sub: string; cta: string; note: stri
   },
 };
 
+/** sessionStorage key so a dismissed popup does not come back on reload. */
+const DISMISS_KEY = "framers:discount-popup-dismissed";
+
 export function DiscountPopup() {
-  const { lang, storeUrl, price, currency, money, hidePrice, hotmart } = useLocale();
-  const market = useGeoMarket();
-  const geo = lang === "es" && market.currency !== "USD";
-  const shownPrice = geo ? market.price : price;
-  const shownCompare = geo ? market.compareAt : 12;
-  const shownCurrency = geo ? market.currency : currency;
-  const fmt = (v: number) => (geo ? formatGeoMoney(v, market) : money(v));
+  const { lang, storeUrl, price, currency, money, hotmart } = useLocale();
   const [open, setOpen] = useState(false);
   const [shown, setShown] = useState(false);
 
@@ -45,7 +41,17 @@ export function DiscountPopup() {
   }, [open, hotmart]);
 
   useEffect(() => {
-    if (!hidePrice || shown) return;
+    if (shown) return;
+    // Once dismissed, stay dismissed for the session instead of firing again on
+    // every reload.
+    try {
+      if (window.sessionStorage.getItem(DISMISS_KEY) === "1") {
+        setShown(true);
+        return;
+      }
+    } catch {
+      /* private mode or blocked storage: just show it */
+    }
 
     const show = () => {
       setOpen(true);
@@ -62,16 +68,25 @@ export function DiscountPopup() {
       window.clearTimeout(timer);
       document.removeEventListener("mouseleave", onLeave);
     };
-  }, [hidePrice, shown]);
+  }, [shown]);
 
-  if (!hidePrice || !open) return null;
+  const dismiss = () => {
+    setOpen(false);
+    try {
+      window.sessionStorage.setItem(DISMISS_KEY, "1");
+    } catch {
+      /* ignore */
+    }
+  };
+
+  if (!open) return null;
 
   const copy = COPY[lang] ?? COPY.pt;
 
   return (
     <div
       className="fixed inset-0 z-[100] grid place-items-center bg-foreground/60 p-4 backdrop-blur-sm"
-      onClick={() => setOpen(false)}
+      onClick={dismiss}
     >
       <div
         className="relative w-full max-w-md rounded-3xl border border-border bg-background p-7 text-center shadow-soft"
@@ -80,7 +95,7 @@ export function DiscountPopup() {
         <button
           type="button"
           aria-label={lang === "pt" ? "Fechar" : "Cerrar"}
-          onClick={() => setOpen(false)}
+          onClick={dismiss}
           className="absolute right-4 top-4 text-muted-foreground hover:text-foreground"
         >
           <X className="h-5 w-5" />
@@ -89,13 +104,16 @@ export function DiscountPopup() {
         <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">{copy.title}</p>
         <h3 className="mt-3 text-2xl leading-tight">{copy.sub}</h3>
 
+        <p className="mt-5 font-display text-[clamp(2.4rem,12vw,3.4rem)] leading-none text-primary">
+          {money(price)}
+        </p>
 
         <a
           href={storeUrl}
           onClick={() =>
             trackMeta("InitiateCheckout", {
-              value: shownPrice,
-              currency: shownCurrency,
+              value: Number(price.toFixed(2)),
+              currency,
               cta_location: `${lang}:discount-popup`,
             })
           }

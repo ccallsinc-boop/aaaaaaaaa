@@ -1,12 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { productSchema } from "@/lib/seo";
+
 import { LandingPage } from "@/components/landing/LandingPage";
 
-const TITLE = "Framers — Pack de 424 juegos de PC por €7.20 EUR";
+const TITLE = "Framers — Pack de 424 juegos de PC";
 const DESCRIPTION =
-  "GTA, FIFA, Call of Duty, Elden Ring, Resident Evil y cientos más: 424 juegos de PC por €7.20. Pago único, entrega inmediata y garantía de 7 días.";
+  "GTA, FIFA, Call of Duty, Elden Ring, Resident Evil y cientos más: 424 juegos de PC en un solo pago, entrega inmediata y garantía de 7 días.";
 const URL = "https://framers.lovable.app/es";
-const IMAGE = "https://framers.lovable.app/__l5e/assets-v1/5ad32c30-9e9f-4863-a319-5d990406ff51/destaque-gta-en.png";
+const IMAGE =
+  "https://framers.lovable.app/__l5e/assets-v1/5ad32c30-9e9f-4863-a319-5d990406ff51/destaque-gta-en.png";
 
 export const Route = createFileRoute("/es")({
   head: () => ({
@@ -33,20 +36,11 @@ export const Route = createFileRoute("/es")({
     scripts: [
       {
         type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Product",
+        children: productSchema({
           name: "Framers — Pack de 424 juegos de PC",
           description: DESCRIPTION,
           image: IMAGE,
-          brand: { "@type": "Brand", name: "Framers" },
-          offers: {
-            "@type": "Offer",
-            price: "7.20",
-            priceCurrency: "EUR",
-            availability: "https://schema.org/InStock",
-            url: URL,
-          },
+          url: URL,
         }),
       },
     ],

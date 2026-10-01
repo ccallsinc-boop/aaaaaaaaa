@@ -1,88 +1,88 @@
 import { createContext, useContext, type ReactNode } from "react";
 import { TOTAL_GAMES } from "@/data/games";
+import { DEFAULT_CHECKOUT_URL, ES_CHECKOUT_URL, checkoutUrlFor } from "@/lib/checkout";
+import {
+  FALLBACK_RESOLVED,
+  formatMoney,
+  type MarketLang,
+  type ResolvedMarket,
+} from "@/lib/markets";
 
+/** Language as pinned by the route. uk, es2 and in are variants, not new languages. */
 export type Lang = "pt" | "en" | "uk" | "es" | "es2" | "in";
 
+/** Route language to the language the market table speaks. */
+const MARKET_LANG: Record<Lang, MarketLang> = {
+  pt: "pt",
+  en: "en",
+  uk: "en",
+  es: "es",
+  es2: "es",
+  in: "hi",
+};
+
+/**
+ * Per-route config. Price, currency and number formatting are NOT here any more:
+ * they come from the resolved market, converted live from BASE_PRICE_BRL. Keeping
+ * them per route is what let the ES title say EUR 7.20 while the page charged
+ * USD 3.90.
+ */
 const CONFIG = {
   pt: {
     lang: "pt" as Lang,
-    intl: "pt-BR",
-    currency: "BRL",
-    price: 27.99,
-    perGameValue: 20,
-    storeUrl: "https://xpag.global/pay/2Kf006h0",
+    storeUrl: DEFAULT_CHECKOUT_URL,
     home: "/pt",
-    others: [],
+    others: [] as { href: string; label: string }[],
   },
   en: {
     lang: "en" as Lang,
-    intl: "en-US",
-    currency: "USD",
-    price: 5.3,
-    perGameValue: 5,
-    storeUrl: "https://xpag.global/pay/2Kf006h0",
+    storeUrl: DEFAULT_CHECKOUT_URL,
     home: "/en",
     others: [
-      { href: "/", label: "PT · BRL" },
-      { href: "/uk", label: "UK · GBP" },
-      { href: "/es", label: "ES · USD" },
+      { href: "/", label: "PT" },
+      { href: "/uk", label: "UK" },
+      { href: "/es", label: "ES" },
     ],
   },
   uk: {
     lang: "uk" as Lang,
-    intl: "en-GB",
-    currency: "GBP",
-    price: 3.9,
-    perGameValue: 4,
-    storeUrl: "https://xpag.global/pay/2Kf006h0",
+    storeUrl: DEFAULT_CHECKOUT_URL,
     home: "/uk",
     others: [
-      { href: "/en", label: "EN · USD" },
-      { href: "/", label: "PT · BRL" },
-      { href: "/es", label: "ES · USD" },
+      { href: "/en", label: "EN" },
+      { href: "/", label: "PT" },
+      { href: "/es", label: "ES" },
     ],
   },
   es: {
     lang: "es" as Lang,
-    intl: "en-US",
-    currency: "USD",
-    price: 3.9,
-    perGameValue: 1,
-    storeUrl: "https://xpag.global/pay/oPheL733",
+    storeUrl: ES_CHECKOUT_URL,
     hotmart: false,
     home: "/es",
     others: [
-      { href: "/", label: "PT · BRL" },
-      { href: "/en", label: "EN · USD" },
-      { href: "/uk", label: "UK · GBP" },
+      { href: "/", label: "PT" },
+      { href: "/en", label: "EN" },
+      { href: "/uk", label: "UK" },
     ],
   },
   in: {
     lang: "in" as Lang,
-    intl: "en-US",
-    currency: "USD",
-    price: 8.3,
-    perGameValue: 1,
-    storeUrl: "https://xpag.global/pay/2Kf006h0",
+    storeUrl: DEFAULT_CHECKOUT_URL,
     home: "/in",
     others: [
-      { href: "/en", label: "EN · USD" },
-      { href: "/uk", label: "UK · GBP" },
-      { href: "/es", label: "ES · USD" },
+      { href: "/en", label: "EN" },
+      { href: "/uk", label: "UK" },
+      { href: "/es", label: "ES" },
     ],
   },
   es2: {
     lang: "es2" as Lang,
-    intl: "en-US",
-    currency: "USD",
-    price: 5.3,
-    perGameValue: 1,
-    storeUrl: "https://xpag.global/pay/2Kf006h0",
+    storeUrl: DEFAULT_CHECKOUT_URL,
     home: "/es2",
     others: [
-      { href: "/", label: "PT · BRL" },
-      { href: "/en", label: "EN · USD" },
-      { href: "/uk", label: "UK · GBP" },
+      { href: "/", label: "PT" },
+      { href: "/en", label: "EN" },
+      { href: "/uk", label: "UK" },
     ],
   },
 };
@@ -119,7 +119,8 @@ const COPY = {
       ] as [string, string][],
     deliverablesTitleA: "Tudo que você precisa",
     deliverablesTitleB: "para jogar hoje mesmo",
-    deliverablesSub: "Uma compra simples, sem assinatura, sem burocracia e com suporte de gente de verdade.",
+    deliverablesSub:
+      "Uma compra simples, sem assinatura, sem burocracia e com suporte de gente de verdade.",
     deliverables: (perGame: string) =>
       [
         ["Biblioteca completa", "Todos os títulos liberados de uma vez, sem escolher pacote."],
@@ -162,11 +163,17 @@ const COPY = {
     ],
     guaranteeTitle: "Satisfação garantida e risco zero",
     guaranteeSub: "7 dias para pedir reembolso integral. Sem perguntas — o risco é todo nosso.",
-    guaranteeBadges: ["Compra 100% segura", "7 dias de garantia", "Reembolso garantido", "Suporte humano"],
+    guaranteeBadges: [
+      "Compra 100% segura",
+      "7 dias de garantia",
+      "Reembolso garantido",
+      "Suporte humano",
+    ],
     brandsTitle: "Estúdios e publishers presentes na biblioteca",
     testimonialsEyebrow: "Quem já comprou",
     testimonialsTitle: "Mais de 4.000 gamers já jogando",
-    testimonialsSub: "Depoimentos reais de clientes que receberam o acesso e já estão com a biblioteca instalada.",
+    testimonialsSub:
+      "Depoimentos reais de clientes que receberam o acesso e já estão com a biblioteca instalada.",
     testimonials: (price: string) => [
       {
         name: "Lucas Andrade",
@@ -311,7 +318,8 @@ const COPY = {
     offerToday: "Today, one-time payment of",
     offerPerGame: (n: number, price: string) => (
       <>
-        {n} games · less than <span className="font-semibold text-foreground">{price}</span> per game
+        {n} games · less than <span className="font-semibold text-foreground">{price}</span> per
+        game
       </>
     ),
     offerNote: "One-time payment by card · zero risk with a 7-day guarantee.",
@@ -326,11 +334,17 @@ const COPY = {
     ],
     guaranteeTitle: "Satisfaction guaranteed, zero risk",
     guaranteeSub: "7 days to request a full refund. No questions asked — the risk is all ours.",
-    guaranteeBadges: ["100% secure checkout", "7-day guarantee", "Refund guaranteed", "Human support"],
+    guaranteeBadges: [
+      "100% secure checkout",
+      "7-day guarantee",
+      "Refund guaranteed",
+      "Human support",
+    ],
     brandsTitle: "Studios and publishers featured in the library",
     testimonialsEyebrow: "Verified buyers",
     testimonialsTitle: "Over 4,000 gamers already playing",
-    testimonialsSub: "Real feedback from customers who got their access and already have the library installed.",
+    testimonialsSub:
+      "Real feedback from customers who got their access and already have the library installed.",
     testimonials: (price: string) => [
       {
         name: "Lucas Andrade",
@@ -449,7 +463,8 @@ const ES = {
     ] as [string, string][],
   deliverablesTitleA: "Todo lo que necesitas",
   deliverablesTitleB: "para jugar hoy mismo",
-  deliverablesSub: "Una compra simple, sin suscripción, sin burocracia y con soporte de personas reales.",
+  deliverablesSub:
+    "Una compra simple, sin suscripción, sin burocracia y con soporte de personas reales.",
   deliverables: (perGame: string) =>
     [
       ["Biblioteca completa", "Todos los títulos desbloqueados de una vez, sin elegir paquete."],
@@ -491,12 +506,19 @@ const ES = {
     "Garantía de 7 días o te devolvemos el dinero",
   ],
   guaranteeTitle: "Satisfacción garantizada y riesgo cero",
-  guaranteeSub: "7 días para pedir el reembolso completo. Sin preguntas — el riesgo es todo nuestro.",
-  guaranteeBadges: ["Compra 100% segura", "7 días de garantía", "Reembolso garantizado", "Soporte humano"],
+  guaranteeSub:
+    "7 días para pedir el reembolso completo. Sin preguntas — el riesgo es todo nuestro.",
+  guaranteeBadges: [
+    "Compra 100% segura",
+    "7 días de garantía",
+    "Reembolso garantizado",
+    "Soporte humano",
+  ],
   brandsTitle: "Estudios y publishers presentes en la biblioteca",
   testimonialsEyebrow: "Quienes ya compraron",
   testimonialsTitle: "Más de 4.000 gamers ya jugando",
-  testimonialsSub: "Opiniones reales de clientes que recibieron el acceso y ya tienen la biblioteca instalada.",
+  testimonialsSub:
+    "Opiniones reales de clientes que recibieron el acceso y ya tienen la biblioteca instalada.",
   testimonials: (price: string) => [
     {
       name: "Lucas Andrade",
@@ -660,7 +682,8 @@ const HI = {
   brandsTitle: "लाइब्रेरी में मौजूद स्टूडियो और पब्लिशर",
   testimonialsEyebrow: "जिन्होंने पहले ही खरीदा",
   testimonialsTitle: "4,000+ गेमर्स पहले से खेल रहे हैं",
-  testimonialsSub: "असली ग्राहकों के अनुभव जिन्हें एक्सेस मिल चुका है और लाइब्रेरी इंस्टॉल हो चुकी है।",
+  testimonialsSub:
+    "असली ग्राहकों के अनुभव जिन्हें एक्सेस मिल चुका है और लाइब्रेरी इंस्टॉल हो चुकी है।",
   testimonials: (price: string) => [
     {
       name: "Rahul Sharma",
@@ -721,7 +744,8 @@ const HI = {
     { label: "ऑफर", href: "#oferta" },
     { label: "सवाल-जवाब", href: "#faq" },
   ],
-  footerSub: (n: number, price: string) => `${n} PC गेम्स सिर्फ ${price} में, एक बार भुगतान और तुरंत डिजिटल डिलीवरी।`,
+  footerSub: (n: number, price: string) =>
+    `${n} PC गेम्स सिर्फ ${price} में, एक बार भुगतान और तुरंत डिजिटल डिलीवरी।`,
   footerLinksTitle: "तेज़ लिंक",
   footerReady: "खेलने के लिए तैयार हैं?",
   footerCta: (price: string) => `${price} में एक्सेस पाएं`,
@@ -747,32 +771,64 @@ const HI = {
 
 const COPY_BY_LANG = { ...COPY, uk: COPY.en, es: ES, es2: ES, in: HI };
 
-export function buildLocale(lang: Lang) {
+/**
+ * Whether the offer price is printed on the page.
+ *
+ * This used to be `const hidePrice = true` with no way to turn it off, so the
+ * price appeared nowhere on the site: the hero hid its anchor, the sticky bar hid
+ * its amount, the offer block showed "click below to see your price" and the
+ * popup that was supposed to reveal it computed the number and never rendered it.
+ * Every price slot received the string "un precio simbólico" instead, which is
+ * why the FAQ read "¿Son un precio simbólico por todos los juegos?".
+ *
+ * Flip to false to go back to hiding it.
+ */
+export const SHOW_PRICE = true;
+
+export function buildLocale(lang: Lang, resolved: ResolvedMarket = FALLBACK_RESOLVED) {
   const cfg = CONFIG[lang];
-  const money = (value: number) =>
-    value.toLocaleString(cfg.intl, {
-      style: "currency",
-      currency: cfg.currency,
-    });
-  const fullValue = TOTAL_GAMES * cfg.perGameValue;
-  const hidePrice = true;
+  const { market, price } = resolved;
+
+  const money = (value: number) => formatMoney(value, market);
+  const fullValue = TOTAL_GAMES * resolved.perGameValue;
+  const hidePrice = !SHOW_PRICE;
+
+  /**
+   * What gets interpolated wherever copy says "for <price>". With the price shown
+   * this is the real converted amount, which is what the copy was written for.
+   */
+  const priceLabel = SHOW_PRICE
+    ? money(price)
+    : lang === "in"
+      ? "एक प्रतीकात्मक कीमत"
+      : lang === "es" || lang === "es2"
+        ? "un precio simbólico"
+        : lang === "pt"
+          ? "um preço simbólico"
+          : "a symbolic price";
+
   return {
     ...cfg,
     hotmart: (cfg as { hotmart?: boolean }).hotmart === true,
+    storeUrl: checkoutUrlFor(market.currency, cfg.storeUrl),
+
+    // Market, live from the request.
+    market,
+    marketLang: MARKET_LANG[lang],
+    country: resolved.country,
+    currency: market.currency,
+    intl: market.intl,
+    rate: resolved.rate,
+    fxSource: resolved.fxSource,
+
     money,
+    price,
     hidePrice,
-    priceLabel:
-      lang === "in"
-        ? "एक प्रतीकात्मक कीमत"
-        : lang === "es" || lang === "es2"
-          ? "un precio simbólico"
-          : lang === "pt"
-            ? "um preço simbólico"
-            : "a symbolic price",
+    priceLabel,
     totalGames: TOTAL_GAMES,
     fullValue,
-    pricePerGame: cfg.price / TOTAL_GAMES,
-    discount: Math.min(99, Math.round((1 - cfg.price / fullValue) * 100)),
+    pricePerGame: price / TOTAL_GAMES,
+    discount: Math.min(99, Math.round((1 - price / fullValue) * 100)),
     t: COPY_BY_LANG[lang],
   };
 }
@@ -781,8 +837,19 @@ export type Locale = ReturnType<typeof buildLocale>;
 
 const LocaleContext = createContext<Locale>(buildLocale("pt"));
 
-export function LocaleProvider({ lang, children }: { lang: Lang; children: ReactNode }) {
-  return <LocaleContext.Provider value={buildLocale(lang)}>{children}</LocaleContext.Provider>;
+export function LocaleProvider({
+  lang,
+  market,
+  children,
+}: {
+  lang: Lang;
+  /** Resolved server-side. Omitted only in contexts with no request. */
+  market?: ResolvedMarket;
+  children: ReactNode;
+}) {
+  return (
+    <LocaleContext.Provider value={buildLocale(lang, market)}>{children}</LocaleContext.Provider>
+  );
 }
 
 export const useLocale = () => useContext(LocaleContext);

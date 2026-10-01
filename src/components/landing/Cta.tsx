@@ -9,12 +9,7 @@ type Props = {
   location?: string;
 };
 
-export function Cta({
-  children,
-  variant = "solid",
-  className = "",
-  location = "page",
-}: Props) {
+export function Cta({ children, variant = "solid", className = "", location = "page" }: Props) {
   const { storeUrl, price, currency, lang, hotmart } = useLocale();
   const base =
     "inline-flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-bold transition-transform hover:scale-[1.03]";
@@ -28,9 +23,9 @@ export function Cta({
       href={storeUrl}
       onClick={() =>
         trackMeta("InitiateCheckout", {
-          value: price,
+          value: Number(price.toFixed(2)),
           currency,
-          content_name: "Pacote Framers Completo",
+          content_name: "Framers Full Pack",
           content_type: "product",
           content_ids: ["pacote-framers"],
           cta_location: `${lang}:${location}`,

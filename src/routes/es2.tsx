@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Es2LandingPage } from "@/components/landing/Es2LandingPage";
 import { Es2Pixel } from "@/components/landing/Es2Pixel";
 import { LocaleProvider } from "@/lib/locale";
+import { GENERATIVE_ENERGY } from "@/lib/other-products";
 
 const TITLE = "Generative Energy — Guía pro-metabólica en PDF por $5.30";
 const DESCRIPTION =
@@ -47,9 +48,11 @@ export const Route = createFileRoute("/es2")({
 });
 
 function Es2Index() {
+  // Generative Energy is a different product from the Framers game pack, with its
+  // own price. It must NOT read the pack's converted BRL base.
   return (
-    <LocaleProvider lang="es2">
-      <Es2Pixel price={5.3} />
+    <LocaleProvider lang="es2" market={GENERATIVE_ENERGY.resolved}>
+      <Es2Pixel price={GENERATIVE_ENERGY.price} currency={GENERATIVE_ENERGY.currency} />
       <Es2LandingPage />
     </LocaleProvider>
   );

@@ -17,9 +17,11 @@ import { MidCta } from "@/components/landing/MidCta";
 import { DiscountPopup } from "@/components/landing/DiscountPopup";
 import { Reveal } from "@/components/landing/Reveal";
 import { LocaleProvider, type Lang } from "@/lib/locale";
+import { useMarket } from "@/lib/use-market";
 import { loadHotmartWidget } from "@/lib/hotmart-widget";
 
 export function LandingPage({ lang }: { lang: Lang }) {
+  const market = useMarket();
   const quizVisual = lang === "pt" || lang === "es";
 
   // Hotmart widget (ES): binds to `.hotmart-fb` anchors once loaded.
@@ -30,7 +32,7 @@ export function LandingPage({ lang }: { lang: Lang }) {
   }, [lang]);
 
   return (
-    <LocaleProvider lang={lang}>
+    <LocaleProvider lang={lang} market={market}>
       <main
         className={`${quizVisual ? "theme-quiz-landing" : ""} min-h-screen bg-background pb-24 text-foreground md:pb-0`}
       >

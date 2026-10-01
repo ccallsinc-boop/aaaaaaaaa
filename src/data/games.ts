@@ -89,11 +89,6 @@ export const SAGAS: Saga[] = [
 export const SAGA_TITLES = SAGAS.flatMap((s) => s.titles);
 export const TOTAL_GAMES = CATALOG.length;
 
-export const BUNDLE_PRICE = 37.99;
-/** Reference value: what the same library would cost bought title by title. */
-export const FULL_VALUE = TOTAL_GAMES * 20;
-export const PRICE_PER_GAME = BUNDLE_PRICE / TOTAL_GAMES;
-export const DISCOUNT = Math.min(99, Math.round((1 - BUNDLE_PRICE / FULL_VALUE) * 100));
-export const STORE_URL = "https://xpag.global/pay/2Kf006h0";
-
-export const brl = (value: number) => value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+// Price, anchor, discount, checkout URL and currency formatting moved to
+// src/lib/markets.ts and src/lib/checkout.ts, so there is one BRL base price
+// converted per market instead of four hardcoded numbers that disagreed.

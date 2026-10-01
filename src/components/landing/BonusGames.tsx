@@ -45,14 +45,12 @@ export function BonusGames() {
             {hi
               ? "अलग-अलग खरीदने पर ये 6 टाइटल पड़ते हैं "
               : "Por separado, estos 6 títulos cuestan "}
-            <span className="font-semibold text-foreground line-through">
-              {format(TOTAL)}
-            </span>
+            <span className="font-semibold text-foreground line-through">{format(TOTAL)}</span>
             {hi ? ". आज पैक खरीदने पर सिर्फ " : ". Comprando el pack hoy por "}
-            <span className="font-semibold text-primary">{priceLabel}</span>,
+            <span className="font-semibold text-primary">{priceLabel}</span>
             {hi
               ? " में ये सब बिना एक भी रुपया अतिरिक्त दिए शामिल मिलते हैं।"
-              : ", los recibes incluidos sin pagar ni un céntimo más."}
+              : ", los recibes incluidos sin pagar nada más."}
           </p>
         </div>
 
@@ -83,9 +81,7 @@ export function BonusGames() {
                   {bonus.name}
                 </h3>
                 <p className="mt-0.5 text-xs">
-                  <span className="text-muted-foreground line-through">
-                    {format(bonus.value)}
-                  </span>{" "}
+                  <span className="text-muted-foreground line-through">{format(bonus.value)}</span>{" "}
                   <span className="font-bold text-primary">{hi ? "मुफ्त" : "GRATIS"}</span>
                 </p>
               </div>
@@ -98,10 +94,7 @@ export function BonusGames() {
 
         <p className="mt-8 text-center text-sm text-muted-foreground">
           {hi ? "बोनस का कुल मूल्य: " : "Valor total de los bonus: "}
-          <span className="font-semibold text-foreground line-through">
-            {format(TOTAL)}
-          </span>{" "}
-         
+          <span className="font-semibold text-foreground line-through">{format(TOTAL)}</span>{" "}
           {hi ? " · आज, एक प्रतीकात्मक कीमत में।" : " · Hoy, por un precio simbólico."}
         </p>
 
