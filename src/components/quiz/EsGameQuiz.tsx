@@ -25,10 +25,7 @@ import { CATALOG, type CatalogGame } from "@/data/catalog";
 import { useMarket } from "@/lib/use-market";
 import { trackMeta, trackMetaCustom } from "@/lib/meta-pixel";
 import { HOTMART_CHECKOUT_URL } from "@/lib/checkout";
-import vslAsset from "@/assets/vsl-es2.mov.asset.json";
-import proof1 from "@/assets/proof-1.jpg.asset.json";
-import proof2 from "@/assets/proof-2.jpg.asset.json";
-import proof3 from "@/assets/proof-3.jpg.asset.json";
+import { ASSETS } from "@/lib/assets";
 
 export const ES_QUIZ_CHECKOUT = HOTMART_CHECKOUT_URL;
 export const ES_QUIZ_HOTMART = HOTMART_CHECKOUT_URL;
@@ -262,9 +259,9 @@ function gamesFor(answer?: string) {
 }
 
 const PROOFS = [
-  { image: proof1.url, alt: "Cliente jugando Forza Horizon en PC" },
-  { image: proof2.url, alt: "Cliente jugando GTA V en un portátil" },
-  { image: proof3.url, alt: "Cliente jugando EA FC en televisión" },
+  { image: ASSETS.proof[0], alt: "Cliente jugando Forza Horizon en PC" },
+  { image: ASSETS.proof[1], alt: "Cliente jugando GTA V en un portátil" },
+  { image: ASSETS.proof[2], alt: "Cliente jugando EA FC en televisión" },
 ];
 
 const TESTIMONIALS = [
@@ -630,7 +627,8 @@ function VslScreen({
       <div className="relative mt-8 overflow-hidden rounded-2xl border-2 border-border bg-foreground shadow-soft">
         <video
           ref={videoRef}
-          src={vslAsset.url}
+          src={ASSETS.vslEs}
+          poster={ASSETS.vslEsPoster}
           className="aspect-video w-full"
           controls={playing}
           playsInline

@@ -1,11 +1,9 @@
 import { motion } from "framer-motion";
 import { FRONT_GAMES } from "@/data/front-offer";
-import { Cta } from "@/components/landing/Cta";
 import { Logo } from "@/components/landing/Logo";
 import { VslEs } from "@/components/landing/VslEs";
 import { useLocale } from "@/lib/locale";
-import destaquePt from "@/assets/banners/destaque-gta.png.asset.json";
-import destaqueEn from "@/assets/banners/destaque-gta-en.png.asset.json";
+import { ASSETS } from "@/lib/assets";
 
 /** First six of the front offer, as a teaser. The grid below shows all twelve. */
 const FEATURED = FRONT_GAMES.slice(0, 6);
@@ -28,7 +26,7 @@ export function Hero() {
     lang,
     marketLang,
   } = useLocale();
-  const destaque = lang === "pt" ? destaquePt : destaqueEn;
+  const destaque = lang === "pt" ? ASSETS.heroPt : ASSETS.heroDefault;
 
   return (
     <header id="topo" className="bg-blue-gradient relative overflow-hidden">
@@ -75,7 +73,8 @@ export function Hero() {
           variants={ITEM}
           className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:justify-center"
         >
-          <Cta location="hero">{t.heroCta}</Cta>
+          {/* No checkout button in the hero on purpose: the first screen sends
+              people into the offer, and the buying decision happens further down. */}
           <a
             href="#jogos"
             className="inline-flex items-center justify-center rounded-full border border-border px-7 py-3.5 text-sm font-bold transition-colors hover:border-primary/40 hover:text-primary"
@@ -97,7 +96,7 @@ export function Hero() {
         ) : (
           <motion.img
             variants={ITEM}
-            src={destaque.url}
+            src={destaque}
             alt={t.heroAlt(totalGames)}
             className="mt-12 w-full rounded-3xl border border-border object-cover shadow-soft"
             loading="eager"

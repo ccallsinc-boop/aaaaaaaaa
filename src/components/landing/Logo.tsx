@@ -1,11 +1,18 @@
-import logoAsset from "@/assets/framers-logo-new.png.asset.json";
-import logo3dAsset from "@/assets/framers-logo-new.png.asset.json";
+import { ASSETS } from "@/lib/assets";
 
-export function Logo({ variant = "default", className = "" }: { variant?: "default" | "3d"; className?: string }) {
-  const asset = variant === "3d" ? logo3dAsset : logoAsset;
+export function Logo({
+  variant = "default",
+  className = "",
+}: {
+  variant?: "default" | "3d";
+  className?: string;
+}) {
+  // Both variants resolved to the same file even before the migration; the prop is
+  // kept because call sites pass it.
+  void variant;
   return (
     <img
-      src={asset.url}
+      src={ASSETS.logo}
       alt="Framers"
       className={`object-contain ${className}`}
       loading="eager"

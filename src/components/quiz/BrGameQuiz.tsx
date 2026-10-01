@@ -24,10 +24,9 @@ import { Logo } from "@/components/landing/Logo";
 import { CATALOG, type CatalogGame } from "@/data/catalog";
 import { trackMeta, trackMetaCustom } from "@/lib/meta-pixel";
 import { HOTMART_CHECKOUT_URL } from "@/lib/checkout";
+import { ASSETS } from "@/lib/assets";
+// Still on Lovable: the Brazilian VSL has not been converted from QuickTime yet.
 import vslAsset from "@/assets/vsl-br.mov.asset.json";
-import proof1 from "@/assets/proof-1.jpg.asset.json";
-import proof2 from "@/assets/proof-2.jpg.asset.json";
-import proof3 from "@/assets/proof-3.jpg.asset.json";
 
 export const BR_QUIZ_CHECKOUT = HOTMART_CHECKOUT_URL;
 
@@ -235,9 +234,9 @@ function gamesFor(answer?: string) {
 }
 
 const PROOFS = [
-  { image: proof1.url, alt: "Cliente jogando Forza Horizon no PC" },
-  { image: proof2.url, alt: "Cliente jogando GTA V em um notebook" },
-  { image: proof3.url, alt: "Cliente jogando EA FC na TV" },
+  { image: ASSETS.proof[0], alt: "Cliente jogando Forza Horizon no PC" },
+  { image: ASSETS.proof[1], alt: "Cliente jogando GTA V em um notebook" },
+  { image: ASSETS.proof[2], alt: "Cliente jogando EA FC na TV" },
 ];
 
 const TESTIMONIALS = [

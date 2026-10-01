@@ -1,13 +1,9 @@
 import { useRef, useState } from "react";
 import { Play } from "lucide-react";
-import vslAsset from "@/assets/vsl-es2.mov.asset.json";
-import proof1 from "@/assets/proof-1.jpg.asset.json";
-import proof2 from "@/assets/proof-2.jpg.asset.json";
-import proof3 from "@/assets/proof-3.jpg.asset.json";
 import { useLocale } from "@/lib/locale";
 import { ASSETS } from "@/lib/assets";
 
-const PHOTOS = [proof1, proof2, proof3];
+const PHOTOS = ASSETS.proof;
 const PHOTO_ALTS = [
   "Cliente jugando Forza Horizon en PC",
   "Cliente jugando GTA V en el portátil",
@@ -89,11 +85,13 @@ export function VslEs() {
         <div className="relative mt-8 overflow-hidden rounded-2xl border border-border bg-black shadow-soft">
           <video
             ref={videoRef}
-            src={vslAsset.url}
-            className="aspect-video w-full"
+            src={ASSETS.vslEs}
+            poster={ASSETS.vslEsPoster}
+            // The source is 900x890, so forcing 16:9 letterboxed it badly.
+            className="aspect-square w-full"
             controls={playing}
             playsInline
-            preload="metadata"
+            preload="none"
             onClick={() => {
               if (!playing) start();
             }}
@@ -126,8 +124,8 @@ export function VslEs() {
         <div className="mt-5 grid gap-4 sm:grid-cols-3">
           {PHOTOS.map((photo, index) => (
             <img
-              key={photo.url}
-              src={photo.url}
+              key={photo}
+              src={photo}
               alt={PHOTO_ALTS[index]}
               loading="lazy"
               className="h-64 w-full rounded-2xl border border-border object-cover sm:h-72"

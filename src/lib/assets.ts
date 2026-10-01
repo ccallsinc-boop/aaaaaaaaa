@@ -22,32 +22,40 @@ export const ASSETS = {
    */
   demoVideo: local("produto-funcionando.mp4"),
   demoPoster: local("produto-funcionando-poster.jpg"),
+
+  /**
+   * The Spanish VSL. The original was a 55 MB QuickTime file, which Chrome on
+   * Android often refuses to decode. Re-encoded to 900px H.264 at 5.67 MB, and
+   * it is nearly square (900x890), not 16:9 as the old player assumed.
+   */
+  vslEs: local("vsl-es.mp4"),
+  vslEsPoster: local("vsl-es-poster.jpg"),
+
+  /** Customer photos used as visual proof. */
+  proof: [local("proof-1.jpg"), local("proof-2.jpg"), local("proof-3.jpg")],
+
+  /** Hero artwork. The pt source was a 1.3 MB PNG, now a 389 KB JPEG. */
+  heroPt: local("destaque-gta.jpg"),
+  heroDefault: local("destaque-gta-en.png"),
+
+  logo: local("framers-logo.webp"),
 } as const;
 
 /**
  * Still served by Lovable and therefore broken on any other host.
  *
- * The two VSLs are the urgent ones: they are QuickTime (`video/quicktime`), which
- * Chrome on Android often refuses to decode, and they weigh 55 MB and 57 MB for
- * roughly a minute of video. Re-encode them to H.264 MP4 before moving them, which
- * fixes the playback bug and the weight in the same step.
+ * Everything the landing routes need has been migrated. What is left is the
+ * Portuguese VSL, which still needs converting from QuickTime, and the images for
+ * /clips, which is a different product.
  */
 export const MISSING_ASSETS = [
-  { file: "vsl-es2.mov", mb: 55.6, note: "VSL do /es. QuickTime, trocar por mp4 H.264" },
-  { file: "vsl-br.mov", mb: 57.3, note: "VSL do /pt. QuickTime, trocar por mp4 H.264" },
-  { file: "vsl2.mp4", mb: 6.6, note: "VSL alternativa" },
-  { file: "vsl2-poster.jpg", mb: 0.06, note: "poster da VSL alternativa" },
-  { file: "proof-1.jpg", mb: 0.12, note: "foto de cliente" },
-  { file: "proof-2.jpg", mb: 0.1, note: "foto de cliente" },
-  { file: "proof-3.jpg", mb: 0.1, note: "foto de cliente" },
-  { file: "destaque-gta.png", mb: 1.3, note: "imagem do hero, versão pt" },
-  { file: "destaque-gta-en.png", mb: 0.16, note: "imagem do hero, demais idiomas" },
-  { file: "framers-logo-new.png", mb: 0.07, note: "logo" },
-  { file: "DINNextW1G-Regular.woff", mb: 0.07, note: "fonte, referenciada em styles.css" },
-  { file: "DINNextW1G-Bold.woff", mb: 0.06, note: "fonte, referenciada em styles.css" },
-  { file: "WiseSans-Heavy.woff2", mb: 0.05, note: "fonte, referenciada em styles.css" },
-  { file: "TW-Averta-Regular.woff2", mb: 0.08, note: "fonte, referenciada em styles.css" },
-  { file: "TW-Averta-Semibold.woff2", mb: 0.07, note: "fonte, referenciada em styles.css" },
+  {
+    file: "vsl-br.mov",
+    mb: 57.3,
+    note: "VSL do quiz em português. QuickTime, converter para mp4 H.264",
+  },
+  { file: "vsl2.mp4", mb: 6.6, note: "VSL do quiz em inglês" },
+  { file: "vsl2-poster.jpg", mb: 0.06, note: "poster do quiz em inglês" },
   { file: "cover.jpg", mb: 0.02, note: "/clips, outro produto" },
   { file: "euromaxxing.jpg", mb: 0.1, note: "/clips, outro produto" },
   { file: "groceries.jpg", mb: 0.14, note: "/clips, outro produto" },

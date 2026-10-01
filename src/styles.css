@@ -167,7 +167,7 @@ html {
 
 @font-face {
   font-family: "DIN Next";
-  src: url("/__l5e/assets-v1/43187fca-7a10-4f7d-8f23-359df79ffa86/DINNextW1G-Regular.woff") format("woff");
+  src: url("/fonts/DINNextW1G-Regular.woff") format("woff");
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -175,7 +175,7 @@ html {
 
 @font-face {
   font-family: "Wise Sans";
-  src: url("/__l5e/assets-v1/dde22c88-25d9-413a-a803-b134963fbd86/WiseSans-Heavy.woff2") format("woff2");
+  src: url("/fonts/WiseSans-Heavy.woff2") format("woff2");
   font-style: normal;
   font-weight: 800 900;
   font-display: swap;
@@ -183,7 +183,7 @@ html {
 
 @font-face {
   font-family: "Averta";
-  src: url("/__l5e/assets-v1/9250d015-8bd2-4a13-b2c8-ca8cbf30e9b9/TW-Averta-Regular.woff2") format("woff2");
+  src: url("/fonts/TW-Averta-Regular.woff2") format("woff2");
   font-style: normal;
   font-weight: 400 500;
   font-display: swap;
@@ -191,7 +191,7 @@ html {
 
 @font-face {
   font-family: "Averta";
-  src: url("/__l5e/assets-v1/dbf302f3-faeb-4b63-8d88-66319693391e/TW-Averta-Semibold.woff2") format("woff2");
+  src: url("/fonts/TW-Averta-Semibold.woff2") format("woff2");
   font-style: normal;
   font-weight: 600 700;
   font-display: swap;
@@ -199,7 +199,7 @@ html {
 
 @font-face {
   font-family: "DIN Next";
-  src: url("/__l5e/assets-v1/e18e1733-811b-4915-a588-37e71046bd4b/DINNextW1G-Bold.woff") format("woff");
+  src: url("/fonts/DINNextW1G-Bold.woff") format("woff");
   font-style: normal;
   font-weight: 700 900;
   font-display: swap;

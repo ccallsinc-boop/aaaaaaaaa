@@ -23,11 +23,10 @@ import { Button } from "@/components/ui/button";
 import { CATALOG, type CatalogGame } from "@/data/catalog";
 import { trackMeta, trackMetaCustom } from "@/lib/meta-pixel";
 import { HOTMART_CHECKOUT_URL } from "@/lib/checkout";
+import { ASSETS } from "@/lib/assets";
+// Still on Lovable: the English quiz has its own VSL, not the Spanish one.
 import vslAsset from "@/assets/vsl2.mp4.asset.json";
 import vslPoster from "@/assets/vsl2-poster.jpg.asset.json";
-import proof1 from "@/assets/proof-1.jpg.asset.json";
-import proof2 from "@/assets/proof-2.jpg.asset.json";
-import proof3 from "@/assets/proof-3.jpg.asset.json";
 
 export const EN_QUIZ_CHECKOUT = HOTMART_CHECKOUT_URL;
 
@@ -225,9 +224,9 @@ function gamesFor(answer?: string) {
 }
 
 const PROOFS = [
-  { image: proof1.url, alt: "Customer playing Forza Horizon on PC" },
-  { image: proof2.url, alt: "Customer playing GTA V on a laptop" },
-  { image: proof3.url, alt: "Customer playing EA FC on a TV" },
+  { image: ASSETS.proof[0], alt: "Customer playing Forza Horizon on PC" },
+  { image: ASSETS.proof[1], alt: "Customer playing GTA V on a laptop" },
+  { image: ASSETS.proof[2], alt: "Customer playing EA FC on a TV" },
 ];
 
 const TESTIMONIALS = [

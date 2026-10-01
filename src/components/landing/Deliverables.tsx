@@ -11,11 +11,9 @@ import {
 } from "lucide-react";
 import { Cta } from "@/components/landing/Cta";
 import { useLocale } from "@/lib/locale";
-import proof1 from "@/assets/proof-1.jpg.asset.json";
-import proof2 from "@/assets/proof-2.jpg.asset.json";
-import proof3 from "@/assets/proof-3.jpg.asset.json";
+import { ASSETS } from "@/lib/assets";
 
-const PHOTOS = [proof1, proof2, proof3];
+const PHOTOS = ASSETS.proof;
 
 const PHOTO_COPY = {
   pt: {
@@ -68,9 +66,7 @@ export function Deliverables() {
   const { t, money, pricePerGame, lang } = useLocale();
   const items = t.deliverables(money(Math.max(pricePerGame, 0.01)));
   const photoCopy =
-    PHOTO_COPY[
-      lang === "uk" ? "en" : lang === "es2" ? "es" : lang === "in" ? "hi" : lang
-    ];
+    PHOTO_COPY[lang === "uk" ? "en" : lang === "es2" ? "es" : lang === "in" ? "hi" : lang];
 
   return (
     <section id="como-funciona" className="border-t border-border py-20">
@@ -88,10 +84,7 @@ export function Deliverables() {
           {items.map(([title, desc], i) => {
             const Icon = ICONS[i] ?? Gamepad2;
             return (
-              <div
-                key={title}
-                className="rounded-2xl border border-border bg-background p-6"
-              >
+              <div key={title} className="rounded-2xl border border-border bg-background p-6">
                 <span className="grid h-11 w-11 place-items-center rounded-xl bg-primary-soft text-primary">
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </span>
@@ -114,8 +107,8 @@ export function Deliverables() {
             <div className="mt-5 grid gap-4 sm:grid-cols-3">
               {PHOTOS.map((photo, i) => (
                 <img
-                  key={photo.url}
-                  src={photo.url}
+                  key={photo}
+                  src={photo}
                   alt={photoCopy.alts[i]}
                   loading="lazy"
                   className="h-64 w-full rounded-2xl border border-border object-cover sm:h-72"
