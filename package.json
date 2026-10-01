@@ -9,7 +9,11 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit",
+    "check": "bun run typecheck && bun run build",
+    "deploy": "bun run build && wrangler deploy --config .output/server/wrangler.json --name \"${WORKER_NAME:-framers}\"",
+    "deploy:dry": "bun run build && wrangler deploy --dry-run --config .output/server/wrangler.json --name \"${WORKER_NAME:-framers}\""
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

@@ -1,7 +1,6 @@
+import { siteUrl } from "@/lib/site";
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
-
-const BASE_URL = "https://framers.lovable.app";
 
 interface SitemapEntry {
   path: string;
@@ -32,7 +31,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const urls = entries.map((e) =>
           [
             `  <url>`,
-            `    <loc>${BASE_URL}${e.path}</loc>`,
+            `    <loc>${siteUrl(e.path)}</loc>`,
             e.changefreq ? `    <changefreq>${e.changefreq}</changefreq>` : null,
             e.priority ? `    <priority>${e.priority}</priority>` : null,
             `  </url>`,

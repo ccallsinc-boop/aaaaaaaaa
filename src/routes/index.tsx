@@ -1,3 +1,5 @@
+import { siteUrl } from "@/lib/site";
+import { ASSETS } from "@/lib/assets";
 import { createFileRoute } from "@tanstack/react-router";
 
 import { LandingPage } from "@/components/landing/LandingPage";
@@ -6,9 +8,9 @@ import { productSchema } from "@/lib/seo";
 const TITLE = "Framers — Os 12 jogos de PC mais pedidos";
 const DESCRIPTION =
   "GTA V, Red Dead 2, Elden Ring, God of War Ragnarök e mais 8: 12 jogos de PC em pagamento único, entrega imediata e 7 dias de garantia.";
-const URL = "https://framers.lovable.app/";
+const URL = siteUrl("/");
 const IMAGE =
-  "https://framers.lovable.app/__l5e/assets-v1/0a1ff5c3-b68c-4f76-8466-e4237ecb49b0/destaque-gta.png";
+  siteUrl(ASSETS.heroPt);
 
 /**
  * The unified landing.
@@ -37,10 +39,10 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "canonical", href: URL },
-      { rel: "alternate", hrefLang: "pt-BR", href: "https://framers.lovable.app/pt" },
-      { rel: "alternate", hrefLang: "es", href: "https://framers.lovable.app/es" },
-      { rel: "alternate", hrefLang: "en", href: "https://framers.lovable.app/en" },
-      { rel: "alternate", hrefLang: "en-GB", href: "https://framers.lovable.app/uk" },
+      { rel: "alternate", hrefLang: "pt-BR", href: siteUrl("/pt") },
+      { rel: "alternate", hrefLang: "es", href: siteUrl("/es") },
+      { rel: "alternate", hrefLang: "en", href: siteUrl("/en") },
+      { rel: "alternate", hrefLang: "en-GB", href: siteUrl("/uk") },
       { rel: "alternate", hrefLang: "x-default", href: URL },
     ],
     scripts: [

@@ -1,3 +1,4 @@
+import { siteUrl } from "@/lib/site";
 import { createFileRoute } from "@tanstack/react-router";
 
 import { ClipsPage } from "@/components/clips/ClipsPage";
@@ -5,7 +6,7 @@ import { ClipsPage } from "@/components/clips/ClipsPage";
 const TITLE = "Framers Clips — Vídeos largos en clips virales por €2,99";
 const DESCRIPTION =
   "Convierte vídeos largos en Shorts y Reels con IA: detección de momentos, reencuadre 9:16, subtítulos y export 4K. Acceso completo por €2,99, pago único.";
-const URL = "https://framers.lovable.app/clips";
+const URL = siteUrl("/clips");
 
 export const Route = createFileRoute("/clips")({
   head: () => ({

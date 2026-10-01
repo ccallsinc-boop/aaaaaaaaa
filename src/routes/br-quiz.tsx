@@ -1,3 +1,4 @@
+import { siteUrl } from "@/lib/site";
 import { createFileRoute } from "@tanstack/react-router";
 
 import { BrGameQuiz } from "@/components/quiz/BrGameQuiz";
@@ -5,7 +6,7 @@ import { BrGameQuiz } from "@/components/quiz/BrGameQuiz";
 const TITLE = "Descubra seu pacote ideal de jogos — Framers";
 const DESCRIPTION =
   "Responda cinco perguntas e descubra seu pacote com os 12 jogos de PC mais pedidos, acesso imediato e 7 dias de garantia.";
-const URL = "https://framers.lovable.app/br-quiz";
+const URL = siteUrl("/br-quiz");
 
 export const Route = createFileRoute("/br-quiz")({
   head: () => ({

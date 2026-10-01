@@ -12,4 +12,19 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    server: {
+      /**
+       * The Lovable preset binds the dev server to `::` on 8080. Any host without
+       * IPv6 (most CI images and plenty of containers) dies on startup with
+       * EAFNOSUPPORT before serving a single request. Binding to IPv4 works
+       * everywhere, including inside Lovable.
+       *
+       * Override with VITE_DEV_HOST / VITE_DEV_PORT when a specific bind is needed.
+       */
+      host: process.env["VITE_DEV_HOST"] ?? "127.0.0.1",
+      port: Number(process.env["VITE_DEV_PORT"] ?? 8080),
+      strictPort: false,
+    },
+  },
 });

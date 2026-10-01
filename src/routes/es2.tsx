@@ -1,3 +1,4 @@
+import { siteUrl } from "@/lib/site";
 import { createFileRoute } from "@tanstack/react-router";
 
 import { Es2LandingPage } from "@/components/landing/Es2LandingPage";
@@ -8,7 +9,7 @@ import { GENERATIVE_ENERGY } from "@/lib/other-products";
 const TITLE = "Generative Energy — Guía pro-metabólica en PDF por $5.30";
 const DESCRIPTION =
   "E-book digital con el protocolo pro-metabólico inspirado en Ray Peat y el estilo de vida europeo: tiroides, carbohidratos fáciles, grasas correctas y cero PUFA. Entrega inmediata y garantía de 7 días.";
-const URL = "https://framers.lovable.app/es2";
+const URL = siteUrl("/es2");
 
 export const Route = createFileRoute("/es2")({
   head: () => ({

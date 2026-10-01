@@ -1,3 +1,5 @@
+import { siteUrl } from "@/lib/site";
+import { ASSETS } from "@/lib/assets";
 import { createFileRoute } from "@tanstack/react-router";
 
 import { LandingPage } from "@/components/landing/LandingPage";
@@ -5,9 +7,9 @@ import { LandingPage } from "@/components/landing/LandingPage";
 const TITLE = "Framers — Os 12 jogos de PC mais pedidos";
 const DESCRIPTION =
   "GTA, FIFA, Call of Duty, Elden Ring, Resident Evil e centenas de outros jogos de PC em um único pacote, com entrega imediata e garantia de 7 dias.";
-const URL = "https://framers.lovable.app/pt";
+const URL = siteUrl("/pt");
 const IMAGE =
-  "https://framers.lovable.app/__l5e/assets-v1/0a1ff5c3-b68c-4f76-8466-e4237ecb49b0/destaque-gta.png";
+  siteUrl(ASSETS.heroPt);
 
 export const Route = createFileRoute("/pt")({
   head: () => ({
@@ -26,10 +28,10 @@ export const Route = createFileRoute("/pt")({
     links: [
       { rel: "canonical", href: URL },
       { rel: "alternate", hrefLang: "pt-BR", href: URL },
-      { rel: "alternate", hrefLang: "es", href: "https://framers.lovable.app/es" },
-      { rel: "alternate", hrefLang: "en", href: "https://framers.lovable.app/en" },
-      { rel: "alternate", hrefLang: "en-GB", href: "https://framers.lovable.app/uk" },
-      { rel: "alternate", hrefLang: "x-default", href: "https://framers.lovable.app/en" },
+      { rel: "alternate", hrefLang: "es", href: siteUrl("/es") },
+      { rel: "alternate", hrefLang: "en", href: siteUrl("/en") },
+      { rel: "alternate", hrefLang: "en-GB", href: siteUrl("/uk") },
+      { rel: "alternate", hrefLang: "x-default", href: siteUrl("/en") },
     ],
   }),
   component: PortugueseLanding,

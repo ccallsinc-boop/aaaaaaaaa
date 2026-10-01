@@ -24,6 +24,7 @@ import { Route as InRouteImport } from './routes/in'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PtRouteImport } from './routes/pt'
 import { Route as RefundRouteImport } from './routes/refund'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as StoreRouteImport } from './routes/store'
 import { Route as TermsRouteImport } from './routes/terms'
@@ -107,6 +108,11 @@ const RefundRoute = RefundRouteImport.update({
   path: '/refund',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -159,6 +165,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/pt': typeof PtRoute
   '/refund': typeof RefundRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/store': typeof StoreRoute
   '/terms': typeof TermsRoute
@@ -183,6 +190,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/pt': typeof PtRoute
   '/refund': typeof RefundRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/store': typeof StoreRoute
   '/terms': typeof TermsRoute
@@ -208,6 +216,7 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/pt': typeof PtRoute
   '/refund': typeof RefundRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/store': typeof StoreRoute
   '/terms': typeof TermsRoute
@@ -234,6 +243,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/pt'
     | '/refund'
+    | '/robots.txt'
     | '/sitemap.xml'
     | '/store'
     | '/terms'
@@ -258,6 +268,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/pt'
     | '/refund'
+    | '/robots.txt'
     | '/sitemap.xml'
     | '/store'
     | '/terms'
@@ -282,6 +293,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/pt'
     | '/refund'
+    | '/robots.txt'
     | '/sitemap.xml'
     | '/store'
     | '/terms'
@@ -307,6 +319,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   PtRoute: typeof PtRoute
   RefundRoute: typeof RefundRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StoreRoute: typeof StoreRoute
   TermsRoute: typeof TermsRoute
@@ -423,6 +436,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RefundRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -491,6 +511,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   PtRoute: PtRoute,
   RefundRoute: RefundRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StoreRoute: StoreRoute,
   TermsRoute: TermsRoute,
