@@ -14,7 +14,7 @@ import {
 } from "@/lib/upsell";
 
 /**
- * One-click upsell, shown by the Hotmart funnel right after the front purchase.
+ * One-click upsell, shown right after the front purchase.
  *
  * Deliberately stripped: no nav, no footer links, no second offer. A post-purchase
  * page has exactly one job, and every extra link is an exit. The decline is still
@@ -37,7 +37,7 @@ export function UpsellPage() {
     if (import.meta.env.DEV && upsellSharesFrontCheckout()) {
       console.warn(
         "[upsell] The accept button points at the front offer's checkout, so it bills " +
-          "the front price instead of the upgrade. Create a separate Hotmart offer " +
+          "the front price instead of the upgrade. Create a separate Xpag offer " +
           "and update UPSELL_ACCEPT_URL in src/lib/upsell.ts.",
       );
     }

@@ -11,7 +11,18 @@
  * because these tags are rendered during the build, so a runtime value would
  * arrive too late.
  */
-const FALLBACK_ORIGIN = "https://framers.lovable.app";
+
+/**
+ * Usado quando VITE_SITE_URL não foi definida.
+ *
+ * Era o domínio da Lovable, o que é o pior valor possível depois da migração:
+ * aponta canonical, og:image e sitemap para um domínio que serve a versão antiga
+ * do site, então o Google aprende o endereço errado e os previews sociais carregam
+ * do host que estamos abandonando. O endereço do Netlify é onde o site está de
+ * fato, então erra para o lado certo. Mesmo assim é um fallback, não o alvo:
+ * defina VITE_SITE_URL com o domínio final.
+ */
+const FALLBACK_ORIGIN = "https://durcle.netlify.app";
 
 function resolveOrigin(): string {
   const configured =
@@ -28,8 +39,17 @@ function resolveOrigin(): string {
 
 export const SITE_ORIGIN = resolveOrigin();
 
-/** True while the site is still advertising the Lovable origin. */
+/** True while nenhum domínio foi configurado e o fallback está no ar. */
 export const SITE_ORIGIN_IS_FALLBACK = SITE_ORIGIN === FALLBACK_ORIGIN;
+
+// Avisa no log do build e do servidor. Sem isto a falta de VITE_SITE_URL é
+// invisível: o site sobe, funciona, e anuncia o domínio errado em todas as tags.
+if (SITE_ORIGIN_IS_FALLBACK && typeof window === "undefined") {
+  console.warn(
+    `[site] VITE_SITE_URL não definida: canonical, og:image e sitemap vão usar ${FALLBACK_ORIGIN}. ` +
+      "Defina a variável no contexto de produção e rode um novo build.",
+  );
+}
 
 /**
  * Absolute URL for a path. `siteUrl("/es")` gives "https://seu-dominio/es",
