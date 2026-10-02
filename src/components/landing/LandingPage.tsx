@@ -40,7 +40,9 @@ export function LandingPage({ lang: pinned }: { lang?: Lang } = {}) {
   return (
     <LocaleProvider lang={lang} market={market}>
       <main
-        className={`${quizVisual ? "theme-quiz-landing" : ""} min-h-screen bg-background pb-24 text-foreground md:pb-0`}
+        // The sticky bar is no longer mobile-only, so the bottom padding that keeps
+        // it from covering the footer has to apply at every width.
+        className={`${quizVisual ? "theme-quiz-landing" : ""} min-h-screen bg-background pb-24 text-foreground`}
       >
         <Nav />
         <Hero />

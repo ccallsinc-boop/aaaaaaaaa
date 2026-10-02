@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-
 import { FRONT_GAMES } from "@/data/front-offer";
 import { Cta } from "@/components/landing/Cta";
 import { useLocale } from "@/lib/locale";
@@ -28,13 +26,14 @@ export function FrontGames() {
 
         <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
           {FRONT_GAMES.map((game, i) => (
-            <motion.article
+            // The stagger is a CSS delay now. These cards are the offer itself, so
+            // they must not depend on the bundle to become visible: as framer-motion
+            // elements they left the server at opacity 0 and stayed there until
+            // hydration.
+            <article
               key={game.name}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: (i % 6) * 0.06, ease: [0.22, 1, 0.36, 1] }}
-              className="group overflow-hidden rounded-2xl border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-soft"
+              style={{ "--rise-delay": `${(i % 6) * 0.06}s` } as React.CSSProperties}
+              className="rise group overflow-hidden rounded-2xl border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-soft"
             >
               <div className="grid aspect-[2/3] place-items-center bg-primary-soft">
                 <img
@@ -51,7 +50,7 @@ export function FrontGames() {
                   {game.name}
                 </h3>
               </div>
-            </motion.article>
+            </article>
           ))}
         </div>
 

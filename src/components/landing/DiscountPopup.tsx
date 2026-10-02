@@ -12,6 +12,21 @@ const DISMISS_KEY = "framers:discount-popup-dismissed";
 const TIMER_MS = 25000;
 
 /**
+ * How far up, and how fast, a scroll has to go to read as "leaving".
+ *
+ * A phone has no cursor, so `mouseleave` never fires there and the only trigger
+ * mobile ever got was the 25-second timer. The gesture that precedes leaving on a
+ * phone is a hard flick back up towards the address bar and the back button, which
+ * is what these two numbers describe. The floor keeps a slow scroll back to re-read
+ * the FAQ from being mistaken for an exit.
+ */
+const EXIT_SCROLL_UP_PX = 110;
+const EXIT_SCROLL_WINDOW_MS = 400;
+
+/** Only after this much of the page has been seen is a flick up worth reading as an exit. */
+const EXIT_MIN_DEPTH_PX = 500;
+
+/**
  * Exit-intent and dwell-time offer.
  *
  * The old version computed the price and the compare-at value and then rendered
@@ -19,6 +34,9 @@ const TIMER_MS = 25000;
  * all. It now carries the whole offer: price, the anchor, the countdown that
  * actually governs the price, the guarantee, and what the pack costs once the
  * window closes.
+ *
+ * Both exits are covered: the cursor leaving the top of the window on a desktop,
+ * and a fast flick back up on a phone, where most of the paid traffic lands.
  */
 export function DiscountPopup() {
   const { t, storeUrl, price, currency, money, fullValue, priceAfter, totalGames, lang } =
@@ -49,9 +67,35 @@ export function DiscountPopup() {
     };
     document.addEventListener("mouseleave", onLeave);
 
+    // Mobile exit intent: a fast flick back up after the visitor has gone a
+    // meaningful way down the page.
+    let lastY = window.scrollY;
+    let lastAt = Date.now();
+    const onScroll = () => {
+      const y = window.scrollY;
+      const now = Date.now();
+      const climbed = lastY - y;
+      if (
+        climbed >= EXIT_SCROLL_UP_PX &&
+        now - lastAt <= EXIT_SCROLL_WINDOW_MS &&
+        lastY >= EXIT_MIN_DEPTH_PX
+      ) {
+        show("exit-intent-scroll");
+        return;
+      }
+      // Only restart the measurement once the gesture is over, so a flick spread
+      // across several scroll events still adds up to one movement.
+      if (climbed <= 0 || now - lastAt > EXIT_SCROLL_WINDOW_MS) {
+        lastY = y;
+        lastAt = now;
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
     return () => {
       window.clearTimeout(timer);
       document.removeEventListener("mouseleave", onLeave);
+      window.removeEventListener("scroll", onScroll);
     };
   }, [shown, lang]);
 
