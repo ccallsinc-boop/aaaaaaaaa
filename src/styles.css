@@ -155,12 +155,51 @@ html {
   transform-style: preserve-3d;
 }
 
+/**
+ * Entrance animation, in CSS instead of JavaScript.
+ *
+ * The hero, the twelve-game grid and every section wrapped in <Reveal> used to
+ * animate in with framer-motion's `initial={{ opacity: 0 }}`, which React renders
+ * into the server HTML as `style="opacity:0"`. The page therefore left the server
+ * with 35 invisible elements, the <h1> among them, and only became visible once
+ * the JavaScript bundle had downloaded, parsed and hydrated. On a phone over
+ * mobile data that is a blank screen for the first seconds of the visit, which is
+ * exactly when paid traffic decides whether to stay. Worse, the reveal used
+ * `whileInView`: if the bundle failed, nothing below the hero ever appeared.
+ *
+ * A CSS animation runs off the stylesheet, which is render-blocking and therefore
+ * always present before the first paint. The copy still fades up the same way, but
+ * it can no longer depend on JavaScript to become readable.
+ *
+ * `both` keeps the final state after the animation ends, so nothing snaps back.
+ */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--rise-delay, 0s);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
   .logo-3d-spin {
+    animation: none;
+  }
+
+  /* No movement, and no fade either: the content is simply there. */
+  .rise {
     animation: none;
   }
 }
