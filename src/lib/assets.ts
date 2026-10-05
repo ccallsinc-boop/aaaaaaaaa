@@ -24,12 +24,13 @@ export const ASSETS = {
   demoPoster: local("produto-funcionando-poster.jpg"),
 
   /**
-   * The Spanish VSL. The original was a 55 MB QuickTime file, which Chrome on
-   * Android often refuses to decode. Re-encoded to 900px H.264 at 5.67 MB, and
-   * it is nearly square (900x890), not 16:9 as the old player assumed.
+   * The Spanish VSL for the emulator offer. The source was a 29 MB, 60 fps
+   * QuickTime file; re-encoded to 1280px H.264 at 30 fps with faststart, 8.4 MB,
+   * which keeps the burned-in subtitles legible. It is 16:9 (1280x716), unlike
+   * the near-square video it replaced. The poster is a frame from 0:25.
    */
-  vslEs: local("vsl-es.mp4"),
-  vslEsPoster: local("vsl-es-poster.jpg"),
+  vslEs: local("vsl-es-emulador.mp4"),
+  vslEsPoster: local("vsl-es-emulador-poster.jpg"),
 
   /** Customer photos used as visual proof. */
   proof: [local("proof-1.jpg"), local("proof-2.jpg"), local("proof-3.jpg")],
