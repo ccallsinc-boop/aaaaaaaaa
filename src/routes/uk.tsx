@@ -6,12 +6,11 @@ import { productSchema } from "@/lib/seo";
 
 import { LandingPage } from "@/components/landing/LandingPage";
 
-const TITLE = "Framers — The 12 Most Wanted PC Games";
+const TITLE = "Framers — Your PC Games on Your Phone";
 const DESCRIPTION =
-  "GTA V, Red Dead 2, Elden Ring, God of War Ragnarök and 8 more: 12 PC games in one payment, instant delivery and a 7-day money-back guarantee.";
+  "An emulator plus a step-by-step method to run GTA V, Red Dead 2, Elden Ring and 9 more PC games on Android and iPhone. One payment and a 7-day money-back guarantee.";
 const URL = siteUrl("/uk");
-const IMAGE =
-  siteUrl(ASSETS.heroDefault);
+const IMAGE = siteUrl(ASSETS.heroDefault);
 
 export const Route = createFileRoute("/uk")({
   head: () => ({
@@ -39,7 +38,7 @@ export const Route = createFileRoute("/uk")({
       {
         type: "application/ld+json",
         children: productSchema({
-          name: "Framers — The 12 Most Wanted PC Games",
+          name: "Framers — PC Game Emulator for Phones",
           description: DESCRIPTION,
           image: IMAGE,
           url: URL,

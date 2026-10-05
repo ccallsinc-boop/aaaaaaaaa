@@ -31,12 +31,13 @@ const PT: Record<"terms" | "privacy" | "refund", LegalDoc> = {
   terms: {
     title: "Termos de uso",
     updated: UPDATED,
-    intro: `Estes termos regem a compra e o uso do pacote digital oferecido por ${COMPANY.tradeName}. Ao concluir a compra, você declara que leu e concorda com eles.`,
+    intro: `Estes termos regem a compra e o uso do método digital oferecido por ${COMPANY.tradeName}. Ao concluir a compra, você declara que leu e concorda com eles.`,
     sections: [
       {
         heading: "1. O que você está comprando",
         body: [
-          "Um pacote digital com 12 títulos para PC, entregue por acesso online, em pagamento único.",
+          "Um método digital para rodar jogos de PC no celular: guia de instalação de emulador para Android e iPhone, configurações para 12 jogos e suporte, entregue por acesso online, em pagamento único.",
+          "Os jogos não estão inclusos. Você usa jogos que já possui; nenhuma cópia de jogo é vendida nem distribuída.",
           "Não existe mensalidade, renovação automática nem cobrança recorrente. O acesso é concedido uma vez e permanece disponível enquanto o serviço existir.",
           "Itens adicionais oferecidos no checkout são opcionais e têm condições próprias, informadas no momento da oferta.",
         ],
@@ -46,7 +47,7 @@ const PT: Record<"terms" | "privacy" | "refund", LegalDoc> = {
         body: [
           "A entrega é 100% digital. Após a confirmação do pagamento, as instruções de acesso são enviadas para o e-mail informado no checkout, normalmente em poucos minutos.",
           "É sua responsabilidade informar um e-mail válido e verificar a caixa de spam. Se o acesso não chegar, fale com o suporte e nós reenviamos.",
-          "Os arquivos são hospedados em serviços de terceiros. Ao clicar num link de download você sai deste site e passa a usar o serviço do host, sujeito aos termos dele.",
+          "O emulador é software de terceiros, baixado da fonte oficial dele e sujeito aos termos dele. Ao clicar num link externo você sai deste site.",
         ],
       },
       {
@@ -59,9 +60,9 @@ const PT: Record<"terms" | "privacy" | "refund", LegalDoc> = {
       {
         heading: "4. Requisitos técnicos",
         body: [
-          "Os títulos são para PC com Windows. Você precisa de espaço em disco, conexão para o download e um computador compatível com cada título.",
-          "Incluímos tutorial de instalação e um pacote de otimização, mas não garantimos desempenho em qualquer configuração de hardware.",
-          "Antes de comprar, confira os requisitos. Se não funcionar na sua máquina, a garantia de 7 dias cobre você.",
+          "Requer Android com processador Snapdragon 8 Gen 2 ou superior, ou iPhone 13 Pro ou mais novo. No iPhone, a instalação é feita por fora da App Store (sideload).",
+          "O desempenho varia por jogo e aparelho; nos jogos mais pesados fica em torno de 720p a 30 fps. Não garantimos desempenho em qualquer aparelho.",
+          "Antes de comprar, confira os requisitos. Se não funcionar no seu aparelho, a garantia de 7 dias cobre você.",
         ],
       },
       {
@@ -219,12 +220,13 @@ const ES: Record<"terms" | "privacy" | "refund", LegalDoc> = {
   terms: {
     title: "Términos de uso",
     updated: UPDATED,
-    intro: `Estos términos rigen la compra y el uso del pack digital ofrecido por ${COMPANY.tradeName}. Al completar la compra, declaras que los leíste y los aceptas.`,
+    intro: `Estos términos rigen la compra y el uso del método digital ofrecido por ${COMPANY.tradeName}. Al completar la compra, declaras que los leíste y los aceptas.`,
     sections: [
       {
         heading: "1. Qué estás comprando",
         body: [
-          "Un pack digital con 12 títulos para PC, entregado mediante acceso en línea, en un pago único.",
+          "Un método digital para correr juegos de PC en el celular: guía de instalación de emulador para Android y iPhone, configuraciones para 12 juegos y soporte, entregado mediante acceso en línea, en un pago único.",
+          "Los juegos no están incluidos. Usas juegos que ya tienes; no se vende ni se distribuye ninguna copia de juegos.",
           "No hay mensualidad, renovación automática ni cobro recurrente. El acceso se concede una vez y permanece disponible mientras el servicio exista.",
           "Los artículos adicionales ofrecidos en el checkout son opcionales y tienen condiciones propias, informadas en el momento de la oferta.",
         ],
@@ -234,7 +236,7 @@ const ES: Record<"terms" | "privacy" | "refund", LegalDoc> = {
         body: [
           "La entrega es 100% digital. Tras confirmarse el pago, las instrucciones de acceso se envían al correo indicado en el checkout, normalmente en pocos minutos.",
           "Es tu responsabilidad indicar un correo válido y revisar la carpeta de spam. Si el acceso no llega, escríbele al soporte y lo reenviamos.",
-          "Los archivos están alojados en servicios de terceros. Al pulsar un enlace de descarga sales de este sitio y pasas a usar el servicio del host, sujeto a sus propios términos.",
+          "El emulador es software de terceros, descargado desde su fuente oficial y sujeto a sus propios términos. Al pulsar un enlace externo sales de este sitio.",
         ],
       },
       {
@@ -247,9 +249,9 @@ const ES: Record<"terms" | "privacy" | "refund", LegalDoc> = {
       {
         heading: "4. Requisitos técnicos",
         body: [
-          "Los títulos son para PC con Windows. Necesitas espacio en disco, conexión para la descarga y un equipo compatible con cada título.",
-          "Incluimos tutorial de instalación y un pack de optimización, pero no garantizamos rendimiento en cualquier configuración de hardware.",
-          "Revisa los requisitos antes de comprar. Si no funciona en tu máquina, la garantía de 7 días te cubre.",
+          "Requiere Android con procesador Snapdragon 8 Gen 2 o superior, o iPhone 13 Pro o más nuevo. En iPhone, la instalación se hace fuera de la App Store (sideload).",
+          "Incluimos guía de instalación y configuraciones por juego, pero no garantizamos rendimiento en cualquier equipo.",
+          "El rendimiento varía según el juego y el equipo; en los juegos más pesados ronda los 720p a 30 fps. Revisa los requisitos antes de comprar. Si no funciona en tu equipo, la garantía de 7 días te cubre.",
         ],
       },
       {
@@ -407,12 +409,13 @@ const EN: Record<"terms" | "privacy" | "refund", LegalDoc> = {
   terms: {
     title: "Terms of use",
     updated: UPDATED,
-    intro: `These terms govern the purchase and use of the digital pack offered by ${COMPANY.tradeName}. By completing your purchase, you confirm that you have read and accept them.`,
+    intro: `These terms govern the purchase and use of the digital method offered by ${COMPANY.tradeName}. By completing your purchase, you confirm that you have read and accept them.`,
     sections: [
       {
         heading: "1. What you are buying",
         body: [
-          "A digital pack of 12 PC titles, delivered as online access, for a one-time payment.",
+          "A digital method to run PC games on a phone: an emulator installation guide for Android and iPhone, settings for 12 games and support, delivered as online access, for a one-time payment.",
+          "Games are not included. You use games you already own; no copy of any game is sold or distributed.",
           "There is no subscription, auto-renewal or recurring charge. Access is granted once and stays available for as long as the service exists.",
           "Add-ons offered at checkout are optional and carry their own terms, shown at the time of the offer.",
         ],
@@ -422,7 +425,7 @@ const EN: Record<"terms" | "privacy" | "refund", LegalDoc> = {
         body: [
           "Delivery is fully digital. Once payment is confirmed, access instructions are sent to the email you entered at checkout, usually within minutes.",
           "Entering a valid email and checking your spam folder is on you. If access does not arrive, contact support and we will resend it.",
-          "Files are hosted on third-party services. Clicking a download link takes you off this site and onto that host, under its own terms.",
+          "The emulator is third-party software, downloaded from its official source and subject to its own terms. Clicking an external link takes you off this site.",
         ],
       },
       {
@@ -435,9 +438,9 @@ const EN: Record<"terms" | "privacy" | "refund", LegalDoc> = {
       {
         heading: "4. Technical requirements",
         body: [
-          "The titles are for Windows PC. You need disk space, a connection for the download and a computer compatible with each title.",
-          "We include an installation tutorial and an optimisation pack, but we do not guarantee performance on any given hardware.",
-          "Check the requirements before buying. If it does not run on your machine, the 7-day guarantee covers you.",
+          "Requires Android with a Snapdragon 8 Gen 2 or newer, or an iPhone 13 Pro or newer. On iPhone, installation happens outside the App Store (sideloading).",
+          "Performance varies by game and device; on the heaviest games it is around 720p at 30 fps. We do not guarantee performance on any given device.",
+          "Check the requirements before buying. If it does not run on your device, the 7-day guarantee covers you.",
         ],
       },
       {

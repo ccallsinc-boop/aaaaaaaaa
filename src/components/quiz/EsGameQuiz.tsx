@@ -37,7 +37,7 @@ type Question = { eyebrow: string; title: string; subtitle: string; answers: Ans
 const QUESTIONS: Question[] = [
   {
     eyebrow: "AMERICAN SIMULACRUM Y PACK DE JUEGOS",
-    title: "¿Qué tipo de juego nunca puede faltar en tu PC?",
+    title: "¿Qué tipo de juego nunca puede faltar en tu celular?",
     subtitle: "Elige la opción que más se parece a ti.",
     answers: [
       {
@@ -52,19 +52,19 @@ const QUESTIONS: Question[] = [
         detail: "Exploración, progreso y grandes desafíos",
         icon: Sparkles,
       },
-      { id: "deportes", title: "Deportes", detail: "Fútbol, lucha y competición", icon: Gamepad2 },
+      { id: "deportes", title: "Lucha y competición", detail: "Combate y desafío", icon: Gamepad2 },
       { id: "carreras", title: "Carreras", detail: "Velocidad, coches y simulación", icon: Gauge },
     ],
   },
   {
     eyebrow: "Tus favoritos",
     title: "¿Qué saga te gustaría jugar primero?",
-    subtitle: "Todas están dentro del mismo pack.",
+    subtitle: "Elige la que más quieres llevar al celular.",
     answers: [
       {
         id: "gta",
         title: "Grand Theft Auto",
-        detail: "GTA III, Vice City, San Andreas, IV y V",
+        detail: "GTA V y San Andreas",
         icon: Trophy,
       },
       {
@@ -74,53 +74,53 @@ const QUESTIONS: Question[] = [
         icon: Gamepad2,
       },
       {
-        id: "assassins",
-        title: "Assassin's Creed",
-        detail: "La saga completa para explorar",
+        id: "god-of-war",
+        title: "God of War",
+        detail: "Ragnarök y la travesía nórdica",
         icon: Sparkles,
       },
       {
         id: "resident",
-        title: "Resident Evil",
-        detail: "Supervivencia y terror clásico",
+        title: "Resident Evil 4",
+        detail: "Supervivencia y terror",
         icon: Zap,
       },
     ],
   },
   {
     eyebrow: "Tu equipo",
-    title: "¿Cómo describirías tu PC?",
-    subtitle: "Esto nos ayuda a mostrarte el beneficio más importante.",
+    title: "¿Cuál es tu celular?",
+    subtitle: "Jugar juegos de PC en el celular exige un equipo potente. Mejor saberlo ahora.",
     answers: [
       {
-        id: "basico",
-        title: "Básico",
-        detail: "Necesito juegos ligeros y optimización",
-        icon: Monitor,
-      },
-      {
-        id: "medio",
-        title: "Intermedio",
-        detail: "Puedo jugar la mayoría de los títulos",
-        icon: Gauge,
-      },
-      {
-        id: "potente",
-        title: "Potente",
-        detail: "Quiero aprovechar gráficos al máximo",
+        id: "android-top",
+        title: "Android de gama alta",
+        detail: "Snapdragon 8 Gen 2 o más nuevo",
         icon: Zap,
       },
       {
+        id: "iphone",
+        title: "iPhone 13 Pro o más nuevo",
+        detail: "Instalación fuera de la App Store",
+        icon: Gauge,
+      },
+      {
+        id: "intermedio",
+        title: "Gama media",
+        detail: "Atención: en gama media no corre",
+        icon: Monitor,
+      },
+      {
         id: "no-se",
-        title: "No estoy seguro",
-        detail: "Prefiero recibir ayuda para elegir",
+        title: "No sé el modelo",
+        detail: "El soporte lo revisa contigo",
         icon: Gamepad2,
       },
     ],
   },
   {
     eyebrow: "Tu prioridad",
-    title: "¿Qué valoras más al comprar juegos?",
+    title: "¿Qué es lo más importante para ti?",
     subtitle: "Selecciona tu principal prioridad.",
     answers: [
       {
@@ -138,7 +138,7 @@ const QUESTIONS: Question[] = [
       {
         id: "rendimiento",
         title: "Buen rendimiento",
-        detail: "Ajustes para que el PC funcione mejor",
+        detail: "Ajustes para que corra mejor en el celular",
         icon: Gauge,
       },
       {
@@ -183,38 +183,27 @@ const QUESTIONS: Question[] = [
 ];
 
 const GAME_GROUPS: Record<string, string[]> = {
+  // Only the twelve titles the method ships settings for. The old groups pulled in
+  // Batman, FIFA, Dark Souls and others from the full catalog, which the result
+  // screen then presented as part of the purchase.
   accion: [
     "GTA: V",
     "Red Dead Redemption 2",
     "God of War: Ragnarok",
     "Spider-Man: Remastered",
-    "Batman: Arkham Knight",
-    "Far Cry 5",
+    "Resident Evil 4",
+    "GTA: San Andreas",
   ],
   rpg: [
     "Elden Ring",
     "Hogwarts Legacy",
-    "Dark Souls 3",
-    "Fallout 4",
     "The Witcher 3: Wild Hunt",
-    "Sekiro: Shadows Die Twice",
+    "The Elder Scrolls: Skyrim",
+    "God of War: Ragnarok",
+    "Red Dead Redemption 2",
   ],
-  deportes: [
-    "FIFA 22",
-    "Mortal Kombat 11",
-    "TEKKEN 8",
-    "WWE 2K24",
-    "eFootball 2024",
-    "Rocket League",
-  ],
-  carreras: [
-    "Forza Horizon 5",
-    "Assetto Corsa",
-    "Euro Truck Simulator 2",
-    "Need for Speed: Heat",
-    "BeamNG Drive",
-    "F1 2025",
-  ],
+  deportes: ["Tekken 8", "Forza Horizon 5", "GTA: V", "Spider-Man: Remastered"],
+  carreras: ["Forza Horizon 5", "GTA: V", "GTA: San Andreas", "Red Dead Redemption 2"],
 };
 
 const FALLBACK_GAMES = [
@@ -264,13 +253,13 @@ const TESTIMONIALS = [
 const BENEFITS = [
   {
     icon: Gamepad2,
-    title: "12 juegos",
-    text: "Acción, deportes, carreras, RPG, terror y mucho más.",
+    title: "12 juegos configurados",
+    text: "Ajustes listos para los más pedidos: acción, RPG, lucha, carreras y terror.",
   },
   {
     icon: Download,
     title: "Entrega inmediata",
-    text: "Recibes el acceso y el tutorial después del pago.",
+    text: "Recibes el método y el tutorial después del pago.",
   },
   {
     icon: InfinityIcon,
@@ -279,8 +268,8 @@ const BENEFITS = [
   },
   {
     icon: Gauge,
-    title: "Pack de optimización",
-    text: "Ajustes preparados para mejorar el rendimiento.",
+    title: "Android y iPhone",
+    text: "Paso a paso de instalación en los dos sistemas.",
   },
   {
     icon: BadgeCheck,
@@ -290,7 +279,7 @@ const BENEFITS = [
   {
     icon: ShieldCheck,
     title: "7 días de garantía",
-    text: "Puedes probar la compra con tranquilidad.",
+    text: "¿No corrió en tu celular? Te devolvemos el dinero.",
   },
 ];
 
@@ -355,9 +344,9 @@ export function EsGameQuiz({ checkoutUrl = ES_QUIZ_CHECKOUT }: { checkoutUrl?: s
     trackMeta("InitiateCheckout", {
       value: price,
       currency,
-      content_name: "Pack Framers Completo",
+      content_name: "Framers Emulator Method",
       content_type: "product",
-      content_ids: ["pacote-framers"],
+      content_ids: ["metodo-emulador-framers"],
       cta_location: "es-quiz:final",
       quiz_answers: Object.values(answers).join(","),
     });
@@ -498,16 +487,16 @@ function AnalysisScreen({ onContinue }: { onContinue: () => void }) {
         <Sparkles className="h-9 w-9" />
       </span>
       <p className="mt-7 text-xs font-bold uppercase text-muted-foreground">Análisis completado</p>
-      <h1 className="mt-4 text-[clamp(2rem,7vw,3.8rem)]">Encontramos el pack ideal para ti</h1>
+      <h1 className="mt-4 text-[clamp(2rem,7vw,3.8rem)]">Encontramos el método ideal para ti</h1>
       <p className="mx-auto mt-5 max-w-xl text-muted-foreground">
-        Tus respuestas indican que buscas variedad, facilidad y una forma más inteligente de
-        descubrir nuevos juegos.
+        Tus respuestas indican que quieres tus juegos favoritos en cualquier lugar, sin pasar días
+        configurando.
       </p>
       <div className="mx-auto mt-8 max-w-lg space-y-3 text-left">
         {[
           "Selección según tus preferencias",
-          "Opciones para distintos niveles de PC",
-          "Acceso organizado con tutorial incluido",
+          "Paso a paso para Android y iPhone",
+          "Configuración lista para cada juego",
         ].map((item) => (
           <div
             key={item}
@@ -539,7 +528,7 @@ function ResultScreen({ games, onContinue }: { games: CatalogGame[]; onContinue:
         Estos títulos encajan con tu perfil
       </h1>
       <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-        Y no tendrás que elegir solo uno: forman parte del mismo pack de 12 juegos.
+        El método trae configuración lista para los 12 más pedidos. Los juegos son tuyos.
       </p>
       <div className="mt-9 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {games.map((game) => (
@@ -557,8 +546,8 @@ function ResultScreen({ games, onContinue }: { games: CatalogGame[]; onContinue:
         ))}
       </div>
       <div className="mt-8 rounded-2xl border-2 border-primary bg-primary-soft p-5">
-        <p className="font-display text-3xl text-foreground">+418 juegos</p>
-        <p className="mt-1 text-sm text-muted-foreground">también incluidos en el mismo acceso</p>
+        <p className="font-display text-3xl text-foreground">12 juegos</p>
+        <p className="mt-1 text-sm text-muted-foreground">con configuración lista en el método</p>
       </div>
       <Button
         size="lg"
@@ -586,10 +575,10 @@ function VslScreen({
     <div className="mx-auto max-w-4xl text-center">
       <p className="text-xs font-bold uppercase text-muted-foreground">Antes de continuar</p>
       <h1 className="mx-auto mt-4 max-w-2xl text-[clamp(2rem,7vw,3.8rem)]">
-        Mira cómo recibes tu biblioteca y american simulacrum{" "}
+        Mira cómo funciona en el celular
       </h1>
       <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-        Este video explica el acceso, la entrega y todo lo que viene incluido.
+        Del emulador instalado al primer juego abierto.
       </p>
       <div className="relative mt-8 overflow-hidden rounded-2xl border-2 border-border bg-foreground shadow-soft">
         <video
@@ -631,7 +620,7 @@ function ProofScreen({ onContinue }: { onContinue: () => void }) {
     <div className="text-center">
       <p className="text-xs font-bold uppercase text-muted-foreground">Clientes reales</p>
       <h1 className="mx-auto mt-4 max-w-3xl text-[clamp(2rem,7vw,3.8rem)]">
-        Miles de jugadores ya recibieron su acceso
+        Lo que dicen los clientes
       </h1>
       <div className="mt-8 grid gap-3 sm:grid-cols-3">
         {PROOFS.map((proof) => (
@@ -674,11 +663,9 @@ function OfferScreen({ checkoutUrl, onCheckout }: { checkoutUrl: string; onCheck
       <span className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-bold text-primary-foreground">
         <Gift /> Oferta liberada para tu perfil
       </span>
-      <h1 className="mx-auto mt-5 max-w-3xl text-[clamp(2rem,7vw,4rem)]">
-        Tu biblioteca completa está lista
-      </h1>
+      <h1 className="mx-auto mt-5 max-w-3xl text-[clamp(2rem,7vw,4rem)]">Tu método está listo</h1>
       <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-        Todo lo necesario para empezar hoy, en un solo acceso y sin mensualidades.
+        Todo lo necesario para jugar en el celular hoy, en un solo acceso y sin mensualidades.
       </p>
       <div className="mt-8 grid gap-3 text-left sm:grid-cols-2 lg:grid-cols-3">
         {BENEFITS.map(({ icon: Icon, title, text }) => (
@@ -692,18 +679,22 @@ function OfferScreen({ checkoutUrl, onCheckout }: { checkoutUrl: string; onCheck
         ))}
       </div>
       <div className="mx-auto mt-8 max-w-xl rounded-2xl border-2 border-foreground bg-primary-soft p-6 shadow-soft sm:p-8">
-        <p className="text-xs font-bold uppercase text-foreground">Pack Framers completo</p>
+        <p className="text-xs font-bold uppercase text-foreground">Método Framers · emulador</p>
         <p className="mt-4 text-sm font-semibold text-foreground">
           Precio especial revelado en el checkout
         </p>
         <p className="mt-2 text-sm font-semibold">Pago único · acceso de por vida</p>
+        <p className="mt-2 text-xs text-muted-foreground">
+          Requiere Android con Snapdragon 8 Gen 2 o superior, o iPhone 13 Pro o más nuevo. Los
+          juegos no están incluidos: usas los tuyos.
+        </p>
         <Button
           asChild
           size="lg"
           className="mt-6 h-14 w-full rounded-full bg-foreground text-base text-primary hover:bg-foreground/90"
         >
           <a href={checkoutUrl} onClick={onCheckout}>
-            Quiero mis 12 juegos <ArrowRight />
+            Quiero jugar en el celular <ArrowRight />
           </a>
         </Button>
         <p className="mt-4 flex items-center justify-center gap-2 text-xs text-muted-foreground">

@@ -75,11 +75,11 @@ export function VslEs() {
       <div className="mx-auto max-w-4xl text-center">
         <h2 className="text-[clamp(1.6rem,4vw,2.4rem)]">
           <span id="vsl-title">
-            Mira este video antes de <span className="text-primary">conseguir tu pack</span>
+            Mira este video antes de <span className="text-primary">conseguir el método</span>
           </span>
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:text-base">
-          Te explicamos en 1 minuto cómo recibes los 12 juegos hoy mismo.
+          Te explicamos en 1 minuto cómo jugar tus juegos de PC en el celular hoy mismo.
         </p>
 
         <div className="relative mt-8 overflow-hidden rounded-2xl border border-border bg-black shadow-soft">
@@ -114,7 +114,7 @@ export function VslEs() {
           Mira el <span className="text-primary">producto funcionando</span>
         </h3>
         <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:text-base">
-          Así se ve tu biblioteca con los 12 juegos instalados en tu PC.
+          Así se ven los juegos de PC corriendo en el celular con el emulador.
         </p>
         <DemoVideo />
 

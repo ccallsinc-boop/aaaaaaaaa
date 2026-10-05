@@ -4,12 +4,11 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { LandingPage } from "@/components/landing/LandingPage";
 
-const TITLE = "Framers — Os 12 jogos de PC mais pedidos";
+const TITLE = "Framers — Jogos de PC no seu celular";
 const DESCRIPTION =
-  "GTA, FIFA, Call of Duty, Elden Ring, Resident Evil e centenas de outros jogos de PC em um único pacote, com entrega imediata e garantia de 7 dias.";
+  "Emulador + método passo a passo para rodar GTA V, Red Dead 2, Elden Ring e mais 9 jogos de PC no Android e no iPhone. Pagamento único e 7 dias de garantia.";
 const URL = siteUrl("/pt");
-const IMAGE =
-  siteUrl(ASSETS.heroPt);
+const IMAGE = siteUrl(ASSETS.heroPt);
 
 export const Route = createFileRoute("/pt")({
   head: () => ({

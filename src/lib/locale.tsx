@@ -94,89 +94,98 @@ const COPY = {
       { label: "Oferta", href: "#oferta" },
       { label: "FAQ", href: "#faq" },
     ],
-    heroBadge: (d: number) => `Preço de lançamento · ${d}% OFF`,
-    heroTitleA: "12 jogos que custam uma fortuna.",
-    heroTitleB: () => "Hoje, o preço de um lanche.",
+    heroBadge: (d: number) => (d > 0 ? `Preço de lançamento · -${d}%` : "Android e iPhone"),
+    heroTitleA: "Seus jogos de PC,",
+    heroTitleB: () => "agora no celular.",
     heroSub: (price: string) =>
-      `GTA V, Red Dead 2, Elden Ring, God of War Ragnarök, Hogwarts Legacy e mais 7. Tudo liberado de uma vez por ${price}, pagamento único, sem mensalidade e com acesso vitalício.`,
-    heroCta: "Quero os 12 jogos agora",
+      `Emulador + método passo a passo para rodar GTA V, Red Dead 2, Elden Ring, God of War Ragnarök e mais 8 no Android e no iPhone. Configuração pronta para cada jogo e suporte humano, por ${price} em pagamento único.`,
+    heroCta: "Quero jogar no celular",
     heroSecondary: "Ver os 12 jogos",
     heroCompare: (full: string, save: string) => (
       <>
-        Comprando separado dá <span className="line-through">{full}</span>. Você economiza{" "}
-        <span className="font-semibold text-foreground">{save}</span> hoje.
+        Depois do lançamento, <span className="line-through">{full}</span>. Comprando hoje, você
+        economiza <span className="font-semibold text-foreground">{save}</span>.
       </>
     ),
-    heroAlt: (n: number) => `Prévia da biblioteca com ${n} jogos de PC`,
-    heroMore: (n: number) => `+ ${n} títulos liberados na mesma compra`,
-    heroTrust: ["Pagamento único", "Acesso em minutos", "7 dias de garantia"],
+    heroAlt: (n: number) => `${n} jogos de PC rodando no celular com o emulador`,
+    heroMore: (n: number) => `+ ${n} jogos com configuração pronta`,
+    heroTrust: ["Android e iPhone", "Pagamento único", "7 dias de garantia"],
     stats: (price: string) =>
       [
         [price, "Uma vez. Nunca mais."],
-        ["Em minutos", "O acesso cai no seu e-mail"],
-        ["7 dias", "Não gostou, devolvemos"],
+        ["12 jogos", "Com configuração pronta"],
+        ["7 dias", "Não rodou, devolvemos"],
       ] as [string, string][],
 
     whyCheapTitle: "Por que tão barato?",
-    whyCheapSub: "É a pergunta certa, e ninguém responde. Aqui vai a resposta direta.",
+    whyCheapSub: "É a pergunta certa. Aqui vai a resposta direta.",
     whyCheap: [
       [
-        "Você paga o arquivo, não a caixa",
-        "Não existe disco, frete, loja física nem prateleira. Entrega digital tem custo perto de zero, e o preço reflete isso.",
+        "O emulador é gratuito",
+        "A tecnologia que roda jogo de PC no celular é aberta e gratuita. Você não paga por ela: paga pelo atalho de não passar dias testando versão, driver e configuração.",
       ],
       [
         "É preço de lançamento",
         "Estamos começando, e preferimos volume agora a margem agora. Por isso a data abaixo existe e o preço realmente sobe nela.",
       ],
       [
-        "Um pacote, não 12 compras",
-        "Vender os 12 de uma vez custa o mesmo que vender um. Essa economia volta para você em vez de virar margem.",
+        "Você usa os seus jogos",
+        "Não vendemos jogo. Você roda os que já tem, como os da sua conta Steam, e por isso o preço é o de um método, não o de 12 jogos.",
       ],
     ] as [string, string][],
 
     deliverablesTitleA: "Tudo que você precisa",
-    deliverablesTitleB: "para jogar ainda hoje",
+    deliverablesTitleB: "para jogar no celular hoje",
     deliverablesSub:
-      "Compra simples, sem assinatura, sem burocracia e com gente de verdade do outro lado.",
-    deliverables: (perGame: string) =>
+      "Do download do emulador ao primeiro jogo aberto, com gente de verdade do outro lado.",
+    deliverables: () =>
       [
-        ["Os 12 jogos liberados", "Todos de uma vez, sem escolher pacote nem pagar por título."],
-        ["Entrega imediata", "Pagou, o acesso chega no seu e-mail em minutos."],
-        ["Acesso vitalício", "Paga uma vez e é seu para sempre, sem mensalidade."],
-        ["Download direto", "Links organizados, rápidos e sem complicação."],
-        ["Pack de otimização", "Ajustes prontos para rodar melhor em PC fraco."],
-        ["Suporte humano", "Time real no WhatsApp para te ajudar na instalação."],
-        ["Garantia de 7 dias", "Não gostou? Devolvemos 100% do valor."],
-        [`Menos de ${perGame} por jogo`, "O preço de um jogo compra os 12."],
+        [
+          "Emulador para Android e iPhone",
+          "Instalação passo a passo nos dois sistemas, incluindo o iPhone, que instala por fora da App Store.",
+        ],
+        ["Acesso em minutos", "Pagou, o método chega no seu e-mail."],
+        ["Acesso vitalício", "Paga uma vez, sem mensalidade."],
+        [
+          "Configuração por jogo",
+          "Ajustes prontos para cada um dos 12 jogos, para não perder tempo testando.",
+        ],
+        [
+          "Seus jogos no celular",
+          "Como levar os jogos que você já tem, inclusive os da Steam, para dentro do emulador.",
+        ],
+        [
+          "Controle e desempenho",
+          "Como ligar um controle Bluetooth e equilibrar gráfico e FPS no seu aparelho.",
+        ],
+        ["Suporte humano", "Time real no WhatsApp para destravar qualquer etapa."],
+        ["Garantia de 7 dias", "Não rodou no seu celular? Devolvemos 100% do valor."],
       ] as [string, string][],
 
-    catalogEyebrow: "O que vem dentro",
-    catalogTitle: (n: number) => `Os ${n} jogos. Um preço só.`,
+    catalogEyebrow: "Jogos que você roda no celular",
+    catalogTitle: (n: number) => `Os ${n} mais pedidos, com configuração pronta.`,
     catalogSub:
-      "Os títulos mais pedidos, com capa oficial e download direto. Nada de lista inflada com joguinho de navegador para inchar o número.",
+      "Cada um tem ajustes próprios no método. O desempenho depende do jogo e do aparelho: nos mais pesados, espere algo em torno de 720p a 30 fps.",
     coverAlt: (name: string) => `Capa de ${name}`,
 
-    offerEyebrow: (n: number) => `Pacote Framers · ${n} jogos`,
-    offerCompare: "Comprando separado:",
+    offerEyebrow: (n: number) => `Método Framers · emulador + ${n} jogos configurados`,
+    offerCompare: "Depois do lançamento:",
     offerToday: "Hoje, pagamento único de",
-    offerPerGame: (n: number, price: string) => (
-      <>
-        {n} jogos · menos de <span className="font-semibold text-foreground">{price}</span> por jogo
-      </>
-    ),
-    offerNote: "Pagamento único no cartão · risco zero com 7 dias de garantia.",
+    offerSpec: (n: number) => `Android e iPhone · ${n} jogos com configuração pronta`,
+    offerNote:
+      "Requer Android com Snapdragon 8 Gen 2 ou superior, ou iPhone 13 Pro ou mais novo. Os jogos não estão inclusos: você usa os seus.",
     includes: (n: number) => [
-      `Os ${n} jogos liberados de uma vez`,
-      "Acesso vitalício: paga uma vez e é seu para sempre",
-      "Tutorial de instalação em vídeo passo a passo",
-      "Pack de otimização para PC fraco",
+      "Emulador com instalação passo a passo para Android e iPhone",
+      `Configuração pronta para os ${n} jogos`,
+      "Como importar os seus jogos, inclusive da Steam",
+      "Guia de controle e desempenho",
       "Suporte humano no WhatsApp",
       "Garantia de 7 dias ou dinheiro de volta",
     ],
 
     guaranteeTitle: "O risco é todo nosso",
     guaranteeSub:
-      "Instale, jogue, teste nos seus 7 dias. Se não gostar, por qualquer motivo, devolvemos tudo. Você não precisa justificar nada e continua com o tutorial e o pack de otimização.",
+      "Instale e teste no seu celular durante 7 dias. Se não rodar ou você não gostar, por qualquer motivo, devolvemos tudo, sem precisar justificar.",
     guaranteeBadges: [
       "Compra 100% segura",
       "7 dias de garantia",
@@ -184,7 +193,7 @@ const COPY = {
       "Suporte humano",
     ],
 
-    brandsTitle: "Estúdios e publishers presentes na biblioteca",
+    brandsTitle: "Jogos de estúdios como",
 
     testimonialsEyebrow: "Mensagens reais de clientes",
     testimonialsTitle: "Instalou, abriu e jogou",
@@ -208,20 +217,28 @@ const COPY = {
     faqTitle: "Perguntas frequentes",
     faq: (price: string, n: number) => [
       {
-        q: `É ${price} pelos ${n} jogos mesmo, sem pegadinha?`,
-        a: `Sim. Pagamento único de ${price} pelos ${n} jogos. Sem mensalidade, sem cobrança por título e sem renovação automática. O preço que você vê é o que o checkout cobra.`,
+        q: `É ${price} mesmo, sem pegadinha?`,
+        a: `Sim. Pagamento único de ${price} pelo emulador, o método e a configuração dos ${n} jogos. Sem mensalidade e sem renovação automática. O preço que você vê é o que o checkout cobra.`,
+      },
+      {
+        q: "Os jogos estão inclusos?",
+        a: "Não. Você recebe o emulador, o método e as configurações. Os jogos são os seus: você usa os que já tem, como os da sua conta Steam, e o método mostra como levar cada um para o celular.",
+      },
+      {
+        q: "Vai rodar no meu celular?",
+        a: "No Android, precisa de um processador Snapdragon 8 Gen 2 ou superior. No iPhone, de um iPhone 13 Pro ou mais novo. Em aparelho intermediário não roda, e preferimos que você saiba antes de comprar. Se mesmo assim não rodar no seu, os 7 dias de garantia cobrem você.",
+      },
+      {
+        q: "Como fica o desempenho?",
+        a: "Depende do jogo e do aparelho. Nos mais pesados, espere algo em torno de 720p a 30 fps: dá para jogar, mas não é um PC gamer. Os mais leves rodam bem melhor.",
+      },
+      {
+        q: "Funciona no iPhone mesmo?",
+        a: "Funciona, mas a instalação é diferente: o emulador não está na App Store, então é instalado por fora (sideload), sem desbloquear o aparelho. O método mostra o passo a passo e o suporte acompanha você.",
       },
       {
         q: "Quando eu recebo o acesso?",
         a: "Na hora. Assim que o pagamento é confirmado, o acesso chega no seu e-mail, normalmente em poucos minutos. Se não chegar, o suporte reenvia.",
-      },
-      {
-        q: "Vai rodar no meu PC?",
-        a: "Os jogos são para PC com Windows. Cada título tem seus requisitos, e vai junto um pack de otimização feito para máquinas mais fracas. Se não rodar na sua, os 7 dias de garantia cobrem você.",
-      },
-      {
-        q: "Nunca instalei jogo no PC. Consigo?",
-        a: "Consegue. Vai um tutorial em vídeo passo a passo e, se travar em qualquer etapa, tem gente de verdade no WhatsApp para destravar com você.",
       },
       {
         q: "E se eu não gostar?",
@@ -239,40 +256,40 @@ const COPY = {
       { label: "FAQ", href: "#faq" },
     ],
     footerSub: (n: number, price: string) =>
-      `${n} jogos de PC por ${price}, em pagamento único, com entrega digital imediata.`,
+      `Emulador e método para rodar ${n} jogos de PC no celular, por ${price} em pagamento único.`,
     footerLinksTitle: "Links rápidos",
-    footerReady: "Pronto para jogar?",
+    footerReady: "Pronto para jogar no celular?",
     footerCta: (price: string) => `Garantir acesso por ${price}`,
     rights: "Todos os direitos reservados.",
     legalTitle: "Legal e suporte",
     legalWhatsapp: "Suporte no WhatsApp",
     trademarkNotice:
-      "Nomes de jogos, estúdios e plataformas citados pertencem aos seus titulares e são usados apenas para identificar os títulos. A menção não implica patrocínio nem vínculo comercial.",
+      "Nomes de jogos, estúdios e plataformas citados pertencem aos seus titulares e são usados apenas para identificar os jogos compatíveis. Os jogos não estão inclusos na compra. A menção não implica patrocínio nem vínculo comercial.",
 
     countdownTitle: "O preço de lançamento acaba em",
     countdownDays: "dias",
     countdownHours: "horas",
     countdownMinutes: "min",
     countdownSeconds: "seg",
-    countdownThen: (price: string) => `Depois dessa data o pacote passa a custar ${price}.`,
+    countdownThen: (price: string) => `Depois dessa data o método passa a custar ${price}.`,
     countdownCompact: (clock: string) => `Lançamento acaba em ${clock}`,
 
-    stickySub: (n: number) => `${n} jogos · pagamento único`,
+    stickySub: (n: number) => `Emulador + ${n} jogos configurados`,
     stickyCta: "Quero acesso",
 
     popupEyebrow: "Espera, antes de sair",
     popupTitle: "Você ia embora sem ver o preço",
-    popupSub: (n: number) => `Os ${n} jogos, pagamento único, acesso vitalício.`,
-    popupBullets: ["Acesso em minutos", "7 dias de garantia", "Sem mensalidade"],
+    popupSub: (n: number) => `Emulador, método e configuração para os ${n} jogos. Pagamento único.`,
+    popupBullets: ["Android e iPhone", "7 dias de garantia", "Sem mensalidade"],
     popupCta: "Quero esse preço",
-    popupNote: (price: string) => `Depois do prazo, o mesmo pacote custa ${price}.`,
+    popupNote: (price: string) => `Depois do prazo, o mesmo método custa ${price}.`,
     popupDismiss: "Agora não",
 
-    ctaVsl: "Ver o pacote agora",
-    ctaCatalog: "Quero esses 12 jogos",
+    ctaVsl: "Ver o método",
+    ctaCatalog: "Quero jogar esses no celular",
     ctaTestimonials: "Quero jogar hoje também",
     ctaGuarantee: "Testar sem risco por 7 dias",
-    ctaDeliverables: "Quero começar a jogar agora",
+    ctaDeliverables: "Quero jogar no celular hoje",
     ctaBrands: "Ver a oferta completa",
     ctaFaq: "Ficou alguma dúvida? Garantir meu acesso",
     ctaWhyCheap: "Entendi, quero garantir o meu",
@@ -299,8 +316,8 @@ const COPY = {
     upsellHighlightsTitle: "Alguns dos que entram",
 
     midCtas: [
-      ["Dá para jogar GTA V ainda hoje à noite", "Quero começar a jogar agora"],
-      ["Já viu seus favoritos? Leve os 12 de uma vez.", "Quero esses 12 jogos"],
+      ["Seu GTA V no celular ainda hoje à noite", "Quero começar agora"],
+      ["Já viu seus favoritos? Os 12 vêm configurados.", "Quero esses 12 no celular"],
       ["O preço sobe na data do contador. Antes dela, é esse.", "Garantir o preço de lançamento"],
       ["Teste sem risco, com 7 dias de garantia total", "Testar sem risco"],
     ] as [string, string][],
@@ -312,90 +329,98 @@ const COPY = {
       { label: "Offer", href: "#oferta" },
       { label: "FAQ", href: "#faq" },
     ],
-    heroBadge: (d: number) => `Launch price · ${d}% OFF`,
-    heroTitleA: "12 games that cost a fortune.",
-    heroTitleB: () => "Today, the price of lunch.",
+    heroBadge: (d: number) => (d > 0 ? `Launch price · -${d}%` : "Android and iPhone"),
+    heroTitleA: "Your PC games,",
+    heroTitleB: () => "now on your phone.",
     heroSub: (price: string) =>
-      `GTA V, Red Dead 2, Elden Ring, God of War Ragnarök, Hogwarts Legacy and 7 more. All unlocked at once for ${price}, one payment, no subscription, yours for life.`,
-    heroCta: "Get the 12 games now",
+      `An emulator plus a step-by-step method to run GTA V, Red Dead 2, Elden Ring, God of War Ragnarök and 8 more on Android and iPhone. Ready-made settings for every game and human support, for ${price} in one payment.`,
+    heroCta: "I want to play on my phone",
     heroSecondary: "See the 12 games",
     heroCompare: (full: string, save: string) => (
       <>
-        Bought separately that is <span className="line-through">{full}</span>. You save{" "}
-        <span className="font-semibold text-foreground">{save}</span> today.
+        After launch it is <span className="line-through">{full}</span>. Buy today and you save{" "}
+        <span className="font-semibold text-foreground">{save}</span>.
       </>
     ),
-    heroAlt: (n: number) => `Preview of the library with ${n} PC games`,
-    heroMore: (n: number) => `+ ${n} more titles in the same purchase`,
-    heroTrust: ["One-time payment", "Access in minutes", "7-day guarantee"],
+    heroAlt: (n: number) => `${n} PC games running on a phone with the emulator`,
+    heroMore: (n: number) => `+ ${n} games with ready-made settings`,
+    heroTrust: ["Android and iPhone", "One-time payment", "7-day guarantee"],
     stats: (price: string) =>
       [
         [price, "Once. Never again."],
-        ["In minutes", "Access lands in your inbox"],
-        ["7 days", "Don't like it, we refund"],
+        ["12 games", "With ready-made settings"],
+        ["7 days", "Won't run, we refund"],
       ] as [string, string][],
 
     whyCheapTitle: "Why so cheap?",
-    whyCheapSub: "It is the right question, and nobody answers it. Here is the straight answer.",
+    whyCheapSub: "It is the right question. Here is the straight answer.",
     whyCheap: [
       [
-        "You pay for the file, not the box",
-        "No disc, no shipping, no shop, no shelf. Digital delivery costs close to nothing, and the price reflects that.",
+        "The emulator is free",
+        "The technology that runs PC games on a phone is open and free. You are not paying for it: you are paying for the shortcut of not spending days testing versions, drivers and settings.",
       ],
       [
         "It is launch pricing",
         "We are starting out and we would rather have volume now than margin now. That is why the date below exists and the price really does go up on it.",
       ],
       [
-        "One pack, not 12 purchases",
-        "Selling all 12 at once costs us the same as selling one. That saving goes to you instead of becoming margin.",
+        "You use your own games",
+        "We do not sell games. You run the ones you already own, such as your Steam library, which is why this is priced as a method, not as 12 games.",
       ],
     ] as [string, string][],
 
     deliverablesTitleA: "Everything you need",
-    deliverablesTitleB: "to play today",
+    deliverablesTitleB: "to play on your phone today",
     deliverablesSub:
-      "A simple purchase, with no subscription, no bureaucracy, and real people on the other side.",
-    deliverables: (perGame: string) =>
+      "From downloading the emulator to opening your first game, with real people on the other side.",
+    deliverables: () =>
       [
-        ["All 12 games unlocked", "Every title at once, with no bundles to pick."],
-        ["Instant delivery", "You pay and access reaches your inbox in minutes."],
-        ["Lifetime access", "Pay once and it is yours forever, no monthly fee."],
-        ["Direct download", "Organised, fast links with no hassle."],
-        ["Optimisation pack", "Ready-made tweaks to run better on a weaker PC."],
-        ["Human support", "A real team on WhatsApp to help you install."],
-        ["7-day guarantee", "Not for you? We refund 100%."],
-        [`Less than ${perGame} per game`, "The price of one game buys all 12."],
+        [
+          "Emulator for Android and iPhone",
+          "Step-by-step setup on both, including iPhone, which installs outside the App Store.",
+        ],
+        ["Access in minutes", "You pay and the method reaches your inbox."],
+        ["Lifetime access", "Pay once, no monthly fee."],
+        [
+          "Settings for every game",
+          "Ready-made tweaks for each of the 12 games, so you do not waste time testing.",
+        ],
+        [
+          "Your games on your phone",
+          "How to bring the games you already own, including Steam, into the emulator.",
+        ],
+        [
+          "Controller and performance",
+          "How to pair a Bluetooth controller and balance graphics and FPS on your device.",
+        ],
+        ["Human support", "A real team on WhatsApp to get you past any step."],
+        ["7-day guarantee", "Won't run on your phone? We refund 100%."],
       ] as [string, string][],
 
-    catalogEyebrow: "What's inside",
-    catalogTitle: (n: number) => `The ${n} games. One single price.`,
+    catalogEyebrow: "Games you can run on your phone",
+    catalogTitle: (n: number) => `The ${n} most requested, with ready-made settings.`,
     catalogSub:
-      "The titles people actually ask for, with official art and direct downloads. No padded list of browser games to inflate the number.",
+      "Each one has its own settings in the method. Performance depends on the game and the device: on the heaviest, expect around 720p at 30 fps.",
     coverAlt: (name: string) => `${name} cover art`,
 
-    offerEyebrow: (n: number) => `Framers Pack · ${n} games`,
-    offerCompare: "Bought separately:",
+    offerEyebrow: (n: number) => `Framers Method · emulator + ${n} games set up`,
+    offerCompare: "After launch:",
     offerToday: "Today, one payment of",
-    offerPerGame: (n: number, price: string) => (
-      <>
-        {n} games · less than <span className="font-semibold text-foreground">{price}</span> per
-        game
-      </>
-    ),
-    offerNote: "One-time card payment · zero risk with a 7-day guarantee.",
+    offerSpec: (n: number) => `Android and iPhone · ${n} games with ready-made settings`,
+    offerNote:
+      "Requires Android with a Snapdragon 8 Gen 2 or newer, or an iPhone 13 Pro or newer. Games are not included: you use your own.",
     includes: (n: number) => [
-      `All ${n} games unlocked at once`,
-      "Lifetime access: pay once and it is yours forever",
-      "Step-by-step video installation tutorial",
-      "Optimisation pack for weaker PCs",
+      "Emulator with step-by-step setup for Android and iPhone",
+      `Ready-made settings for the ${n} games`,
+      "How to import your own games, including from Steam",
+      "Controller and performance guide",
       "Human support on WhatsApp",
       "7-day money-back guarantee",
     ],
 
     guaranteeTitle: "The risk is entirely ours",
     guaranteeSub:
-      "Install it, play it, test it across your 7 days. If you do not like it, for any reason, we refund everything. You do not have to justify anything and you keep the tutorial and the optimisation pack.",
+      "Install it and test it on your phone for 7 days. If it will not run or you do not like it, for any reason, we refund everything, no justification needed.",
     guaranteeBadges: [
       "100% secure checkout",
       "7-day guarantee",
@@ -403,7 +428,7 @@ const COPY = {
       "Human support",
     ],
 
-    brandsTitle: "Studios and publishers in the library",
+    brandsTitle: "Games from studios such as",
 
     testimonialsEyebrow: "Real customer messages",
     testimonialsTitle: "Installed it, opened it, played it",
@@ -427,20 +452,28 @@ const COPY = {
     faqTitle: "Frequently asked questions",
     faq: (price: string, n: number) => [
       {
-        q: `Is it really ${price} for all ${n} games, no catch?`,
-        a: `Yes. One payment of ${price} for the ${n} games. No subscription, no per-title charge and no auto-renewal. The price you see is what checkout charges.`,
+        q: `Is it really ${price}, no catch?`,
+        a: `Yes. One payment of ${price} for the emulator, the method and the settings for the ${n} games. No subscription and no auto-renewal. The price you see is what checkout charges.`,
+      },
+      {
+        q: "Are the games included?",
+        a: "No. You get the emulator, the method and the settings. The games are yours: you use the ones you already own, such as your Steam library, and the method shows how to bring each one to your phone.",
+      },
+      {
+        q: "Will it run on my phone?",
+        a: "On Android you need a Snapdragon 8 Gen 2 or newer. On iPhone, an iPhone 13 Pro or newer. It will not run on mid-range phones, and we would rather you knew before buying. If it still will not run on yours, the 7-day guarantee covers you.",
+      },
+      {
+        q: "What is performance like?",
+        a: "It depends on the game and the device. On the heaviest, expect around 720p at 30 fps: playable, but not a gaming PC. Lighter games run much better.",
+      },
+      {
+        q: "Does it really work on iPhone?",
+        a: "It does, but installation is different: the emulator is not on the App Store, so it is installed outside it (sideloading), with no jailbreak. The method walks you through it and support is there with you.",
       },
       {
         q: "When do I get access?",
         a: "Right away. As soon as payment is confirmed, access reaches your inbox, usually within minutes. If it does not arrive, support resends it.",
-      },
-      {
-        q: "Will it run on my PC?",
-        a: "The games are for Windows PC. Each title has its own requirements, and an optimisation pack built for weaker machines is included. If it will not run on yours, the 7-day guarantee covers you.",
-      },
-      {
-        q: "I have never installed a PC game. Can I do it?",
-        a: "You can. A step-by-step video tutorial is included, and if you get stuck at any point there are real people on WhatsApp to unstick it with you.",
       },
       {
         q: "What if I don't like it?",
@@ -458,40 +491,40 @@ const COPY = {
       { label: "FAQ", href: "#faq" },
     ],
     footerSub: (n: number, price: string) =>
-      `${n} PC games for ${price}, one-time payment, instant digital delivery.`,
+      `An emulator and method to run ${n} PC games on your phone, for ${price} in one payment.`,
     footerLinksTitle: "Quick links",
-    footerReady: "Ready to play?",
+    footerReady: "Ready to play on your phone?",
     footerCta: (price: string) => `Get access for ${price}`,
     rights: "All rights reserved.",
     legalTitle: "Legal and support",
     legalWhatsapp: "WhatsApp support",
     trademarkNotice:
-      "Game, studio and platform names shown here belong to their respective owners and are used only to identify the titles. Mentioning them implies no sponsorship or commercial relationship.",
+      "Game, studio and platform names shown here belong to their respective owners and are used only to identify compatible games. Games are not included in the purchase. Mentioning them implies no sponsorship or commercial relationship.",
 
     countdownTitle: "Launch price ends in",
     countdownDays: "days",
     countdownHours: "hours",
     countdownMinutes: "min",
     countdownSeconds: "sec",
-    countdownThen: (price: string) => `After that date the pack goes to ${price}.`,
+    countdownThen: (price: string) => `After that date the method goes to ${price}.`,
     countdownCompact: (clock: string) => `Launch ends in ${clock}`,
 
-    stickySub: (n: number) => `${n} games · one-time payment`,
+    stickySub: (n: number) => `Emulator + ${n} games set up`,
     stickyCta: "Get access",
 
     popupEyebrow: "Wait, before you go",
     popupTitle: "You were about to leave without seeing the price",
-    popupSub: (n: number) => `All ${n} games, one payment, yours for life.`,
-    popupBullets: ["Access in minutes", "7-day guarantee", "No subscription"],
+    popupSub: (n: number) => `Emulator, method and settings for the ${n} games. One payment.`,
+    popupBullets: ["Android and iPhone", "7-day guarantee", "No subscription"],
     popupCta: "I want this price",
-    popupNote: (price: string) => `After the deadline, the same pack costs ${price}.`,
+    popupNote: (price: string) => `After the deadline, the same method costs ${price}.`,
     popupDismiss: "Not now",
 
-    ctaVsl: "See the pack now",
-    ctaCatalog: "I want these 12 games",
+    ctaVsl: "See the method",
+    ctaCatalog: "I want these on my phone",
     ctaTestimonials: "I want to play today too",
     ctaGuarantee: "Try it risk-free for 7 days",
-    ctaDeliverables: "I want to start playing now",
+    ctaDeliverables: "I want to play on my phone today",
     ctaBrands: "See the full offer",
     ctaFaq: "Still unsure? Get my access",
     ctaWhyCheap: "Got it, I want mine",
@@ -518,8 +551,8 @@ const COPY = {
     upsellHighlightsTitle: "A few of the titles you unlock",
 
     midCtas: [
-      ["You could be playing GTA V tonight", "I want to start playing now"],
-      ["Spotted your favourites? Take all 12 at once.", "I want these 12 games"],
+      ["Your GTA V on your phone, tonight", "I want to start now"],
+      ["Spotted your favourites? All 12 come set up.", "I want these 12 on my phone"],
       [
         "The price goes up on the counter's date. Until then, it is this.",
         "Lock in the launch price",
@@ -535,89 +568,98 @@ const ES = {
     { label: "Oferta", href: "#oferta" },
     { label: "FAQ", href: "#faq" },
   ],
-  heroBadge: (d: number) => `Precio de lanzamiento · ${d}% OFF`,
-  heroTitleA: "12 juegos que cuestan una fortuna.",
-  heroTitleB: () => "Hoy, lo que cuesta un almuerzo.",
+  heroBadge: (d: number) => (d > 0 ? `Precio de lanzamiento · -${d}%` : "Android y iPhone"),
+  heroTitleA: "Tus juegos de PC,",
+  heroTitleB: () => "ahora en el celular.",
   heroSub: (price: string) =>
-    `GTA V, Red Dead 2, Elden Ring, God of War Ragnarök, Hogwarts Legacy y 7 más. Todo desbloqueado de una vez por ${price}, pago único, sin mensualidad y con acceso de por vida.`,
-  heroCta: "Quiero los 12 juegos ahora",
+    `Emulador + método paso a paso para correr GTA V, Red Dead 2, Elden Ring, God of War Ragnarök y 8 más en Android y iPhone. Configuración lista para cada juego y soporte humano, por ${price} en pago único.`,
+  heroCta: "Quiero jugar en el celular",
   heroSecondary: "Ver los 12 juegos",
   heroCompare: (full: string, save: string) => (
     <>
-      Comprando por separado son <span className="line-through">{full}</span>. Hoy te ahorras{" "}
-      <span className="font-semibold text-foreground">{save}</span>.
+      Después del lanzamiento, <span className="line-through">{full}</span>. Comprando hoy te
+      ahorras <span className="font-semibold text-foreground">{save}</span>.
     </>
   ),
-  heroAlt: (n: number) => `Vista previa de la biblioteca con ${n} juegos de PC`,
-  heroMore: (n: number) => `+ ${n} títulos incluidos en la misma compra`,
-  heroTrust: ["Pago único", "Acceso en minutos", "7 días de garantía"],
+  heroAlt: (n: number) => `${n} juegos de PC corriendo en el celular con el emulador`,
+  heroMore: (n: number) => `+ ${n} juegos con configuración lista`,
+  heroTrust: ["Android y iPhone", "Pago único", "7 días de garantía"],
   stats: (price: string) =>
     [
       [price, "Una vez. Nunca más."],
-      ["En minutos", "El acceso llega a tu correo"],
-      ["7 días", "No te gustó, te devolvemos"],
+      ["12 juegos", "Con configuración lista"],
+      ["7 días", "No corrió, te devolvemos"],
     ] as [string, string][],
 
   whyCheapTitle: "¿Por qué tan barato?",
-  whyCheapSub: "Es la pregunta correcta, y nadie la responde. Aquí va la respuesta directa.",
+  whyCheapSub: "Es la pregunta correcta. Aquí va la respuesta directa.",
   whyCheap: [
     [
-      "Pagas el archivo, no la caja",
-      "No hay disco, ni envío, ni tienda, ni estante. La entrega digital cuesta casi nada, y el precio lo refleja.",
+      "El emulador es gratuito",
+      "La tecnología que corre juegos de PC en el celular es abierta y gratuita. No pagas por ella: pagas por el atajo de no pasar días probando versiones, drivers y configuraciones.",
     ],
     [
       "Es precio de lanzamiento",
       "Estamos empezando y preferimos volumen ahora a margen ahora. Por eso la fecha de abajo existe y el precio sube de verdad en ella.",
     ],
     [
-      "Un pack, no 12 compras",
-      "Vender los 12 de una vez nos cuesta lo mismo que vender uno. Ese ahorro va para ti en lugar de volverse margen.",
+      "Usas tus propios juegos",
+      "No vendemos juegos. Corres los que ya tienes, como los de tu cuenta de Steam, y por eso el precio es el de un método, no el de 12 juegos.",
     ],
   ] as [string, string][],
 
   deliverablesTitleA: "Todo lo que necesitas",
-  deliverablesTitleB: "para jugar hoy mismo",
+  deliverablesTitleB: "para jugar en el celular hoy",
   deliverablesSub:
-    "Una compra simple, sin suscripción, sin burocracia y con personas reales del otro lado.",
-  deliverables: (perGame: string) =>
+    "De la descarga del emulador al primer juego abierto, con personas reales del otro lado.",
+  deliverables: () =>
     [
-      ["Los 12 juegos desbloqueados", "Todos de una vez, sin elegir paquete ni pagar por título."],
-      ["Entrega inmediata", "Pagas y el acceso llega a tu correo en minutos."],
-      ["Acceso de por vida", "Pagas una vez y es tuyo para siempre, sin mensualidades."],
-      ["Descarga directa", "Enlaces organizados, rápidos y sin complicaciones."],
-      ["Pack de optimización", "Ajustes listos para rendir mejor en PC de gama baja."],
-      ["Soporte humano", "Un equipo real en WhatsApp para ayudarte con la instalación."],
-      ["Garantía de 7 días", "¿No te gustó? Te devolvemos el 100% del dinero."],
-      [`Menos de ${perGame} por juego`, "El precio de un juego compra los 12."],
+      [
+        "Emulador para Android y iPhone",
+        "Instalación paso a paso en los dos, incluido el iPhone, que se instala fuera de la App Store.",
+      ],
+      ["Acceso en minutos", "Pagas y el método llega a tu correo."],
+      ["Acceso de por vida", "Pagas una vez, sin mensualidades."],
+      [
+        "Configuración por juego",
+        "Ajustes listos para cada uno de los 12 juegos, para no perder tiempo probando.",
+      ],
+      [
+        "Tus juegos en el celular",
+        "Cómo llevar los juegos que ya tienes, incluidos los de Steam, al emulador.",
+      ],
+      [
+        "Control y rendimiento",
+        "Cómo conectar un control Bluetooth y equilibrar gráficos y FPS en tu equipo.",
+      ],
+      ["Soporte humano", "Un equipo real en WhatsApp para destrabar cualquier paso."],
+      ["Garantía de 7 días", "¿No corrió en tu celular? Te devolvemos el 100%."],
     ] as [string, string][],
 
-  catalogEyebrow: "Lo que incluye",
-  catalogTitle: (n: number) => `Los ${n} juegos. Un solo precio.`,
+  catalogEyebrow: "Juegos que corres en el celular",
+  catalogTitle: (n: number) => `Los ${n} más pedidos, con configuración lista.`,
   catalogSub:
-    "Los títulos más pedidos, con portada oficial y descarga directa. Sin lista inflada con juegos de navegador para abultar el número.",
+    "Cada uno tiene ajustes propios en el método. El rendimiento depende del juego y del equipo: en los más pesados, espera algo cerca de 720p a 30 fps.",
   coverAlt: (name: string) => `Portada de ${name}`,
 
-  offerEyebrow: (n: number) => `Pack Framers · ${n} juegos`,
-  offerCompare: "Comprando por separado:",
+  offerEyebrow: (n: number) => `Método Framers · emulador + ${n} juegos configurados`,
+  offerCompare: "Después del lanzamiento:",
   offerToday: "Hoy, pago único de",
-  offerPerGame: (n: number, price: string) => (
-    <>
-      {n} juegos · menos de <span className="font-semibold text-foreground">{price}</span> por juego
-    </>
-  ),
-  offerNote: "Pago único con tarjeta · riesgo cero con 7 días de garantía.",
+  offerSpec: (n: number) => `Android y iPhone · ${n} juegos con configuración lista`,
+  offerNote:
+    "Requiere Android con Snapdragon 8 Gen 2 o superior, o iPhone 13 Pro o más nuevo. Los juegos no están incluidos: usas los tuyos.",
   includes: (n: number) => [
-    `Los ${n} juegos desbloqueados de una vez`,
-    "Acceso de por vida: pagas una vez y es tuyo para siempre",
-    "Tutorial de instalación en video paso a paso",
-    "Pack de optimización para PC de gama baja",
+    "Emulador con instalación paso a paso para Android y iPhone",
+    `Configuración lista para los ${n} juegos`,
+    "Cómo importar tus propios juegos, incluso desde Steam",
+    "Guía de control y rendimiento",
     "Soporte humano por WhatsApp",
     "Garantía de 7 días o te devolvemos el dinero",
   ],
 
   guaranteeTitle: "El riesgo es todo nuestro",
   guaranteeSub:
-    "Instala, juega y pruébalo durante tus 7 días. Si no te gusta, por el motivo que sea, te devolvemos todo. No tienes que justificar nada y te quedas con el tutorial y el pack de optimización.",
+    "Instálalo y pruébalo en tu celular durante 7 días. Si no corre o no te gusta, por el motivo que sea, te devolvemos todo, sin justificar nada.",
   guaranteeBadges: [
     "Compra 100% segura",
     "7 días de garantía",
@@ -625,7 +667,7 @@ const ES = {
     "Soporte humano",
   ],
 
-  brandsTitle: "Estudios y publishers presentes en la biblioteca",
+  brandsTitle: "Juegos de estudios como",
 
   testimonialsEyebrow: "Mensajes reales de clientes",
   testimonialsTitle: "Instaló, abrió y jugó",
@@ -649,20 +691,28 @@ const ES = {
   faqTitle: "Preguntas frecuentes",
   faq: (price: string, n: number) => [
     {
-      q: `¿De verdad son ${price} por los ${n} juegos, sin trampa?`,
-      a: `Sí. Un único pago de ${price} por los ${n} juegos. Sin mensualidad, sin cobro por título y sin renovación automática. El precio que ves es el que cobra el checkout.`,
+      q: `¿De verdad son ${price}, sin trampa?`,
+      a: `Sí. Un único pago de ${price} por el emulador, el método y la configuración de los ${n} juegos. Sin mensualidad y sin renovación automática. El precio que ves es el que cobra el checkout.`,
+    },
+    {
+      q: "¿Los juegos están incluidos?",
+      a: "No. Recibes el emulador, el método y las configuraciones. Los juegos son tuyos: usas los que ya tienes, como los de tu cuenta de Steam, y el método muestra cómo llevar cada uno al celular.",
+    },
+    {
+      q: "¿Funcionará en mi celular?",
+      a: "En Android necesitas un procesador Snapdragon 8 Gen 2 o superior. En iPhone, un iPhone 13 Pro o más nuevo. En equipos de gama media no corre, y preferimos que lo sepas antes de comprar. Si aun así no corre en el tuyo, los 7 días de garantía te cubren.",
+    },
+    {
+      q: "¿Cómo es el rendimiento?",
+      a: "Depende del juego y del equipo. En los más pesados, espera algo cerca de 720p a 30 fps: se puede jugar, pero no es una PC gamer. Los más livianos corren mucho mejor.",
+    },
+    {
+      q: "¿De verdad funciona en iPhone?",
+      a: "Funciona, pero la instalación es distinta: el emulador no está en la App Store, así que se instala por fuera (sideload), sin hacer jailbreak. El método te muestra el paso a paso y el soporte te acompaña.",
     },
     {
       q: "¿Cuándo recibo el acceso?",
       a: "Al instante. En cuanto se confirma el pago, el acceso llega a tu correo, normalmente en pocos minutos. Si no llega, el soporte te lo reenvía.",
-    },
-    {
-      q: "¿Funcionará en mi PC?",
-      a: "Los juegos son para PC con Windows. Cada título tiene sus requisitos, y va incluido un pack de optimización pensado para máquinas más débiles. Si no corre en la tuya, los 7 días de garantía te cubren.",
-    },
-    {
-      q: "Nunca instalé un juego en PC. ¿Podré?",
-      a: "Podrás. Va un tutorial en video paso a paso y, si te trabas en cualquier punto, hay personas reales en WhatsApp para destrabarlo contigo.",
     },
     {
       q: "¿Y si no me gusta?",
@@ -680,40 +730,40 @@ const ES = {
     { label: "FAQ", href: "#faq" },
   ],
   footerSub: (n: number, price: string) =>
-    `${n} juegos de PC por ${price}, en pago único, con entrega digital inmediata.`,
+    `Emulador y método para correr ${n} juegos de PC en el celular, por ${price} en pago único.`,
   footerLinksTitle: "Enlaces rápidos",
-  footerReady: "¿Listo para jugar?",
+  footerReady: "¿Listo para jugar en el celular?",
   footerCta: (price: string) => `Conseguir acceso por ${price}`,
   rights: "Todos los derechos reservados.",
   legalTitle: "Legal y soporte",
   legalWhatsapp: "Soporte por WhatsApp",
   trademarkNotice:
-    "Los nombres de juegos, estudios y plataformas citados pertenecen a sus titulares y se usan solo para identificar los títulos. Mencionarlos no implica patrocinio ni vínculo comercial.",
+    "Los nombres de juegos, estudios y plataformas citados pertenecen a sus titulares y se usan solo para identificar los juegos compatibles. Los juegos no están incluidos en la compra. Mencionarlos no implica patrocinio ni vínculo comercial.",
 
   countdownTitle: "El precio de lanzamiento termina en",
   countdownDays: "días",
   countdownHours: "horas",
   countdownMinutes: "min",
   countdownSeconds: "seg",
-  countdownThen: (price: string) => `Después de esa fecha el pack pasa a costar ${price}.`,
+  countdownThen: (price: string) => `Después de esa fecha el método pasa a costar ${price}.`,
   countdownCompact: (clock: string) => `Lanzamiento termina en ${clock}`,
 
-  stickySub: (n: number) => `${n} juegos · pago único`,
+  stickySub: (n: number) => `Emulador + ${n} juegos configurados`,
   stickyCta: "Quiero acceso",
 
   popupEyebrow: "Espera, antes de irte",
   popupTitle: "Te ibas sin ver el precio",
-  popupSub: (n: number) => `Los ${n} juegos, pago único, acceso de por vida.`,
-  popupBullets: ["Acceso en minutos", "7 días de garantía", "Sin mensualidad"],
+  popupSub: (n: number) => `Emulador, método y configuración para los ${n} juegos. Pago único.`,
+  popupBullets: ["Android y iPhone", "7 días de garantía", "Sin mensualidad"],
   popupCta: "Quiero ese precio",
-  popupNote: (price: string) => `Pasado el plazo, el mismo pack cuesta ${price}.`,
+  popupNote: (price: string) => `Pasado el plazo, el mismo método cuesta ${price}.`,
   popupDismiss: "Ahora no",
 
-  ctaVsl: "Ver el pack ahora",
-  ctaCatalog: "Quiero estos 12 juegos",
+  ctaVsl: "Ver el método",
+  ctaCatalog: "Quiero jugarlos en el celular",
   ctaTestimonials: "Yo también quiero jugar hoy",
   ctaGuarantee: "Probar sin riesgo 7 días",
-  ctaDeliverables: "Quiero empezar a jugar ahora",
+  ctaDeliverables: "Quiero jugar en el celular hoy",
   ctaBrands: "Ver la oferta completa",
   ctaFaq: "¿Te quedó alguna duda? Conseguir mi acceso",
   ctaWhyCheap: "Entendido, quiero el mío",
@@ -740,8 +790,8 @@ const ES = {
   upsellHighlightsTitle: "Algunos de los que entran",
 
   midCtas: [
-    ["Esta noche ya podrías estar jugando GTA V", "Quiero empezar a jugar ahora"],
-    ["¿Ya viste tus favoritos? Llévate los 12 de una vez.", "Quiero estos 12 juegos"],
+    ["Tu GTA V en el celular, esta misma noche", "Quiero empezar ahora"],
+    ["¿Ya viste tus favoritos? Los 12 vienen configurados.", "Quiero estos 12 en el celular"],
     [
       "El precio sube en la fecha del contador. Hasta ahí, es este.",
       "Asegurar el precio de lanzamiento",
@@ -756,87 +806,97 @@ const HI = {
     { label: "ऑफर", href: "#oferta" },
     { label: "FAQ", href: "#faq" },
   ],
-  heroBadge: (d: number) => `लॉन्च कीमत · ${d}% OFF`,
-  heroTitleA: "12 गेम्स जिनकी कीमत बहुत ज़्यादा है।",
-  heroTitleB: () => "आज, एक लंच जितनी।",
+  heroBadge: (d: number) => (d > 0 ? `लॉन्च कीमत · -${d}%` : "Android और iPhone"),
+  heroTitleA: "आपके PC गेम्स,",
+  heroTitleB: () => "अब आपके फ़ोन पर।",
   heroSub: (price: string) =>
-    `GTA V, Red Dead 2, Elden Ring, God of War Ragnarök, Hogwarts Legacy और 7 और। सब एक साथ सिर्फ ${price} में, एक बार भुगतान, कोई मंथली नहीं, लाइफटाइम एक्सेस।`,
-  heroCta: "मुझे अभी 12 गेम्स चाहिए",
+    `एमुलेटर + स्टेप बाय स्टेप तरीका, जिससे GTA V, Red Dead 2, Elden Ring, God of War Ragnarök और 8 और गेम्स Android और iPhone पर चलें। हर गेम के लिए तैयार सेटिंग्स और इंसानी सपोर्ट, सिर्फ ${price} में, एक बार भुगतान।`,
+  heroCta: "मुझे फ़ोन पर खेलना है",
   heroSecondary: "12 गेम्स देखें",
   heroCompare: (full: string, save: string) => (
     <>
-      अलग-अलग खरीदने पर <span className="line-through">{full}</span>। आज आप{" "}
-      <span className="font-semibold text-foreground">{save}</span> बचाते हैं।
+      लॉन्च के बाद <span className="line-through">{full}</span>। आज खरीदें और{" "}
+      <span className="font-semibold text-foreground">{save}</span> बचाएं।
     </>
   ),
-  heroAlt: (n: number) => `${n} PC गेम्स की लाइब्रेरी का प्रीव्यू`,
-  heroMore: (n: number) => `+ ${n} और टाइटल इसी खरीद में शामिल`,
-  heroTrust: ["एक बार भुगतान", "मिनटों में एक्सेस", "7 दिन की गारंटी"],
+  heroAlt: (n: number) => `एमुलेटर से फ़ोन पर चलते ${n} PC गेम्स`,
+  heroMore: (n: number) => `+ ${n} गेम्स तैयार सेटिंग्स के साथ`,
+  heroTrust: ["Android और iPhone", "एक बार भुगतान", "7 दिन की गारंटी"],
   stats: (price: string) =>
     [
       [price, "एक बार। बस।"],
-      ["मिनटों में", "एक्सेस आपके ईमेल पर"],
-      ["7 दिन", "पसंद न आए तो रिफंड"],
+      ["12 गेम्स", "तैयार सेटिंग्स के साथ"],
+      ["7 दिन", "न चले तो रिफंड"],
     ] as [string, string][],
 
   whyCheapTitle: "इतना सस्ता क्यों?",
-  whyCheapSub: "यही सही सवाल है, और कोई जवाब नहीं देता। यह रहा सीधा जवाब।",
+  whyCheapSub: "यही सही सवाल है। यह रहा सीधा जवाब।",
   whyCheap: [
     [
-      "आप फ़ाइल के पैसे देते हैं, डिब्बे के नहीं",
-      "कोई डिस्क नहीं, शिपिंग नहीं, दुकान नहीं। डिजिटल डिलीवरी की लागत न के बराबर है, और कीमत वही दिखाती है।",
+      "एमुलेटर मुफ़्त है",
+      "फ़ोन पर PC गेम्स चलाने वाली तकनीक ओपन और मुफ़्त है। आप उसके पैसे नहीं देते: आप उस शॉर्टकट के पैसे देते हैं जिससे वर्ज़न, ड्राइवर और सेटिंग्स टेस्ट करने में दिन नहीं लगते।",
     ],
     [
       "यह लॉन्च कीमत है",
       "हम शुरुआत कर रहे हैं और अभी मार्जिन से ज़्यादा वॉल्यूम चाहते हैं। इसीलिए नीचे की तारीख मौजूद है और उस दिन कीमत सच में बढ़ती है।",
     ],
-    ["एक पैक, 12 खरीद नहीं", "12 एक साथ बेचने की लागत एक बेचने जितनी ही है। वह बचत आपको जाती है।"],
+    [
+      "आप अपने गेम्स इस्तेमाल करते हैं",
+      "हम गेम्स नहीं बेचते। आप वही गेम्स चलाते हैं जो आपके पास पहले से हैं, जैसे आपकी Steam लाइब्रेरी, इसलिए कीमत एक तरीके की है, 12 गेम्स की नहीं।",
+    ],
   ] as [string, string][],
 
   deliverablesTitleA: "वह सब जो चाहिए",
-  deliverablesTitleB: "आज ही खेलने के लिए",
-  deliverablesSub: "एक आसान खरीद, कोई सब्सक्रिप्शन नहीं, कोई झंझट नहीं, और असली लोगों का सपोर्ट।",
-  deliverables: (perGame: string) =>
+  deliverablesTitleB: "आज ही फ़ोन पर खेलने के लिए",
+  deliverablesSub: "एमुलेटर डाउनलोड से पहला गेम खोलने तक, असली लोगों के सपोर्ट के साथ।",
+  deliverables: () =>
     [
-      ["12 गेम्स अनलॉक", "सब एक साथ, कोई पैकेज चुनने की ज़रूरत नहीं।"],
-      ["तुरंत डिलीवरी", "भुगतान के मिनटों में एक्सेस ईमेल पर।"],
-      ["लाइफटाइम एक्सेस", "एक बार भुगतान, हमेशा के लिए आपका।"],
-      ["डायरेक्ट डाउनलोड", "व्यवस्थित और तेज़ लिंक।"],
-      ["ऑप्टिमाइज़ेशन पैक", "कम पावर वाले PC पर बेहतर चलाने के लिए।"],
-      ["इंसानी सपोर्ट", "इंस्टॉल में मदद के लिए WhatsApp पर असली टीम।"],
-      ["7 दिन की गारंटी", "पसंद न आए? पूरा पैसा वापस।"],
-      [`${perGame} से कम प्रति गेम`, "एक गेम की कीमत में 12।"],
+      [
+        "Android और iPhone के लिए एमुलेटर",
+        "दोनों पर स्टेप बाय स्टेप इंस्टॉलेशन, iPhone पर भी, जहाँ यह App Store के बाहर से इंस्टॉल होता है।",
+      ],
+      ["मिनटों में एक्सेस", "भुगतान के बाद तरीका आपके ईमेल पर।"],
+      ["लाइफटाइम एक्सेस", "एक बार भुगतान, कोई मंथली नहीं।"],
+      [
+        "हर गेम की सेटिंग्स",
+        "12 में से हर गेम के लिए तैयार सेटिंग्स, ताकि टेस्टिंग में समय न जाए।",
+      ],
+      ["आपके गेम्स फ़ोन पर", "आपके पास पहले से मौजूद गेम्स, Steam वाले भी, एमुलेटर में कैसे लाएं।"],
+      [
+        "कंट्रोलर और परफ़ॉर्मेंस",
+        "Bluetooth कंट्रोलर कैसे जोड़ें और ग्राफ़िक्स व FPS का संतुलन कैसे बनाएं।",
+      ],
+      ["इंसानी सपोर्ट", "किसी भी स्टेप पर मदद के लिए WhatsApp पर असली टीम।"],
+      ["7 दिन की गारंटी", "आपके फ़ोन पर नहीं चला? पूरा पैसा वापस।"],
     ] as [string, string][],
 
-  catalogEyebrow: "इसमें क्या मिलता है",
-  catalogTitle: (n: number) => `${n} गेम्स। सिर्फ एक कीमत।`,
-  catalogSub: "सबसे ज़्यादा मांगे जाने वाले टाइटल, ऑफिशियल कवर और सीधा डाउनलोड।",
+  catalogEyebrow: "गेम्स जो आप फ़ोन पर चला सकते हैं",
+  catalogTitle: (n: number) => `सबसे ज़्यादा मांगे जाने वाले ${n}, तैयार सेटिंग्स के साथ।`,
+  catalogSub:
+    "हर गेम की तरीके में अपनी सेटिंग्स हैं। परफ़ॉर्मेंस गेम और डिवाइस पर निर्भर है: सबसे भारी गेम्स में लगभग 720p पर 30 fps की उम्मीद रखें।",
   coverAlt: (name: string) => `${name} का कवर`,
 
-  offerEyebrow: (n: number) => `Framers पैक · ${n} गेम्स`,
-  offerCompare: "अलग-अलग खरीदने पर:",
+  offerEyebrow: (n: number) => `Framers तरीका · एमुलेटर + ${n} गेम्स सेट`,
+  offerCompare: "लॉन्च के बाद:",
   offerToday: "आज, एक बार भुगतान",
-  offerPerGame: (n: number, price: string) => (
-    <>
-      {n} गेम्स · <span className="font-semibold text-foreground">{price}</span> से कम प्रति गेम
-    </>
-  ),
-  offerNote: "कार्ड से एक बार भुगतान · 7 दिन की गारंटी के साथ शून्य जोखिम।",
+  offerSpec: (n: number) => `Android और iPhone · ${n} गेम्स तैयार सेटिंग्स के साथ`,
+  offerNote:
+    "Snapdragon 8 Gen 2 या उससे नया Android, या iPhone 13 Pro या उससे नया चाहिए। गेम्स शामिल नहीं हैं: आप अपने गेम्स इस्तेमाल करते हैं।",
   includes: (n: number) => [
-    `${n} गेम्स एक साथ अनलॉक`,
-    "लाइफटाइम एक्सेस: एक बार भुगतान, हमेशा के लिए आपका",
-    "स्टेप बाय स्टेप वीडियो इंस्टॉलेशन ट्यूटोरियल",
-    "कम पावर वाले PC के लिए ऑप्टिमाइज़ेशन पैक",
+    "Android और iPhone के लिए स्टेप बाय स्टेप इंस्टॉलेशन के साथ एमुलेटर",
+    `${n} गेम्स के लिए तैयार सेटिंग्स`,
+    "अपने गेम्स कैसे इम्पोर्ट करें, Steam से भी",
+    "कंट्रोलर और परफ़ॉर्मेंस गाइड",
     "WhatsApp पर इंसानी सपोर्ट",
     "7 दिन की मनी बैक गारंटी",
   ],
 
   guaranteeTitle: "पूरा जोखिम हमारा है",
   guaranteeSub:
-    "इंस्टॉल कीजिए, खेलिए, 7 दिन तक आज़माइए। पसंद न आए, किसी भी वजह से, तो पूरा पैसा वापस। कोई सफ़ाई नहीं देनी, और ट्यूटोरियल तथा ऑप्टिमाइज़ेशन पैक आपके पास रहते हैं।",
+    "इंस्टॉल कीजिए और 7 दिन तक अपने फ़ोन पर आज़माइए। न चले या पसंद न आए, किसी भी वजह से, तो पूरा पैसा वापस, कोई सफ़ाई नहीं देनी।",
   guaranteeBadges: ["100% सुरक्षित खरीद", "7 दिन की गारंटी", "बिना सवाल रिफंड", "इंसानी सपोर्ट"],
 
-  brandsTitle: "लाइब्रेरी में मौजूद स्टूडियो और पब्लिशर",
+  brandsTitle: "इन जैसे स्टूडियो के गेम्स",
 
   testimonialsEyebrow: "ग्राहकों के असली मैसेज",
   testimonialsTitle: "इंस्टॉल किया, खोला, खेला",
@@ -859,20 +919,28 @@ const HI = {
   faqTitle: "अक्सर पूछे जाने वाले सवाल",
   faq: (price: string, n: number) => [
     {
-      q: `क्या सच में ${n} गेम्स सिर्फ ${price} में?`,
-      a: `हाँ। ${n} गेम्स के लिए एक बार ${price} का भुगतान। कोई मंथली नहीं, प्रति टाइटल चार्ज नहीं और ऑटो रिन्यूअल नहीं।`,
+      q: `क्या सच में सिर्फ ${price}?`,
+      a: `हाँ। एमुलेटर, तरीके और ${n} गेम्स की सेटिंग्स के लिए एक बार ${price} का भुगतान। कोई मंथली नहीं और ऑटो रिन्यूअल नहीं।`,
+    },
+    {
+      q: "क्या गेम्स शामिल हैं?",
+      a: "नहीं। आपको एमुलेटर, तरीका और सेटिंग्स मिलती हैं। गेम्स आपके अपने हैं: आप वही इस्तेमाल करते हैं जो आपके पास हैं, जैसे आपकी Steam लाइब्रेरी, और तरीका दिखाता है कि हर गेम फ़ोन पर कैसे लाएं।",
+    },
+    {
+      q: "क्या मेरे फ़ोन पर चलेगा?",
+      a: "Android पर Snapdragon 8 Gen 2 या उससे नया प्रोसेसर चाहिए। iPhone पर iPhone 13 Pro या उससे नया। मिड-रेंज फ़ोन पर नहीं चलता, और हम चाहते हैं कि आपको खरीदने से पहले पता हो। फिर भी आपके फ़ोन पर न चले, तो 7 दिन की गारंटी है।",
+    },
+    {
+      q: "परफ़ॉर्मेंस कैसी है?",
+      a: "गेम और डिवाइस पर निर्भर है। सबसे भारी गेम्स में लगभग 720p पर 30 fps: खेलने लायक, लेकिन गेमिंग PC जैसा नहीं। हल्के गेम्स काफ़ी बेहतर चलते हैं।",
+    },
+    {
+      q: "क्या यह सच में iPhone पर चलता है?",
+      a: "चलता है, लेकिन इंस्टॉलेशन अलग है: एमुलेटर App Store पर नहीं है, इसलिए यह बाहर से (साइडलोड) इंस्टॉल होता है, बिना जेलब्रेक के। तरीका स्टेप बाय स्टेप दिखाता है और सपोर्ट साथ रहता है।",
     },
     {
       q: "एक्सेस कब मिलेगा?",
       a: "तुरंत। भुगतान कन्फर्म होते ही एक्सेस ईमेल पर आ जाता है, आमतौर पर कुछ ही मिनटों में।",
-    },
-    {
-      q: "क्या मेरे PC पर चलेगा?",
-      a: "गेम्स Windows PC के लिए हैं। हर टाइटल की अपनी ज़रूरतें हैं, और कम पावर वाली मशीनों के लिए ऑप्टिमाइज़ेशन पैक साथ आता है।",
-    },
-    {
-      q: "मैंने कभी PC पर गेम इंस्टॉल नहीं किया। कर पाऊंगा?",
-      a: "कर पाएंगे। स्टेप बाय स्टेप वीडियो ट्यूटोरियल मिलता है और WhatsApp पर असली लोग मदद के लिए हैं।",
     },
     {
       q: "पसंद न आए तो?",
@@ -890,40 +958,40 @@ const HI = {
     { label: "FAQ", href: "#faq" },
   ],
   footerSub: (n: number, price: string) =>
-    `${n} PC गेम्स सिर्फ ${price} में, एक बार भुगतान, तुरंत डिलीवरी।`,
+    `फ़ोन पर ${n} PC गेम्स चलाने के लिए एमुलेटर और तरीका, सिर्फ ${price} में, एक बार भुगतान।`,
   footerLinksTitle: "क्विक लिंक",
-  footerReady: "खेलने के लिए तैयार?",
+  footerReady: "फ़ोन पर खेलने के लिए तैयार?",
   footerCta: (price: string) => `${price} में एक्सेस लें`,
   rights: "सर्वाधिकार सुरक्षित।",
   legalTitle: "लीगल और सपोर्ट",
   legalWhatsapp: "WhatsApp सपोर्ट",
   trademarkNotice:
-    "यहाँ दिए गेम, स्टूडियो और प्लेटफ़ॉर्म के नाम उनके मालिकों के हैं और सिर्फ़ टाइटल पहचानने के लिए इस्तेमाल किए गए हैं। इनका ज़िक्र किसी प्रायोजन या व्यापारिक संबंध का संकेत नहीं है।",
+    "यहाँ दिए गेम, स्टूडियो और प्लेटफ़ॉर्म के नाम उनके मालिकों के हैं और सिर्फ़ संगत गेम्स पहचानने के लिए इस्तेमाल किए गए हैं। गेम्स खरीद में शामिल नहीं हैं। इनका ज़िक्र किसी प्रायोजन या व्यापारिक संबंध का संकेत नहीं है।",
 
   countdownTitle: "लॉन्च कीमत खत्म होने में",
   countdownDays: "दिन",
   countdownHours: "घंटे",
   countdownMinutes: "मिनट",
   countdownSeconds: "सेकंड",
-  countdownThen: (price: string) => `इस तारीख के बाद पैक की कीमत ${price} हो जाएगी।`,
+  countdownThen: (price: string) => `इस तारीख के बाद तरीके की कीमत ${price} हो जाएगी।`,
   countdownCompact: (clock: string) => `लॉन्च खत्म: ${clock}`,
 
-  stickySub: (n: number) => `${n} गेम्स · एक बार भुगतान`,
+  stickySub: (n: number) => `एमुलेटर + ${n} गेम्स सेट`,
   stickyCta: "एक्सेस चाहिए",
 
   popupEyebrow: "रुकिए, जाने से पहले",
   popupTitle: "आप कीमत देखे बिना जा रहे थे",
-  popupSub: (n: number) => `${n} गेम्स, एक बार भुगतान, लाइफटाइम एक्सेस।`,
-  popupBullets: ["मिनटों में एक्सेस", "7 दिन की गारंटी", "कोई मंथली नहीं"],
+  popupSub: (n: number) => `${n} गेम्स के लिए एमुलेटर, तरीका और सेटिंग्स। एक बार भुगतान।`,
+  popupBullets: ["Android और iPhone", "7 दिन की गारंटी", "कोई मंथली नहीं"],
   popupCta: "मुझे यही कीमत चाहिए",
-  popupNote: (price: string) => `समय खत्म होने के बाद वही पैक ${price} का होगा।`,
+  popupNote: (price: string) => `समय खत्म होने के बाद वही तरीका ${price} का होगा।`,
   popupDismiss: "अभी नहीं",
 
-  ctaVsl: "अभी पैक देखें",
-  ctaCatalog: "मुझे ये 12 गेम्स चाहिए",
+  ctaVsl: "तरीका देखें",
+  ctaCatalog: "मुझे ये फ़ोन पर चाहिए",
   ctaTestimonials: "मुझे भी आज खेलना है",
   ctaGuarantee: "7 दिन बिना जोखिम आज़माएं",
-  ctaDeliverables: "अभी खेलना शुरू करें",
+  ctaDeliverables: "आज फ़ोन पर खेलना शुरू करें",
   ctaBrands: "पूरा ऑफर देखें",
   ctaFaq: "कोई सवाल बाकी है? एक्सेस लें",
   ctaWhyCheap: "समझ गया, मुझे चाहिए",
@@ -950,8 +1018,8 @@ const HI = {
   upsellHighlightsTitle: "कुछ टाइटल जो इसमें आते हैं",
 
   midCtas: [
-    ["आज रात आप GTA V खेल सकते हैं", "अभी खेलना शुरू करें"],
-    ["फेवरेट देख लिए? 12 एक साथ ले लें।", "मुझे ये 12 गेम्स चाहिए"],
+    ["आपका GTA V आज रात आपके फ़ोन पर", "अभी शुरू करें"],
+    ["फेवरेट देख लिए? सभी 12 सेट होकर आते हैं।", "मुझे ये 12 फ़ोन पर चाहिए"],
     ["काउंटर की तारीख पर कीमत बढ़ती है। तब तक यही है।", "लॉन्च कीमत पक्की करें"],
     ["बिना जोखिम आज़माएं, 7 दिन की पूरी गारंटी", "बिना जोखिम आज़माएं"],
   ] as [string, string][],
@@ -978,8 +1046,21 @@ export function buildLocale(lang: Lang, resolved: ResolvedMarket = FALLBACK_RESO
   const { market, price } = resolved;
 
   const money = (value: number) => formatMoney(value, market);
-  const fullValue = FRONT_GAMES_COUNT * resolved.perGameValue;
   const hidePrice = !SHOW_PRICE;
+
+  /**
+   * The crossed-out price, and the discount derived from it.
+   *
+   * It used to be the twelve games bought one by one (12 x R$20 = R$240, "93%
+   * OFF"). The front now sells an emulator and a method, not the games, so that
+   * anchor became a claim about something the buyer is not getting. The anchor is
+   * now the price after the launch window, which campaign.ts enforces: a real
+   * number the buyer will actually face. Once the window closes the two prices
+   * meet, `hasAnchor` turns false and every strike-through disappears with it.
+   */
+  const anchor =
+    resolved.priceAfter != null && resolved.priceAfter > price ? resolved.priceAfter : null;
+  const fullValue = anchor ?? price;
 
   /**
    * What gets interpolated wherever copy says "for <price>". With the price shown
@@ -1020,8 +1101,9 @@ export function buildLocale(lang: Lang, resolved: ResolvedMarket = FALLBACK_RESO
     priceLabel,
     totalGames: FRONT_GAMES_COUNT,
     fullValue,
+    hasAnchor: anchor != null,
     pricePerGame: price / FRONT_GAMES_COUNT,
-    discount: Math.min(99, Math.round((1 - price / fullValue) * 100)),
+    discount: anchor ? Math.round((1 - price / anchor) * 100) : 0,
     t: COPY_BY_LANG[lang],
   };
 }
