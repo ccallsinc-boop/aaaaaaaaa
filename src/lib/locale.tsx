@@ -109,7 +109,8 @@ const COPY = {
     ),
     heroAlt: (n: number) => `${n} jogos de PC rodando no celular com o emulador`,
     heroMore: (n: number) => `+ ${n} jogos com configuração pronta`,
-    heroTrust: ["Android e iPhone", "Pagamento único", "7 dias de garantia"],
+    // UpsellPage reuses heroTrust[1] and heroTrust[2]: keep those two as they are.
+    heroTrust: ["Android e iPhone", "Acesso em minutos", "7 dias de garantia"],
     stats: (price: string) =>
       [
         [price, "Uma vez. Nunca mais."],
@@ -344,7 +345,7 @@ const COPY = {
     ),
     heroAlt: (n: number) => `${n} PC games running on a phone with the emulator`,
     heroMore: (n: number) => `+ ${n} games with ready-made settings`,
-    heroTrust: ["Android and iPhone", "One-time payment", "7-day guarantee"],
+    heroTrust: ["Android and iPhone", "Access in minutes", "7-day guarantee"],
     stats: (price: string) =>
       [
         [price, "Once. Never again."],
@@ -583,7 +584,7 @@ const ES = {
   ),
   heroAlt: (n: number) => `${n} juegos de PC corriendo en el celular con el emulador`,
   heroMore: (n: number) => `+ ${n} juegos con configuración lista`,
-  heroTrust: ["Android y iPhone", "Pago único", "7 días de garantía"],
+  heroTrust: ["Android y iPhone", "Acceso en minutos", "7 días de garantía"],
   stats: (price: string) =>
     [
       [price, "Una vez. Nunca más."],
@@ -821,7 +822,7 @@ const HI = {
   ),
   heroAlt: (n: number) => `एमुलेटर से फ़ोन पर चलते ${n} PC गेम्स`,
   heroMore: (n: number) => `+ ${n} गेम्स तैयार सेटिंग्स के साथ`,
-  heroTrust: ["Android और iPhone", "एक बार भुगतान", "7 दिन की गारंटी"],
+  heroTrust: ["Android और iPhone", "मिनटों में एक्सेस", "7 दिन की गारंटी"],
   stats: (price: string) =>
     [
       [price, "एक बार। बस।"],
