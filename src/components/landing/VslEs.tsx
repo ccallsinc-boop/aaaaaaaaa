@@ -87,8 +87,8 @@ export function VslEs() {
             ref={videoRef}
             src={ASSETS.vslEs}
             poster={ASSETS.vslEsPoster}
-            // The source is 900x890, so forcing 16:9 letterboxed it badly.
-            className="aspect-square w-full"
+            // The emulator VSL is 16:9 (1280x716).
+            className="aspect-video w-full"
             controls={playing}
             playsInline
             preload="none"
