@@ -49,9 +49,9 @@ export function MetaPixel({
       trackMeta("ViewContent", {
         value: Number(price.toFixed(2)),
         currency: market.currency,
-        content_name: "Framers Full Pack",
+        content_name: "Framers Emulator Method",
         content_type: "product",
-        content_ids: ["pacote-framers"],
+        content_ids: ["metodo-emulador-framers"],
       });
     }
 

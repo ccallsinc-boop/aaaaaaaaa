@@ -24,9 +24,9 @@ export function Cta({ children, variant = "solid", className = "", location = "p
         trackMeta("InitiateCheckout", {
           value: Number(price.toFixed(2)),
           currency,
-          content_name: "Framers Full Pack",
+          content_name: "Framers Emulator Method",
           content_type: "product",
-          content_ids: ["pacote-framers"],
+          content_ids: ["metodo-emulador-framers"],
           cta_location: `${lang}:${location}`,
         });
       }}

@@ -27,6 +27,7 @@ export function Hero() {
     priceLabel,
     hidePrice,
     fullValue,
+    hasAnchor,
     discount,
     totalGames,
     lang,
@@ -90,7 +91,7 @@ export function Hero() {
           </a>
         </div>
 
-        {!hidePrice && (
+        {!hidePrice && hasAnchor && (
           <p className="rise mt-5 text-xs text-muted-foreground" style={stagger(5)}>
             {t.heroCompare(money(fullValue), money(fullValue - price))}
           </p>

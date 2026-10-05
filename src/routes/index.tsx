@@ -5,12 +5,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { LandingPage } from "@/components/landing/LandingPage";
 import { productSchema } from "@/lib/seo";
 
-const TITLE = "Framers — Os 12 jogos de PC mais pedidos";
+const TITLE = "Framers — Jogos de PC no seu celular";
 const DESCRIPTION =
-  "GTA V, Red Dead 2, Elden Ring, God of War Ragnarök e mais 8: 12 jogos de PC em pagamento único, entrega imediata e 7 dias de garantia.";
+  "Emulador + método passo a passo para rodar GTA V, Red Dead 2, Elden Ring e mais 9 jogos de PC no Android e no iPhone. Pagamento único e 7 dias de garantia.";
 const URL = siteUrl("/");
-const IMAGE =
-  siteUrl(ASSETS.heroPt);
+const IMAGE = siteUrl(ASSETS.heroPt);
 
 /**
  * The unified landing.
@@ -49,7 +48,7 @@ export const Route = createFileRoute("/")({
       {
         type: "application/ld+json",
         children: productSchema({
-          name: "Framers — 12 jogos de PC",
+          name: "Framers — Emulador de jogos de PC para celular",
           description: DESCRIPTION,
           image: IMAGE,
           url: URL,

@@ -6,12 +6,11 @@ import { productSchema } from "@/lib/seo";
 
 import { LandingPage } from "@/components/landing/LandingPage";
 
-const TITLE = "Framers — 12 सबसे लोकप्रिय PC गेम्स";
+const TITLE = "Framers — आपके PC गेम्स आपके फ़ोन पर";
 const DESCRIPTION =
-  "GTA V, Red Dead 2, Elden Ring, God of War Ragnarök और 8 और: 12 PC गेम्स, एक बार भुगतान, तुरंत डिलीवरी और 7 दिन की गारंटी।";
+  "एमुलेटर + स्टेप बाय स्टेप तरीका, जिससे GTA V, Red Dead 2, Elden Ring और 9 और PC गेम्स Android और iPhone पर चलें। एक बार भुगतान और 7 दिन की गारंटी।";
 const URL = siteUrl("/in");
-const IMAGE =
-  siteUrl(ASSETS.heroDefault);
+const IMAGE = siteUrl(ASSETS.heroDefault);
 
 export const Route = createFileRoute("/in")({
   head: () => ({
@@ -40,7 +39,7 @@ export const Route = createFileRoute("/in")({
       {
         type: "application/ld+json",
         children: productSchema({
-          name: "Framers — 12 Most Wanted PC Games",
+          name: "Framers — PC Game Emulator for Phones",
           description: DESCRIPTION,
           image: IMAGE,
           url: URL,

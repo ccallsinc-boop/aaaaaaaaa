@@ -4,7 +4,7 @@ import { LaunchWindow } from "@/components/landing/LaunchWindow";
 import { useLocale } from "@/lib/locale";
 
 export function Offer() {
-  const { t, money, price, hidePrice, fullValue, pricePerGame, discount, totalGames } = useLocale();
+  const { t, money, price, hidePrice, fullValue, hasAnchor, discount, totalGames } = useLocale();
 
   return (
     <section id="oferta" className="border-t border-border py-20">
@@ -21,21 +21,25 @@ export function Offer() {
               </p>
             ) : (
               <>
-                <p className="mt-6 text-sm text-muted-foreground">
-                  {t.offerCompare} <span className="line-through">{money(fullValue)}</span>
+                {hasAnchor && (
+                  <p className="mt-6 text-sm text-muted-foreground">
+                    {t.offerCompare} <span className="line-through">{money(fullValue)}</span>
+                  </p>
+                )}
+                <p className={`${hasAnchor ? "mt-1" : "mt-6"} text-sm text-muted-foreground`}>
+                  {t.offerToday}
                 </p>
-                <p className="mt-1 text-sm text-muted-foreground">{t.offerToday}</p>
                 <div className="mt-2 flex flex-wrap items-center gap-3">
                   <span className="font-display text-[clamp(2.6rem,8vw,4.2rem)] text-primary">
                     {money(price)}
                   </span>
-                  <span className="rounded-full bg-primary-soft px-3 py-1 text-xs font-bold text-primary">
-                    -{discount}% OFF
-                  </span>
+                  {hasAnchor && (
+                    <span className="rounded-full bg-primary-soft px-3 py-1 text-xs font-bold text-primary">
+                      -{discount}%
+                    </span>
+                  )}
                 </div>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {t.offerPerGame(totalGames, money(Math.max(pricePerGame, 0.01)))}
-                </p>
+                <p className="mt-2 text-sm text-muted-foreground">{t.offerSpec(totalGames)}</p>
               </>
             )}
 

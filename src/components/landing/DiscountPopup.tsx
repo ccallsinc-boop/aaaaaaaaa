@@ -39,8 +39,18 @@ const EXIT_MIN_DEPTH_PX = 500;
  * and a fast flick back up on a phone, where most of the paid traffic lands.
  */
 export function DiscountPopup() {
-  const { t, storeUrl, price, currency, money, fullValue, priceAfter, totalGames, lang } =
-    useLocale();
+  const {
+    t,
+    storeUrl,
+    price,
+    currency,
+    money,
+    fullValue,
+    hasAnchor,
+    priceAfter,
+    totalGames,
+    lang,
+  } = useLocale();
   const [open, setOpen] = useState(false);
   const [shown, setShown] = useState(false);
 
@@ -137,8 +147,12 @@ export function DiscountPopup() {
         <h3 className="mt-3 text-2xl leading-tight">{t.popupTitle}</h3>
         <p className="mt-2 text-sm text-muted-foreground">{t.popupSub(totalGames)}</p>
 
-        <p className="mt-5 text-sm text-muted-foreground line-through">{money(fullValue)}</p>
-        <p className="font-display text-[clamp(2.6rem,13vw,3.6rem)] leading-none text-primary">
+        {hasAnchor && (
+          <p className="mt-5 text-sm text-muted-foreground line-through">{money(fullValue)}</p>
+        )}
+        <p
+          className={`${hasAnchor ? "" : "mt-5 "}font-display text-[clamp(2.6rem,13vw,3.6rem)] leading-none text-primary`}
+        >
           {money(price)}
         </p>
 
@@ -161,9 +175,9 @@ export function DiscountPopup() {
             trackMeta("InitiateCheckout", {
               value: Number(price.toFixed(2)),
               currency,
-              content_name: "Framers Full Pack",
+              content_name: "Framers Emulator Method",
               content_type: "product",
-              content_ids: ["pacote-framers"],
+              content_ids: ["metodo-emulador-framers"],
               cta_location: `${lang}:discount-popup`,
             });
           }}

@@ -88,11 +88,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Framers" },
-      { name: "description", content: "Os 12 jogos de PC mais pedidos, em pagamento único." },
+      {
+        name: "description",
+        content: "Seus jogos de PC no celular: emulador e método para Android e iPhone.",
+      },
       { property: "og:title", content: "Framers" },
       {
         property: "og:description",
-        content: "Os 12 jogos de PC mais pedidos, em pagamento único.",
+        content: "Seus jogos de PC no celular: emulador e método para Android e iPhone.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

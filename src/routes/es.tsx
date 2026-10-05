@@ -6,12 +6,11 @@ import { productSchema } from "@/lib/seo";
 
 import { LandingPage } from "@/components/landing/LandingPage";
 
-const TITLE = "Framers — Los 12 juegos de PC más pedidos";
+const TITLE = "Framers — Tus juegos de PC en el celular";
 const DESCRIPTION =
-  "GTA V, Red Dead 2, Elden Ring, God of War Ragnarök y 8 más: 12 juegos de PC en un solo pago, entrega inmediata y garantía de 7 días.";
+  "Emulador + método paso a paso para correr GTA V, Red Dead 2, Elden Ring y 9 juegos de PC más en Android y iPhone. Pago único y 7 días de garantía.";
 const URL = siteUrl("/es");
-const IMAGE =
-  siteUrl(ASSETS.heroDefault);
+const IMAGE = siteUrl(ASSETS.heroDefault);
 
 export const Route = createFileRoute("/es")({
   head: () => ({
@@ -39,7 +38,7 @@ export const Route = createFileRoute("/es")({
       {
         type: "application/ld+json",
         children: productSchema({
-          name: "Framers — Los 12 juegos de PC más pedidos",
+          name: "Framers — Emulador de juegos de PC para celular",
           description: DESCRIPTION,
           image: IMAGE,
           url: URL,

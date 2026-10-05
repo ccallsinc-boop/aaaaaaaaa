@@ -63,8 +63,8 @@ const ICONS = [
 ];
 
 export function Deliverables() {
-  const { t, money, pricePerGame, lang } = useLocale();
-  const items = t.deliverables(money(Math.max(pricePerGame, 0.01)));
+  const { t, lang } = useLocale();
+  const items = t.deliverables();
   const photoCopy =
     PHOTO_COPY[lang === "uk" ? "en" : lang === "es2" ? "es" : lang === "in" ? "hi" : lang];
 
