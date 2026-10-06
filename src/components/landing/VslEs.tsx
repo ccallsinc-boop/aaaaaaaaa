@@ -28,7 +28,7 @@ function DemoVideo() {
         ref={videoRef}
         src={ASSETS.demoVideo}
         poster={ASSETS.demoPoster}
-        className="aspect-[1882/932] w-full"
+        className="aspect-[720/560] w-full"
         controls={playing}
         playsInline
         // The poster carries the first impression, so the file itself only
