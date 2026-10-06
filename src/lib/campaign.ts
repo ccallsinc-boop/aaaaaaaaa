@@ -1,52 +1,55 @@
 /**
- * Launch pricing window.
+ * The front offer's price, and its optional launch window.
  *
- * The page used to promise "por tiempo limitado" with nothing behind it: no
- * deadline, no lot, no expiry anywhere in the code. Anyone who reloaded the next
- * day saw the same "limited" offer, which is the kind of claim that costs more
- * trust than it buys.
+ * The price is set in the currency the checkout offer is configured in: the
+ * Hotmart offer is priced in pounds, so the page is too. A visitor in the UK sees
+ * exactly OFFER_PRICE; every other market sees it converted at the live rate
+ * (see buildResolvedMarket in markets.ts), and Hotmart confirms the final amount
+ * in the buyer's currency at checkout.
  *
- * Here the deadline is real because the code enforces it: while the window is
- * open the base price is `launchPriceBrl`, and the moment it closes the base
- * price becomes `priceAfterBrl` for everyone. The countdown is therefore a
- * statement of fact, not a decoration.
+ * The launch window, when configured, is enforced by the code: while it is open
+ * the price is `launchPrice`, and once it closes the page shows `priceAfter` for
+ * everyone. That only stays true if the checkout changes on the same date, so a
+ * window needs a second offer at `priceAfter` to switch to. With a single offer
+ * there is no window: CAMPAIGN is null, the countdown and the crossed-out "after
+ * launch" price disappear, and nothing on the page promises a rise that the
+ * checkout would not apply.
  *
- * Set CAMPAIGN to null to remove the deadline and keep the launch price running
- * indefinitely. Do NOT extend `endsAt` while leaving the price unchanged: that
- * turns it back into the fake urgency it replaced.
+ * Do NOT extend `endsAt` while leaving the price unchanged: that turns the
+ * countdown into fake urgency.
  */
+
+/** ISO 4217 code of the currency the checkout offer is priced in. */
+export const OFFER_CURRENCY = "GBP";
+
+/** Price of the front offer, in OFFER_CURRENCY. Matches the Hotmart offer. */
+export const OFFER_PRICE = 5.3;
+
 export type Campaign = {
   /** ISO 8601 instant when launch pricing ends. */
   endsAt: string;
-  /** Price in BRL while the window is open. */
-  launchPriceBrl: number;
-  /** Price in BRL once it closes. This must actually take effect. */
-  priceAfterBrl: number;
+  /** Price in OFFER_CURRENCY while the window is open. */
+  launchPrice: number;
+  /** Price in OFFER_CURRENCY once it closes. This must actually take effect. */
+  priceAfter: number;
 };
 
-export const CAMPAIGN: Campaign | null = {
-  endsAt: "2026-10-31T23:59:59-03:00",
-  launchPriceBrl: 17.99,
-  priceAfterBrl: 27.99,
-};
-
-/** Price fallback when there is no campaign configured. */
-const STANDARD_PRICE_BRL = 17.99;
+export const CAMPAIGN: Campaign | null = null;
 
 export function campaignIsOpen(now: number): boolean {
   if (!CAMPAIGN) return false;
   return now < Date.parse(CAMPAIGN.endsAt);
 }
 
-/** The base price in BRL at a given instant. */
-export function basePriceBrlAt(now: number): number {
-  if (!CAMPAIGN) return STANDARD_PRICE_BRL;
-  return campaignIsOpen(now) ? CAMPAIGN.launchPriceBrl : CAMPAIGN.priceAfterBrl;
+/** The base price in OFFER_CURRENCY at a given instant. */
+export function basePriceAt(now: number): number {
+  if (!CAMPAIGN) return OFFER_PRICE;
+  return campaignIsOpen(now) ? CAMPAIGN.launchPrice : CAMPAIGN.priceAfter;
 }
 
-/** The price the visitor will pay after the deadline, for the crossed-out "then" value. */
-export function priceAfterCampaignBrl(): number | null {
-  return CAMPAIGN ? CAMPAIGN.priceAfterBrl : null;
+/** The price after the deadline, in OFFER_CURRENCY, for the crossed-out "then" value. */
+export function priceAfterCampaign(): number | null {
+  return CAMPAIGN ? CAMPAIGN.priceAfter : null;
 }
 
 export function campaignEndsAtMs(): number | null {

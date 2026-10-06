@@ -23,7 +23,7 @@ const MARKET_LANG: Record<Lang, MarketLang> = {
 
 /**
  * Per-route config. Price, currency and number formatting are NOT here any more:
- * they come from the resolved market, converted live from BASE_PRICE_BRL. Keeping
+ * they come from the resolved market, converted live from OFFER_PRICE. Keeping
  * them per route is what let the ES title say EUR 7.20 while the page charged
  * USD 3.90.
  */
@@ -126,8 +126,8 @@ const COPY = {
         "A tecnologia que roda jogo de PC no celular é aberta e gratuita. Você não paga por ela: paga pelo atalho de não passar dias testando versão, driver e configuração.",
       ],
       [
-        "É preço de lançamento",
-        "Estamos começando, e preferimos volume agora a margem agora. Por isso a data abaixo existe e o preço realmente sobe nela.",
+        "Você paga uma vez",
+        "Sem assinatura, sem renovação e sem cobrança escondida. O método é seu, e as configurações dos 12 jogos vêm junto.",
       ],
       [
         "Você usa os seus jogos",
@@ -173,6 +173,7 @@ const COPY = {
     offerCompare: "Depois do lançamento:",
     offerToday: "Hoje, pagamento único de",
     offerSpec: (n: number) => `Android e iPhone · ${n} jogos com configuração pronta`,
+    fxNote: "Valor aproximado na sua moeda. O checkout confirma o valor final.",
     offerNote:
       "Requer Android com Snapdragon 8 Gen 2 ou superior, ou iPhone 13 Pro ou mais novo. Os jogos não estão inclusos: você usa os seus.",
     includes: (n: number) => [
@@ -219,7 +220,7 @@ const COPY = {
     faq: (price: string, n: number) => [
       {
         q: `É ${price} mesmo, sem pegadinha?`,
-        a: `Sim. Pagamento único de ${price} pelo emulador, o método e a configuração dos ${n} jogos. Sem mensalidade e sem renovação automática. O preço que você vê é o que o checkout cobra.`,
+        a: `Sim. Pagamento único de ${price} pelo emulador, o método e a configuração dos ${n} jogos. Sem mensalidade e sem renovação automática. Fora do Reino Unido, o valor é convertido para a sua moeda pela cotação do dia, e o checkout da Hotmart mostra o valor final antes de você pagar.`,
       },
       {
         q: "Os jogos estão inclusos?",
@@ -244,10 +245,6 @@ const COPY = {
       {
         q: "E se eu não gostar?",
         a: "Você tem 7 dias para pedir reembolso integral, sem precisar explicar o motivo. O risco é todo nosso.",
-      },
-      {
-        q: "O preço vai subir mesmo?",
-        a: "Vai. O contador desta página marca o fim do preço de lançamento, e na data ele sobe para todo mundo. Quem comprou antes não paga a diferença.",
       },
     ],
 
@@ -319,7 +316,7 @@ const COPY = {
     midCtas: [
       ["Seu GTA V no celular ainda hoje à noite", "Quero começar agora"],
       ["Já viu seus favoritos? Os 12 vêm configurados.", "Quero esses 12 no celular"],
-      ["O preço sobe na data do contador. Antes dela, é esse.", "Garantir o preço de lançamento"],
+      ["Pagamento único. Sem mensalidade, sem renovação.", "Quero meu acesso"],
       ["Teste sem risco, com 7 dias de garantia total", "Testar sem risco"],
     ] as [string, string][],
   },
@@ -361,8 +358,8 @@ const COPY = {
         "The technology that runs PC games on a phone is open and free. You are not paying for it: you are paying for the shortcut of not spending days testing versions, drivers and settings.",
       ],
       [
-        "It is launch pricing",
-        "We are starting out and we would rather have volume now than margin now. That is why the date below exists and the price really does go up on it.",
+        "You pay once",
+        "No subscription, no renewal and no hidden charges. The method is yours, and the settings for the 12 games come with it.",
       ],
       [
         "You use your own games",
@@ -408,6 +405,7 @@ const COPY = {
     offerCompare: "After launch:",
     offerToday: "Today, one payment of",
     offerSpec: (n: number) => `Android and iPhone · ${n} games with ready-made settings`,
+    fxNote: "Approximate amount in your currency. Checkout confirms the final amount.",
     offerNote:
       "Requires Android with a Snapdragon 8 Gen 2 or newer, or an iPhone 13 Pro or newer. Games are not included: you use your own.",
     includes: (n: number) => [
@@ -454,7 +452,7 @@ const COPY = {
     faq: (price: string, n: number) => [
       {
         q: `Is it really ${price}, no catch?`,
-        a: `Yes. One payment of ${price} for the emulator, the method and the settings for the ${n} games. No subscription and no auto-renewal. The price you see is what checkout charges.`,
+        a: `Yes. One payment of ${price} for the emulator, the method and the settings for the ${n} games. No subscription and no auto-renewal. Outside the UK the amount is converted to your currency at today's rate, and the Hotmart checkout shows the final amount before you pay.`,
       },
       {
         q: "Are the games included?",
@@ -479,10 +477,6 @@ const COPY = {
       {
         q: "What if I don't like it?",
         a: "You have 7 days to request a full refund, with no need to explain why. The risk is entirely ours.",
-      },
-      {
-        q: "Is the price really going up?",
-        a: "It is. The counter on this page marks the end of launch pricing, and on that date it goes up for everyone. Anyone who bought before does not pay the difference.",
       },
     ],
 
@@ -554,10 +548,7 @@ const COPY = {
     midCtas: [
       ["Your GTA V on your phone, tonight", "I want to start now"],
       ["Spotted your favourites? All 12 come set up.", "I want these 12 on my phone"],
-      [
-        "The price goes up on the counter's date. Until then, it is this.",
-        "Lock in the launch price",
-      ],
+      ["One payment. No subscription, no renewal.", "Get my access"],
       ["Try it risk-free, with a 7-day full guarantee", "Try risk-free"],
     ] as [string, string][],
   },
@@ -600,8 +591,8 @@ const ES = {
       "La tecnología que corre juegos de PC en el celular es abierta y gratuita. No pagas por ella: pagas por el atajo de no pasar días probando versiones, drivers y configuraciones.",
     ],
     [
-      "Es precio de lanzamiento",
-      "Estamos empezando y preferimos volumen ahora a margen ahora. Por eso la fecha de abajo existe y el precio sube de verdad en ella.",
+      "Pagas una sola vez",
+      "Sin suscripción, sin renovación y sin cargos ocultos. El método es tuyo, y las configuraciones de los 12 juegos vienen incluidas.",
     ],
     [
       "Usas tus propios juegos",
@@ -647,6 +638,7 @@ const ES = {
   offerCompare: "Después del lanzamiento:",
   offerToday: "Hoy, pago único de",
   offerSpec: (n: number) => `Android y iPhone · ${n} juegos con configuración lista`,
+  fxNote: "Monto aproximado en tu moneda. El checkout confirma el valor final.",
   offerNote:
     "Requiere Android con Snapdragon 8 Gen 2 o superior, o iPhone 13 Pro o más nuevo. Los juegos no están incluidos: usas los tuyos.",
   includes: (n: number) => [
@@ -690,7 +682,7 @@ const ES = {
   faq: (price: string, n: number) => [
     {
       q: `¿De verdad son ${price}, sin trampa?`,
-      a: `Sí. Un único pago de ${price} por el emulador, el método y la configuración de los ${n} juegos. Sin mensualidad y sin renovación automática. El precio que ves es el que cobra el checkout.`,
+      a: `Sí. Un único pago de ${price} por el emulador, el método y la configuración de los ${n} juegos. Sin mensualidad y sin renovación automática. Fuera del Reino Unido, el valor se convierte a tu moneda al cambio del día, y el checkout de Hotmart muestra el monto final antes de pagar.`,
     },
     {
       q: "¿Los juegos están incluidos?",
@@ -715,10 +707,6 @@ const ES = {
     {
       q: "¿Y si no me gusta?",
       a: "Tienes 7 días para pedir el reembolso completo, sin explicar el motivo. El riesgo es todo nuestro.",
-    },
-    {
-      q: "¿De verdad va a subir el precio?",
-      a: "Sí. El contador de esta página marca el fin del precio de lanzamiento, y en esa fecha sube para todos. Quien compró antes no paga la diferencia.",
     },
   ],
 
@@ -790,10 +778,7 @@ const ES = {
   midCtas: [
     ["Tu GTA V en el celular, esta misma noche", "Quiero empezar ahora"],
     ["¿Ya viste tus favoritos? Los 12 vienen configurados.", "Quiero estos 12 en el celular"],
-    [
-      "El precio sube en la fecha del contador. Hasta ahí, es este.",
-      "Asegurar el precio de lanzamiento",
-    ],
+    ["Pago único. Sin mensualidad, sin renovación.", "Quiero mi acceso"],
     ["Pruébalo sin riesgo, con 7 días de garantía total", "Probar sin riesgo"],
   ] as [string, string][],
 };
@@ -835,8 +820,8 @@ const HI = {
       "फ़ोन पर PC गेम्स चलाने वाली तकनीक ओपन और मुफ़्त है। आप उसके पैसे नहीं देते: आप उस शॉर्टकट के पैसे देते हैं जिससे वर्ज़न, ड्राइवर और सेटिंग्स टेस्ट करने में दिन नहीं लगते।",
     ],
     [
-      "यह लॉन्च कीमत है",
-      "हम शुरुआत कर रहे हैं और अभी मार्जिन से ज़्यादा वॉल्यूम चाहते हैं। इसीलिए नीचे की तारीख मौजूद है और उस दिन कीमत सच में बढ़ती है।",
+      "आप एक बार भुगतान करते हैं",
+      "कोई सब्सक्रिप्शन नहीं, कोई रिन्यूअल नहीं और कोई छिपा चार्ज नहीं। तरीका आपका है, और 12 गेम्स की सेटिंग्स साथ आती हैं।",
     ],
     [
       "आप अपने गेम्स इस्तेमाल करते हैं",
@@ -878,6 +863,7 @@ const HI = {
   offerCompare: "लॉन्च के बाद:",
   offerToday: "आज, एक बार भुगतान",
   offerSpec: (n: number) => `Android और iPhone · ${n} गेम्स तैयार सेटिंग्स के साथ`,
+  fxNote: "आपकी मुद्रा में अनुमानित राशि। चेकआउट अंतिम राशि की पुष्टि करता है।",
   offerNote:
     "Snapdragon 8 Gen 2 या उससे नया Android, या iPhone 13 Pro या उससे नया चाहिए। गेम्स शामिल नहीं हैं: आप अपने गेम्स इस्तेमाल करते हैं।",
   includes: (n: number) => [
@@ -918,7 +904,7 @@ const HI = {
   faq: (price: string, n: number) => [
     {
       q: `क्या सच में सिर्फ ${price}?`,
-      a: `हाँ। एमुलेटर, तरीके और ${n} गेम्स की सेटिंग्स के लिए एक बार ${price} का भुगतान। कोई मंथली नहीं और ऑटो रिन्यूअल नहीं।`,
+      a: `हाँ। एमुलेटर, तरीके और ${n} गेम्स की सेटिंग्स के लिए एक बार ${price} का भुगतान। कोई मंथली नहीं और ऑटो रिन्यूअल नहीं। राशि आज की दर से आपकी मुद्रा में बदली जाती है, और Hotmart चेकआउट भुगतान से पहले अंतिम राशि दिखाता है।`,
     },
     {
       q: "क्या गेम्स शामिल हैं?",
@@ -943,10 +929,6 @@ const HI = {
     {
       q: "पसंद न आए तो?",
       a: "7 दिन के भीतर बिना वजह बताए पूरा रिफंड मांग सकते हैं। पूरा जोखिम हमारा है।",
-    },
-    {
-      q: "क्या कीमत सच में बढ़ेगी?",
-      a: "हाँ। इस पेज का काउंटर लॉन्च कीमत का अंत दिखाता है, और उस तारीख को यह सबके लिए बढ़ जाती है।",
     },
   ],
 
@@ -1018,7 +1000,7 @@ const HI = {
   midCtas: [
     ["आपका GTA V आज रात आपके फ़ोन पर", "अभी शुरू करें"],
     ["फेवरेट देख लिए? सभी 12 सेट होकर आते हैं।", "मुझे ये 12 फ़ोन पर चाहिए"],
-    ["काउंटर की तारीख पर कीमत बढ़ती है। तब तक यही है।", "लॉन्च कीमत पक्की करें"],
+    ["एक बार भुगतान। कोई मंथली नहीं, कोई रिन्यूअल नहीं।", "मुझे एक्सेस चाहिए"],
     ["बिना जोखिम आज़माएं, 7 दिन की पूरी गारंटी", "बिना जोखिम आज़माएं"],
   ] as [string, string][],
 };

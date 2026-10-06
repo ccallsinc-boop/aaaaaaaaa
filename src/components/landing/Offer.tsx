@@ -2,9 +2,11 @@ import { Check } from "lucide-react";
 import { Cta } from "@/components/landing/Cta";
 import { LaunchWindow } from "@/components/landing/LaunchWindow";
 import { useLocale } from "@/lib/locale";
+import { OFFER_CURRENCY } from "@/lib/campaign";
 
 export function Offer() {
-  const { t, money, price, hidePrice, fullValue, hasAnchor, discount, totalGames } = useLocale();
+  const { t, money, price, hidePrice, fullValue, hasAnchor, discount, totalGames, currency } =
+    useLocale();
 
   return (
     <section id="oferta" className="border-t border-border py-20">
@@ -40,6 +42,12 @@ export function Offer() {
                   )}
                 </div>
                 <p className="mt-2 text-sm text-muted-foreground">{t.offerSpec(totalGames)}</p>
+                {/* The offer is priced in OFFER_CURRENCY; anywhere else the number
+                    above is a live conversion, and Hotmart's own rate decides the
+                    final charge. */}
+                {currency !== OFFER_CURRENCY && (
+                  <p className="mt-1 text-xs text-muted-foreground">{t.fxNote}</p>
+                )}
               </>
             )}
 

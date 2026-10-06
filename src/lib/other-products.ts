@@ -6,7 +6,7 @@ import { DEFAULT_MARKET, type ResolvedMarket } from "@/lib/markets";
  *   /es2                             Generative Energy, a pro-metabolic PDF guide
  *   /clips                           Framers Clips, a video clipping tool
  *
- * Only the game pack is priced off BASE_PRICE_BRL with live conversion. The other
+ * Only the front offer is priced off OFFER_PRICE (campaign.ts) with live conversion. The other
  * two keep their own fixed prices here, so the shared LocaleProvider can serve
  * them without inheriting the pack's price.
  */

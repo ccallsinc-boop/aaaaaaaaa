@@ -1,10 +1,17 @@
-import { basePriceBrlAt, campaignEndsAtMs, priceAfterCampaignBrl } from "./campaign";
+import {
+  OFFER_CURRENCY,
+  OFFER_PRICE,
+  basePriceAt,
+  campaignEndsAtMs,
+  priceAfterCampaign,
+} from "./campaign";
 
 /**
  * Single source of truth for "who is visiting and in which money do we talk to them".
  *
- * The offer has exactly one price: BASE_PRICE_BRL. Every other currency is that
- * number converted at the live rate (see src/lib/fx.ts). There is no per-country
+ * The offer has exactly one price: OFFER_PRICE, in OFFER_CURRENCY (campaign.ts).
+ * Every other currency is that number converted at the live rate (see
+ * src/lib/fx.server.ts). There is no per-country
  * price table to keep in sync, which is what used to drift: the ES route
  * advertised EUR 7.20 in its <title>, the locale config charged USD 3.90 and the
  * geo table said EUR 3.90, all for the same visitor.
@@ -24,10 +31,25 @@ export type Market = {
 };
 
 /**
- * The price the business charges, in Brazilian reais, at a given instant.
- * It is a function of time because the launch window actually changes it.
+ * The rate table is keyed by BRL (how many units of X one BRL buys), so a price
+ * in OFFER_CURRENCY is first expressed in BRL and then converted to the visitor's
+ * currency like everything else. For a visitor in OFFER_CURRENCY the two steps
+ * cancel out and the page shows OFFER_PRICE exactly.
+ *
+ * Returns null when the table has no usable rate for OFFER_CURRENCY.
  */
-export const BASE_PRICE_BRL = 17.99;
+function offerToBrl(amount: number, rates: Record<string, number>): number | null {
+  const rate = rates[OFFER_CURRENCY];
+  if (typeof rate !== "number" || !Number.isFinite(rate) || rate <= 0) return null;
+  return amount / rate;
+}
+
+/**
+ * OFFER_CURRENCY units per BRL from the static table in fx.server.ts (captured
+ * 2026-10-01). Used only where no live table exists: the pre-request fallback,
+ * structured data, and a live table that lacks OFFER_CURRENCY.
+ */
+const INDICATIVE_OFFER_PER_BRL = 0.139;
 
 /**
  * Reference price of a single title, in BRL, used to build the crossed-out anchor.
@@ -189,8 +211,12 @@ export function buildResolvedMarket(
 ): ResolvedMarket {
   const market = marketForCountry(country);
   const rate = rates[market.currency];
-  const baseBrl = basePriceBrlAt(now);
-  const afterBrl = priceAfterCampaignBrl();
+  const indicative = { [OFFER_CURRENCY]: INDICATIVE_OFFER_PER_BRL };
+  const toBrl = (amount: number) =>
+    offerToBrl(amount, rates) ?? (offerToBrl(amount, indicative) as number);
+  const baseBrl = toBrl(basePriceAt(now));
+  const after = priceAfterCampaign();
+  const afterBrl = after == null ? null : toBrl(after);
   const endsAt = campaignEndsAtMs();
 
   // An unmapped or broken rate must never put NaN on screen.
@@ -227,7 +253,7 @@ export function buildResolvedMarket(
 export const FALLBACK_RESOLVED: ResolvedMarket = {
   market: DEFAULT_MARKET,
   rate: 0.186,
-  price: BASE_PRICE_BRL * 0.186,
+  price: (OFFER_PRICE / INDICATIVE_OFFER_PER_BRL) * 0.186,
   perGameValue: PER_GAME_VALUE_BRL * 0.186,
   fxSource: "static",
   country: null,
@@ -245,5 +271,5 @@ export const INDICATIVE_USD_RATE = 0.186;
 
 /** Lowest price we advertise in structured data, in USD. */
 export function indicativeUsdPrice(): string {
-  return (BASE_PRICE_BRL * INDICATIVE_USD_RATE).toFixed(2);
+  return ((OFFER_PRICE / INDICATIVE_OFFER_PER_BRL) * INDICATIVE_USD_RATE).toFixed(2);
 }
