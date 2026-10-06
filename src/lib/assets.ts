@@ -16,12 +16,13 @@ const local = (file: string) => `/media/${file}`;
 
 export const ASSETS = {
   /**
-   * The "product working" demo. Re-encoded from the 1882px source to 1280px
-   * H.264: 9.83 MB to 1.75 MB, 82% lighter, with a poster so the card is not a
-   * black rectangle before playback.
+   * The "product working" demo: GTA V running on a phone with the emulator.
+   * The source was a 19 MB HEVC .mov, which many Android browsers cannot play;
+   * re-encoded to H.264 at its native 720x560, 1.5 MB. It has no audio track.
+   * The poster is the frame at 0:05.
    */
-  demoVideo: local("produto-funcionando.mp4"),
-  demoPoster: local("produto-funcionando-poster.jpg"),
+  demoVideo: local("demo-emulador.mp4"),
+  demoPoster: local("demo-emulador-poster.jpg"),
 
   /**
    * The Spanish VSL for the emulator offer. The source was a 29 MB, 60 fps
