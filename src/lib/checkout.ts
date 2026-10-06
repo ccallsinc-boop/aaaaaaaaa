@@ -1,22 +1,23 @@
 /**
  * Where the buy buttons go.
  *
- * Checkout runs on Xpag. Unlike Hotmart, Xpag has no overlay widget: the button
- * is a plain link and the buyer lands on Xpag's own page. All the widget wiring
- * that used to live here and in the CTA components is gone, along with the two
- * third-party requests it made on every page load.
+ * The front offer checks out on Hotmart, as a plain link to Hotmart's own page.
+ * Hotmart detects the buyer's country and shows the checkout in their currency,
+ * so one link serves every market. The upsell still uses its own checkout (see
+ * src/lib/upsell.ts), which is why isUpsellConfigured() compares the two.
  *
  * Named by role rather than by provider, so the next switch touches one file.
  */
 
-/** Xpag checkout for the front offer: the 12 games. */
-export const FRONT_CHECKOUT_URL = "https://xpag.global/pay/GYMl3Clw";
+/** Hotmart checkout for the front offer: the emulator method. */
+export const FRONT_CHECKOUT_URL =
+  "https://pay.hotmart.com/X105105907P?off=lkpibdcw&bid=1791252016768";
 
 /** Kept as the single default so no component hardcodes a URL. */
 export const DEFAULT_CHECKOUT_URL = FRONT_CHECKOUT_URL;
 
 /**
- * Per-currency overrides, for the day a market needs its own Xpag product.
+ * Per-currency overrides, for the day a market needs an offer of its own.
  * Empty means every market uses the link above.
  */
 const BY_CURRENCY: Record<string, string> = {};
