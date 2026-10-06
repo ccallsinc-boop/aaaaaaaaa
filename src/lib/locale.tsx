@@ -1,6 +1,11 @@
 import { createContext, useContext, type ReactNode } from "react";
 import { FRONT_GAMES_COUNT } from "@/data/front-offer";
-import { DEFAULT_CHECKOUT_URL, checkoutUrlFor } from "@/lib/checkout";
+import {
+  DEFAULT_CHECKOUT_URL,
+  XPAG_CHECKOUT_URL,
+  checkoutUrlFor,
+  type CheckoutProvider,
+} from "@/lib/checkout";
 import { ANCHOR_CONSOLE_FROM, ANCHOR_GAMING_PC_FROM, basePriceAt } from "@/lib/campaign";
 import {
   FALLBACK_RESOLVED,
@@ -1054,7 +1059,11 @@ const COPY_BY_LANG = { ...COPY, uk: COPY.en, es: ES, es2: ES, in: HI };
  */
 export const SHOW_PRICE = true;
 
-export function buildLocale(lang: Lang, resolved: ResolvedMarket = FALLBACK_RESOLVED) {
+export function buildLocale(
+  lang: Lang,
+  resolved: ResolvedMarket = FALLBACK_RESOLVED,
+  checkout: CheckoutProvider = "hotmart",
+) {
   const cfg = CONFIG[lang];
   const { market, price } = resolved;
 
@@ -1119,7 +1128,11 @@ export function buildLocale(lang: Lang, resolved: ResolvedMarket = FALLBACK_RESO
 
   return {
     ...cfg,
-    storeUrl: checkoutUrlFor(market.currency, cfg.storeUrl),
+    // Every buy button reads this one value. The /xpag copy of the landing swaps
+    // the checkout here and nowhere else.
+    storeUrl:
+      checkout === "xpag" ? XPAG_CHECKOUT_URL : checkoutUrlFor(market.currency, cfg.storeUrl),
+    checkout,
 
     // Market, live from the request.
     market,
@@ -1159,15 +1172,20 @@ const LocaleContext = createContext<Locale>(buildLocale("pt"));
 export function LocaleProvider({
   lang,
   market,
+  checkout = "hotmart",
   children,
 }: {
   lang: Lang;
   /** Resolved server-side. Omitted only in contexts with no request. */
   market?: ResolvedMarket;
+  /** Which checkout the buy buttons lead to. Hotmart unless the route says otherwise. */
+  checkout?: CheckoutProvider;
   children: ReactNode;
 }) {
   return (
-    <LocaleContext.Provider value={buildLocale(lang, market)}>{children}</LocaleContext.Provider>
+    <LocaleContext.Provider value={buildLocale(lang, market, checkout)}>
+      {children}
+    </LocaleContext.Provider>
   );
 }
 

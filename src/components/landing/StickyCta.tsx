@@ -11,7 +11,8 @@ import { LaunchWindow } from "@/components/landing/LaunchWindow";
  * on a laptop for the same reason — the decision rarely happens next to a button.
  */
 export function StickyCta() {
-  const { money, price, hidePrice, currency, totalGames, storeUrl, t, lang } = useLocale();
+  const { money, price, hidePrice, currency, totalGames, storeUrl, t, lang, checkout } =
+    useLocale();
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 px-4 py-3 backdrop-blur-md">
@@ -28,6 +29,7 @@ export function StickyCta() {
               value: Number(price.toFixed(2)),
               currency,
               cta_location: `${lang}:sticky`,
+              checkout,
             });
           }}
           className={`rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-soft`}

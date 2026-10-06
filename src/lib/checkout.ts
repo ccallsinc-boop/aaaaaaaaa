@@ -13,6 +13,25 @@
 export const FRONT_CHECKOUT_URL =
   "https://pay.hotmart.com/X105105907P?off=lkpibdcw&bid=1791252016768";
 
+/**
+ * Xpag checkout for the same front offer, served by the /xpag copy of the landing.
+ *
+ * The page at / keeps selling through Hotmart; /xpag is the same page with every
+ * buy button pointing here instead, so ads can send traffic to either. One link
+ * serves every country the offer accepts (Mexico, Colombia, Argentina).
+ *
+ * Empty means not configured: /xpag answers 404 until it is filled, so the page
+ * can never go live with buttons that lead nowhere.
+ */
+export const XPAG_CHECKOUT_URL = "https://xpag.global/pay/ZAOzjS5J";
+
+/** Which checkout a landing sells through. */
+export type CheckoutProvider = "hotmart" | "xpag";
+
+export function isXpagConfigured(): boolean {
+  return XPAG_CHECKOUT_URL.trim().length > 0;
+}
+
 /** Kept as the single default so no component hardcodes a URL. */
 export const DEFAULT_CHECKOUT_URL = FRONT_CHECKOUT_URL;
 
