@@ -12,7 +12,11 @@ import { useLocale } from "@/lib/locale";
  * both about GTA V, which is one of the twelve titles on sale.
  */
 export function Testimonials() {
-  const { t } = useLocale();
+  const { t, marketLang } = useLocale();
+  // The Spanish funnel has its own screenshots, in Spanish and of the emulator.
+  // The other languages keep theirs until their own material arrives.
+  const images = marketLang === "es" ? ASSETS.proofChatEs : ASSETS.proofChat;
+  const twoUp = t.testimonials.length === 2;
 
   return (
     <section id="depoimentos" className="border-t border-border py-20">
@@ -27,11 +31,13 @@ export function Testimonials() {
           {t.testimonialsSub}
         </p>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div
+          className={`mt-12 grid gap-6 sm:grid-cols-2 ${twoUp ? "mx-auto max-w-3xl" : "lg:grid-cols-3"}`}
+        >
           {t.testimonials.map((item, i) => (
             <figure key={item.caption} className="flex h-full flex-col">
               <img
-                src={ASSETS.proofChat[i]}
+                src={images[i]}
                 alt={item.alt}
                 loading="lazy"
                 className="w-full rounded-2xl border border-border shadow-soft"

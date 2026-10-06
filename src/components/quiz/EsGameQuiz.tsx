@@ -15,7 +15,6 @@ import {
   Play,
   ShieldCheck,
   Sparkles,
-  Star,
   Trophy,
   Zap,
 } from "lucide-react";
@@ -226,27 +225,21 @@ function gamesFor(answer?: string) {
   );
 }
 
+/**
+ * Real WhatsApp screenshots from customers playing on their phones.
+ *
+ * This screen used to show photos of people playing on a PC and three typed-out
+ * testimonials with invented names and cities. Both described the old product,
+ * and the invented ones were never real customers to begin with.
+ */
 const PROOFS = [
-  { image: ASSETS.proof[0], alt: "Cliente jugando Forza Horizon en PC" },
-  { image: ASSETS.proof[1], alt: "Cliente jugando GTA V en un portátil" },
-  { image: ASSETS.proof[2], alt: "Cliente jugando EA FC en televisión" },
-];
-
-const TESTIMONIALS = [
   {
-    name: "Pablo Núñez",
-    place: "Buenos Aires · AR",
-    text: "El acceso llegó al correo en pocos minutos. Empecé por GTA V y todo fue mucho más sencillo de lo que esperaba.",
+    image: ASSETS.proofChatEs[0],
+    alt: "Cliente mostrando GTA V corriendo en el celular, diciendo que el acceso le llegó al instante y que ya lleva horas jugando",
   },
   {
-    name: "Camila Torres",
-    place: "Bogotá · CO",
-    text: "El tutorial me guió paso a paso. Ya tengo varios juegos instalados y el soporte respondió cuando tuve una duda.",
-  },
-  {
-    name: "Diego Martín",
-    place: "Santiago · CL",
-    text: "La variedad es enorme. Por el precio de una oferta pequeña recibí juegos para meses y acceso de por vida.",
+    image: ASSETS.proofChatEs[1],
+    alt: "Cliente mostrando GTA V corriendo en su iPhone, diciendo que instaló el emulador y funcionó a la primera",
   },
 ];
 
@@ -622,28 +615,15 @@ function ProofScreen({ onContinue }: { onContinue: () => void }) {
       <h1 className="mx-auto mt-4 max-w-3xl text-[clamp(2rem,7vw,3.8rem)]">
         Lo que dicen los clientes
       </h1>
-      <div className="mt-8 grid gap-3 sm:grid-cols-3">
+      <div className="mx-auto mt-8 grid max-w-3xl gap-4 sm:grid-cols-2">
         {PROOFS.map((proof) => (
           <img
             key={proof.image}
             src={proof.image}
             alt={proof.alt}
-            className="h-72 w-full rounded-xl border-2 border-border object-cover"
+            loading="lazy"
+            className="w-full rounded-xl border-2 border-border"
           />
-        ))}
-      </div>
-      <div className="mt-8 grid gap-3 text-left lg:grid-cols-3">
-        {TESTIMONIALS.map((item) => (
-          <article key={item.name} className="rounded-xl border-2 border-border bg-card p-5">
-            <div className="flex gap-1 text-foreground" aria-label="5 de 5 estrellas">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className="h-4 w-4 fill-current" />
-              ))}
-            </div>
-            <p className="mt-4 text-sm leading-relaxed">“{item.text}”</p>
-            <p className="mt-5 text-sm font-bold">{item.name}</p>
-            <p className="text-xs text-muted-foreground">{item.place}</p>
-          </article>
         ))}
       </div>
       <Button
