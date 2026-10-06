@@ -25,6 +25,20 @@ export const OFFER_CURRENCY = "GBP";
 /** Price of the front offer, in OFFER_CURRENCY. Matches the Hotmart offer. */
 export const OFFER_PRICE = 5.3;
 
+/**
+ * Price anchor: what playing these games costs the usual way, in OFFER_CURRENCY.
+ *
+ * Without a real higher price there is nothing honest to strike through, and a
+ * made-up "was" price is a fake discount (and unlawful in the UK, where the offer
+ * is priced). The anchor is therefore a comparison the visitor can check: the
+ * hardware these titles normally require. Both are floors, kept below current UK
+ * retail on purpose, so "more than" stays true: the cheapest current console sells
+ * for more than £250, and a PC that runs Red Dead Redemption 2 for more than £500.
+ * They are converted per market like the price itself, and rounded down.
+ */
+export const ANCHOR_CONSOLE_FROM = 250;
+export const ANCHOR_GAMING_PC_FROM = 500;
+
 export type Campaign = {
   /** ISO 8601 instant when launch pricing ends. */
   endsAt: string;

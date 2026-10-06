@@ -1,6 +1,7 @@
 import { createContext, useContext, type ReactNode } from "react";
 import { FRONT_GAMES_COUNT } from "@/data/front-offer";
 import { DEFAULT_CHECKOUT_URL, checkoutUrlFor } from "@/lib/checkout";
+import { ANCHOR_CONSOLE_FROM, ANCHOR_GAMING_PC_FROM, basePriceAt } from "@/lib/campaign";
 import {
   FALLBACK_RESOLVED,
   formatMoney,
@@ -105,6 +106,14 @@ const COPY = {
       <>
         Depois do lançamento, <span className="line-through">{full}</span>. Comprando hoje, você
         economiza <span className="font-semibold text-foreground">{save}</span>.
+      </>
+    ),
+    valueAnchor: (console: string, pc: string, price: string) => (
+      <>
+        Um console novo custa{" "}
+        <span className="font-semibold text-foreground">mais de {console}</span>. Um PC gamer,{" "}
+        <span className="font-semibold text-foreground">mais de {pc}</span>. Aqui você joga no
+        celular por <span className="font-semibold text-foreground">{price}</span>, uma vez.
       </>
     ),
     heroAlt: (n: number) => `${n} jogos de PC rodando no celular com o emulador`,
@@ -340,6 +349,14 @@ const COPY = {
         <span className="font-semibold text-foreground">{save}</span>.
       </>
     ),
+    valueAnchor: (console: string, pc: string, price: string) => (
+      <>
+        A new console costs{" "}
+        <span className="font-semibold text-foreground">more than {console}</span>. A gaming PC,{" "}
+        <span className="font-semibold text-foreground">more than {pc}</span>. Here you play on your
+        phone for <span className="font-semibold text-foreground">{price}</span>, once.
+      </>
+    ),
     heroAlt: (n: number) => `${n} PC games running on a phone with the emulator`,
     heroMore: (n: number) => `+ ${n} games with ready-made settings`,
     heroTrust: ["Android and iPhone", "Access in minutes", "7-day guarantee"],
@@ -573,6 +590,14 @@ const ES = {
       ahorras <span className="font-semibold text-foreground">{save}</span>.
     </>
   ),
+  valueAnchor: (console: string, pc: string, price: string) => (
+    <>
+      Una consola nueva cuesta{" "}
+      <span className="font-semibold text-foreground">más de {console}</span>. Una PC gamer,{" "}
+      <span className="font-semibold text-foreground">más de {pc}</span>. Aquí juegas en el celular
+      por <span className="font-semibold text-foreground">{price}</span>, una sola vez.
+    </>
+  ),
   heroAlt: (n: number) => `${n} juegos de PC corriendo en el celular con el emulador`,
   heroMore: (n: number) => `+ ${n} juegos con configuración lista`,
   heroTrust: ["Android y iPhone", "Acceso en minutos", "7 días de garantía"],
@@ -802,6 +827,14 @@ const HI = {
       <span className="font-semibold text-foreground">{save}</span> बचाएं।
     </>
   ),
+  valueAnchor: (console: string, pc: string, price: string) => (
+    <>
+      नया कंसोल <span className="font-semibold text-foreground">{console} से ज़्यादा</span> का आता
+      है। गेमिंग PC, <span className="font-semibold text-foreground">{pc} से ज़्यादा</span> का। यहाँ
+      आप फ़ोन पर सिर्फ <span className="font-semibold text-foreground">{price}</span> में खेलते हैं,
+      एक बार।
+    </>
+  ),
   heroAlt: (n: number) => `एमुलेटर से फ़ोन पर चलते ${n} PC गेम्स`,
   heroMore: (n: number) => `+ ${n} गेम्स तैयार सेटिंग्स के साथ`,
   heroTrust: ["Android और iPhone", "मिनटों में एक्सेस", "7 दिन की गारंटी"],
@@ -1029,6 +1062,34 @@ export function buildLocale(lang: Lang, resolved: ResolvedMarket = FALLBACK_RESO
   const hidePrice = !SHOW_PRICE;
 
   /**
+   * The hardware anchor (see ANCHOR_* in campaign.ts), in the visitor's currency.
+   * `price` is the offer price already converted, so scaling it by the anchor's
+   * ratio to the base price applies the exact same conversion. Rounded down to two
+   * significant digits and shown without cents: "more than R$ 1.700" reads as a
+   * reference, "more than R$ 1.798,62" reads as a quote, and rounding down keeps
+   * "more than" true.
+   */
+  const base = basePriceAt(resolved.now);
+  const fromBase = (amount: number) => (base > 0 ? (price * amount) / base : 0);
+  const floorRound = (value: number) => {
+    if (!(value > 0)) return 0;
+    const step = 10 ** Math.max(0, Math.floor(Math.log10(value)) - 1);
+    return Math.floor(value / step) * step;
+  };
+  const moneyWhole = (value: number) => {
+    try {
+      return value.toLocaleString(market.intl, {
+        style: "currency",
+        currency: market.currency,
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      });
+    } catch {
+      return `${market.currency} ${Math.round(value)}`;
+    }
+  };
+
+  /**
    * The crossed-out price, and the discount derived from it.
    *
    * It used to be the twelve games bought one by one (12 x R$20 = R$240, "93%
@@ -1083,6 +1144,8 @@ export function buildLocale(lang: Lang, resolved: ResolvedMarket = FALLBACK_RESO
     totalGames: FRONT_GAMES_COUNT,
     fullValue,
     hasAnchor: anchor != null,
+    consoleFrom: moneyWhole(floorRound(fromBase(ANCHOR_CONSOLE_FROM))),
+    gamingPcFrom: moneyWhole(floorRound(fromBase(ANCHOR_GAMING_PC_FROM))),
     pricePerGame: price / FRONT_GAMES_COUNT,
     discount: anchor ? Math.round((1 - price / anchor) * 100) : 0,
     t: COPY_BY_LANG[lang],
