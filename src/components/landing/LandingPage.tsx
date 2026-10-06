@@ -18,6 +18,7 @@ import { Reveal } from "@/components/landing/Reveal";
 import { LocaleProvider, type Lang } from "@/lib/locale";
 import type { MarketLang } from "@/lib/markets";
 import { useMarket } from "@/lib/use-market";
+import type { CheckoutProvider } from "@/lib/checkout";
 
 /** Market language to the route language the copy is keyed by. */
 const LANG_FOR_MARKET: Record<MarketLang, Lang> = {
@@ -32,13 +33,20 @@ const LANG_FOR_MARKET: Record<MarketLang, Lang> = {
  * Omitting it serves the visitor's own language, resolved from their country,
  * which is what the unified route at / does.
  */
-export function LandingPage({ lang: pinned }: { lang?: Lang } = {}) {
+export function LandingPage({
+  lang: pinned,
+  checkout = "hotmart",
+}: {
+  lang?: Lang;
+  /** "xpag" for the /xpag copy of the page; everything else sells through Hotmart. */
+  checkout?: CheckoutProvider;
+} = {}) {
   const market = useMarket();
   const lang = pinned ?? LANG_FOR_MARKET[market.market.lang];
   const quizVisual = lang === "pt" || lang === "es";
 
   return (
-    <LocaleProvider lang={lang} market={market}>
+    <LocaleProvider lang={lang} market={market} checkout={checkout}>
       <main
         // The sticky bar is no longer mobile-only, so the bottom padding that keeps
         // it from covering the footer has to apply at every width.
