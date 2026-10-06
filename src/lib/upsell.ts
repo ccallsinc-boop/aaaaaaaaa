@@ -1,12 +1,12 @@
 /**
  * The one-click upsell shown right after checkout.
  *
- * The front offer sells 12 titles. The rest of the library is the upsell, which
- * is what makes a R$17,99 front price work: the margin is on this page, not on
- * the first one.
+ * The front offer sells 12 titles. The rest of the library is the upsell.
  *
- * Price is a base in BRL, converted per market by the same engine as the front,
- * so a Mexican buyer sees pesos here too instead of jumping currency mid-funnel.
+ * Price is set in the currency its Hotmart offer is configured in, and converted
+ * per market by the same engine as the front (see buildResolvedMarket), so a
+ * Mexican buyer sees pesos here too instead of jumping currency mid-funnel. A
+ * buyer in UPSELL_CURRENCY sees UPSELL_PRICE exactly.
  *
  * The route only answers once ACCEPT_URL points at a checkout of its own. Sharing
  * the front offer's link would bill the front price for the front product, so the
@@ -15,15 +15,17 @@
 
 import { FRONT_CHECKOUT_URL } from "./checkout";
 
-/**
- * Price of the full library upgrade, in BRL. Confirmed value, not a placeholder.
- * Every other currency is this number at the live rate, same as the front offer,
- * so the funnel never switches currency on the buyer.
- */
-export const UPSELL_PRICE_BRL = 37;
+/** ISO 4217 code of the currency the upsell's Hotmart offer is priced in. */
+export const UPSELL_CURRENCY = "COP";
 
-/** Xpag checkout for the upgrade. A product of its own, separate from the front. */
-export const UPSELL_ACCEPT_URL = "https://xpag.global/pay/omHjCA0j";
+/**
+ * Price of the full library upgrade, in UPSELL_CURRENCY. Matches the Hotmart
+ * offer. Every other currency is this number at the live rate, same as the front.
+ */
+export const UPSELL_PRICE = 11349.73;
+
+/** Hotmart checkout for the upgrade. A product of its own, separate from the front. */
+export const UPSELL_ACCEPT_URL = "https://pay.hotmart.com/T105093133X?off=jnocgnre";
 
 /** Where a refusal goes. Empty falls back to the members area route. */
 export const UPSELL_DECLINE_URL = "";

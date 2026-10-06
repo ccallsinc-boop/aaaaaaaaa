@@ -23,6 +23,8 @@ function fixedUsd(price: number): ResolvedMarket {
     now: 0,
     campaignEndsAt: null,
     priceAfter: null,
+    // These products have no upsell.
+    upsellPrice: 0,
   };
 }
 

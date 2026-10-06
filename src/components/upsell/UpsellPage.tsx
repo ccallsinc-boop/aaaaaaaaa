@@ -4,14 +4,9 @@ import { Check, ShieldCheck, Zap } from "lucide-react";
 import { Logo } from "@/components/landing/Logo";
 import { UPSELL_GAMES_COUNT, UPSELL_HIGHLIGHTS, TOTAL_LIBRARY_COUNT } from "@/data/upsell-offer";
 import { trackMeta, trackMetaCustom } from "@/lib/meta-pixel";
-import { formatMoney, convert } from "@/lib/markets";
+import { formatMoney } from "@/lib/markets";
 import { useLocale } from "@/lib/locale";
-import {
-  UPSELL_ACCEPT_URL,
-  UPSELL_PRICE_BRL,
-  upsellDeclineHref,
-  upsellSharesFrontCheckout,
-} from "@/lib/upsell";
+import { UPSELL_ACCEPT_URL, upsellDeclineHref, upsellSharesFrontCheckout } from "@/lib/upsell";
 
 /**
  * One-click upsell, shown by the Hotmart funnel right after the front purchase.
@@ -20,14 +15,14 @@ import {
  * page has exactly one job, and every extra link is an exit. The decline is still
  * plainly visible, because hiding it is what turns a refusal into a chargeback.
  *
- * Price is converted from its own BRL base with the market already resolved for
- * this request, so a Mexican buyer does not jump from pesos to dollars halfway
+ * Price is converted from its own base (UPSELL_PRICE in UPSELL_CURRENCY) with the
+ * market already resolved for this request, so a Mexican buyer does not jump from pesos to dollars halfway
  * through the funnel.
  */
 export function UpsellPage() {
-  const { t, market, rate, lang, pricePerGame } = useLocale();
+  const { t, market, lang, pricePerGame, upsellPrice } = useLocale();
 
-  const price = convert(UPSELL_PRICE_BRL, rate);
+  const price = upsellPrice;
   const money = (value: number) => formatMoney(value, market);
   // Anchored against what the buyer just paid per game, which is concrete and
   // verifiable. The previous anchor multiplied 412 titles by a reference price and
