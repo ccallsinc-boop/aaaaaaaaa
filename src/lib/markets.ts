@@ -5,6 +5,7 @@ import {
   campaignEndsAtMs,
   priceAfterCampaign,
 } from "./campaign";
+import { UPSELL_CURRENCY, UPSELL_PRICE } from "./upsell";
 
 /**
  * Single source of truth for "who is visiting and in which money do we talk to them".
@@ -32,24 +33,34 @@ export type Market = {
 
 /**
  * The rate table is keyed by BRL (how many units of X one BRL buys), so a price
- * in OFFER_CURRENCY is first expressed in BRL and then converted to the visitor's
- * currency like everything else. For a visitor in OFFER_CURRENCY the two steps
- * cancel out and the page shows OFFER_PRICE exactly.
+ * set in another currency is first expressed in BRL and then converted to the
+ * visitor's currency like everything else. For a visitor in that same currency
+ * the two steps cancel out and the page shows the configured price exactly.
  *
- * Returns null when the table has no usable rate for OFFER_CURRENCY.
+ * Returns null when the table has no usable rate for `currency`.
  */
-function offerToBrl(amount: number, rates: Record<string, number>): number | null {
-  const rate = rates[OFFER_CURRENCY];
+function toBrlFrom(amount: number, currency: string, rates: Record<string, number>): number | null {
+  const rate = rates[currency];
   if (typeof rate !== "number" || !Number.isFinite(rate) || rate <= 0) return null;
   return amount / rate;
 }
 
 /**
- * OFFER_CURRENCY units per BRL from the static table in fx.server.ts (captured
- * 2026-10-01). Used only where no live table exists: the pre-request fallback,
- * structured data, and a live table that lacks OFFER_CURRENCY.
+ * Units per BRL from the static table in fx.server.ts (captured 2026-10-01), for
+ * the currencies offers are priced in. Used only where no live table exists: the
+ * pre-request fallback, structured data, and a live table missing the currency.
  */
-const INDICATIVE_OFFER_PER_BRL = 0.139;
+const INDICATIVE_PER_BRL: Record<string, number> = { GBP: 0.139, COP: 744.0 };
+const INDICATIVE_OFFER_PER_BRL = INDICATIVE_PER_BRL[OFFER_CURRENCY];
+
+function toBrl(amount: number, currency: string, rates: Record<string, number>): number {
+  return (
+    toBrlFrom(amount, currency, rates) ??
+    toBrlFrom(amount, currency, INDICATIVE_PER_BRL) ??
+    // A currency in neither table: better a visibly wrong price than NaN.
+    amount
+  );
+}
 
 /**
  * Reference price of a single title, in BRL, used to build the crossed-out anchor.
@@ -197,6 +208,8 @@ export type ResolvedMarket = {
   campaignEndsAt: number | null;
   /** Converted price once the launch window closes, for the "then" value. */
   priceAfter: number | null;
+  /** Converted upsell price (UPSELL_PRICE in UPSELL_CURRENCY). */
+  upsellPrice: number;
 };
 
 /**
@@ -211,12 +224,10 @@ export function buildResolvedMarket(
 ): ResolvedMarket {
   const market = marketForCountry(country);
   const rate = rates[market.currency];
-  const indicative = { [OFFER_CURRENCY]: INDICATIVE_OFFER_PER_BRL };
-  const toBrl = (amount: number) =>
-    offerToBrl(amount, rates) ?? (offerToBrl(amount, indicative) as number);
-  const baseBrl = toBrl(basePriceAt(now));
+  const baseBrl = toBrl(basePriceAt(now), OFFER_CURRENCY, rates);
   const after = priceAfterCampaign();
-  const afterBrl = after == null ? null : toBrl(after);
+  const afterBrl = after == null ? null : toBrl(after, OFFER_CURRENCY, rates);
+  const upsellBrl = toBrl(UPSELL_PRICE, UPSELL_CURRENCY, rates);
   const endsAt = campaignEndsAtMs();
 
   // An unmapped or broken rate must never put NaN on screen.
@@ -233,6 +244,7 @@ export function buildResolvedMarket(
       now,
       campaignEndsAt: endsAt,
       priceAfter: afterBrl == null ? null : convert(afterBrl, safeUsd),
+      upsellPrice: convert(upsellBrl, safeUsd),
     };
   }
 
@@ -246,6 +258,7 @@ export function buildResolvedMarket(
     now,
     campaignEndsAt: endsAt,
     priceAfter: afterBrl == null ? null : convert(afterBrl, rate),
+    upsellPrice: convert(upsellBrl, rate),
   };
 }
 
@@ -260,6 +273,7 @@ export const FALLBACK_RESOLVED: ResolvedMarket = {
   now: 0,
   campaignEndsAt: null,
   priceAfter: null,
+  upsellPrice: (UPSELL_PRICE / INDICATIVE_PER_BRL[UPSELL_CURRENCY]) * 0.186,
 };
 
 /**

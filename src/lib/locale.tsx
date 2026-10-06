@@ -1074,6 +1074,7 @@ export function buildLocale(lang: Lang, resolved: ResolvedMarket = FALLBACK_RESO
     serverNow: resolved.now,
     campaignEndsAt: resolved.campaignEndsAt,
     priceAfter: resolved.priceAfter,
+    upsellPrice: resolved.upsellPrice,
 
     money,
     price,
