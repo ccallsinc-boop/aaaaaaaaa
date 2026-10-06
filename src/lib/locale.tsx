@@ -674,18 +674,15 @@ const ES = {
   testimonialsTitle: "Instaló, abrió y jugó",
   testimonialsSub:
     "Capturas de nuestro WhatsApp, sin editar. Es el tipo de mensaje que llega después de la compra.",
+  // Order matches ASSETS.proofChatEs.
   testimonials: [
     {
-      alt: "Cliente mostrando GTA V abierto en el portátil, diciendo que lo instaló en minutos",
-      caption: "Instaló en minutos y ya estaba jugando GTA V.",
+      alt: "Cliente mostrando GTA V corriendo en el celular, diciendo que el acceso le llegó al instante y que ya lleva horas jugando",
+      caption: "Le llegó el acceso al instante y ya lleva horas jugando GTA V en el celular.",
     },
     {
-      alt: "Cliente mostrando GTA V corriendo en el monitor, diciendo que vale la pena",
-      caption: "GTA V del pack corriendo perfecto en su PC.",
-    },
-    {
-      alt: "Cliente mostrando GTA V en pausa, diciendo que paró el juego para mandar el mensaje",
-      caption: "Pausó el GTA V solo para agradecer.",
+      alt: "Cliente mostrando GTA V corriendo en su iPhone, diciendo que instaló el emulador y funcionó a la primera",
+      caption: "Instaló el emulador en su iPhone y funcionó a la primera.",
     },
   ],
 
