@@ -1,6 +1,5 @@
 import { Check } from "lucide-react";
 import { FRONT_GAMES } from "@/data/front-offer";
-import { Cta } from "@/components/landing/Cta";
 import { Logo } from "@/components/landing/Logo";
 import { VslEs } from "@/components/landing/VslEs";
 import { useLocale } from "@/lib/locale";
@@ -28,6 +27,8 @@ export function Hero() {
     hidePrice,
     fullValue,
     hasAnchor,
+    consoleFrom,
+    gamingPcFrom,
     discount,
     totalGames,
     lang,
@@ -68,21 +69,13 @@ export function Hero() {
           {t.heroSub(priceLabel)}
         </p>
 
-        {/*
-          The hero used to carry no checkout button, on the argument that the first
-          screen should send people into the offer and let the decision happen
-          further down. That holds for a considered purchase. This is a R$17,99
-          impulse buy, and the visitor arrives from an ad that already named the
-          offer and the price: a share of them are ready on arrival, and the page
-          was making all of them scroll to find a way to pay. The primary action is
-          now in the first screen, with the tour kept beside it for everyone who is
-          not ready yet.
-        */}
+        {/* No checkout button in the first screen, by choice: the hero sends people
+            into the offer, and the buying decision happens further down, where the
+            sticky bar and the section buttons carry it. */}
         <div
           className="rise mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:justify-center"
           style={stagger(4)}
         >
-          <Cta location="hero">{t.heroCta}</Cta>
           <a
             href="#jogos"
             className="inline-flex items-center justify-center rounded-full border border-border px-7 py-3.5 text-sm font-bold transition-colors hover:border-primary/40 hover:text-primary"
@@ -91,9 +84,11 @@ export function Hero() {
           </a>
         </div>
 
-        {!hidePrice && hasAnchor && (
-          <p className="rise mt-5 text-xs text-muted-foreground" style={stagger(5)}>
-            {t.heroCompare(money(fullValue), money(fullValue - price))}
+        {!hidePrice && (
+          <p className="rise mt-5 text-sm text-muted-foreground" style={stagger(5)}>
+            {hasAnchor
+              ? t.heroCompare(money(fullValue), money(fullValue - price))
+              : t.valueAnchor(consoleFrom, gamingPcFrom, money(price))}
           </p>
         )}
 

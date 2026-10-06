@@ -5,8 +5,19 @@ import { useLocale } from "@/lib/locale";
 import { OFFER_CURRENCY } from "@/lib/campaign";
 
 export function Offer() {
-  const { t, money, price, hidePrice, fullValue, hasAnchor, discount, totalGames, currency } =
-    useLocale();
+  const {
+    t,
+    money,
+    price,
+    hidePrice,
+    fullValue,
+    hasAnchor,
+    consoleFrom,
+    gamingPcFrom,
+    discount,
+    totalGames,
+    currency,
+  } = useLocale();
 
   return (
     <section id="oferta" className="border-t border-border py-20">
@@ -23,14 +34,18 @@ export function Offer() {
               </p>
             ) : (
               <>
-                {hasAnchor && (
+                {hasAnchor ? (
                   <p className="mt-6 text-sm text-muted-foreground">
                     {t.offerCompare} <span className="line-through">{money(fullValue)}</span>
                   </p>
+                ) : (
+                  // With no real "was" price to strike through, the anchor is the
+                  // hardware these games normally need (see ANCHOR_* in campaign.ts).
+                  <p className="mt-6 max-w-md text-sm text-muted-foreground">
+                    {t.valueAnchor(consoleFrom, gamingPcFrom, money(price))}
+                  </p>
                 )}
-                <p className={`${hasAnchor ? "mt-1" : "mt-6"} text-sm text-muted-foreground`}>
-                  {t.offerToday}
-                </p>
+                <p className="mt-4 text-sm text-muted-foreground">{t.offerToday}</p>
                 <div className="mt-2 flex flex-wrap items-center gap-3">
                   <span className="font-display text-[clamp(2.6rem,8vw,4.2rem)] text-primary">
                     {money(price)}

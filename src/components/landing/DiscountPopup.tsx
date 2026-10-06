@@ -47,6 +47,8 @@ export function DiscountPopup() {
     money,
     fullValue,
     hasAnchor,
+    consoleFrom,
+    gamingPcFrom,
     priceAfter,
     totalGames,
     lang,
@@ -147,11 +149,15 @@ export function DiscountPopup() {
         <h3 className="mt-3 text-2xl leading-tight">{t.popupTitle}</h3>
         <p className="mt-2 text-sm text-muted-foreground">{t.popupSub(totalGames)}</p>
 
-        {hasAnchor && (
+        {hasAnchor ? (
           <p className="mt-5 text-sm text-muted-foreground line-through">{money(fullValue)}</p>
+        ) : (
+          <p className="mt-4 text-xs text-muted-foreground">
+            {t.valueAnchor(consoleFrom, gamingPcFrom, money(price))}
+          </p>
         )}
         <p
-          className={`${hasAnchor ? "" : "mt-5 "}font-display text-[clamp(2.6rem,13vw,3.6rem)] leading-none text-primary`}
+          className={`${hasAnchor ? "" : "mt-3 "}font-display text-[clamp(2.6rem,13vw,3.6rem)] leading-none text-primary`}
         >
           {money(price)}
         </p>
