@@ -26,7 +26,7 @@ import { trackMeta, trackMetaCustom } from "@/lib/meta-pixel";
 import { FRONT_CHECKOUT_URL } from "@/lib/checkout";
 import { ASSETS } from "@/lib/assets";
 // Still on Lovable: the Brazilian VSL has not been converted from QuickTime yet.
-import vslAsset from "@/assets/vsl-br.mov.asset.json";
+import { QUIZ_VSL } from "@/lib/assets";
 
 export const BR_QUIZ_CHECKOUT = FRONT_CHECKOUT_URL;
 
@@ -543,6 +543,11 @@ function ResultScreen({ games, onContinue }: { games: CatalogGame[]; onContinue:
 function VslScreen({ onContinue }: { onContinue: () => void }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
+  // O arquivo ainda não foi migrado da Lovable. Em vez de mostrar um player que
+  // não carrega, a tela esconde o bloco e segue com o título e o CTA, que é o que
+  // leva o visitante para a próxima etapa. Quando o arquivo aparecer em
+  // public/media/ o player volta sozinho, sem mudança de código.
+  const [videoFailed, setVideoFailed] = useState(false);
 
   const start = () => {
     const v = videoRef.current;
@@ -562,14 +567,20 @@ function VslScreen({ onContinue }: { onContinue: () => void }) {
       <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
         Do emulador instalado ao primeiro jogo aberto.
       </p>
-      <div className="relative mt-8 overflow-hidden rounded-2xl border-2 border-border bg-black shadow-soft">
+      <div
+        className={`relative mt-8 overflow-hidden rounded-2xl border-2 border-border bg-black shadow-soft ${
+          videoFailed ? "hidden" : ""
+        }`}
+      >
         <video
           ref={videoRef}
-          src={vslAsset.url}
+          src={QUIZ_VSL.br.src}
+          poster={QUIZ_VSL.br.poster}
           className="aspect-video w-full"
           controls={playing}
           playsInline
           preload="metadata"
+          onError={() => setVideoFailed(true)}
           onClick={() => {
             if (!playing) start();
           }}

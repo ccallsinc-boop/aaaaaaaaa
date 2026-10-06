@@ -43,7 +43,11 @@ export const Route = createFileRoute("/api/geo")({
                 price: Number(resolved.price.toFixed(2)),
               },
               usingFallbackMarket: detected === null,
-              headers: { ...seen, "x-nf-geo": nfGeoRaw ? "(present)" : null },
+              headers: {
+                ...seen,
+                "x-nf-geo": nfGeoRaw ? "(present)" : null,
+                "x-nf-geo-decoded": nfGeo,
+              },
               fxSource: fx.source,
             },
             null,

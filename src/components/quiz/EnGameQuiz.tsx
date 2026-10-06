@@ -25,8 +25,7 @@ import { trackMeta, trackMetaCustom } from "@/lib/meta-pixel";
 import { FRONT_CHECKOUT_URL } from "@/lib/checkout";
 import { ASSETS } from "@/lib/assets";
 // Still on Lovable: the English quiz has its own VSL, not the Spanish one.
-import vslAsset from "@/assets/vsl2.mp4.asset.json";
-import vslPoster from "@/assets/vsl2-poster.jpg.asset.json";
+import { QUIZ_VSL } from "@/lib/assets";
 
 export const EN_QUIZ_CHECKOUT = FRONT_CHECKOUT_URL;
 
@@ -540,6 +539,11 @@ function VslScreen({
   onPlay: () => void;
   onContinue: () => void;
 }) {
+  // Mesma situação do quiz em português: o arquivo não foi migrado da Lovable, e
+  // esconder o bloco é melhor que exibir um player que não carrega. O título e o
+  // CTA continuam, que é o que move o visitante para a próxima tela.
+  const [videoFailed, setVideoFailed] = useState(false);
+
   return (
     <div className="mx-auto max-w-4xl text-center">
       <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
@@ -551,15 +555,20 @@ function VslScreen({
       <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
         From the emulator installed to your first game open.
       </p>
-      <div className="relative mt-8 overflow-hidden rounded-xl border border-border bg-foreground shadow-soft">
+      <div
+        className={`relative mt-8 overflow-hidden rounded-xl border border-border bg-foreground shadow-soft ${
+          videoFailed ? "hidden" : ""
+        }`}
+      >
         <video
           ref={videoRef}
-          src={vslAsset.url}
-          poster={vslPoster.url}
+          src={QUIZ_VSL.en.src}
+          poster={QUIZ_VSL.en.poster}
           className="aspect-video w-full"
           controls={playing}
           playsInline
           preload="metadata"
+          onError={() => setVideoFailed(true)}
           onPlay={() => !playing && onPlay()}
         />
         {!playing && (

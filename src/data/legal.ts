@@ -11,7 +11,7 @@ import type { MarketLang } from "@/lib/markets";
  *
  * The privacy text describes what the code actually does, audited against the
  * source rather than written from a template: two Meta pixels with named events,
- * Hotmart checkout, Supabase for accounts, the edge country header used to pick a
+ * Xpag checkout, Supabase for accounts, the edge country header used to pick a
  * currency, Google Fonts, Steam cover art, one sessionStorage key and the
  * third-party file hosts the download links point to.
  */
