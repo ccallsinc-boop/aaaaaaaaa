@@ -175,15 +175,32 @@ export function convert(amountBrl: number, rate: number): number {
   return amountBrl * rate;
 }
 
+/**
+ * Appends the ISO code to a formatted price: "$130.40" becomes "$130.40 MXN".
+ *
+ * Mexico, Colombia, Argentina, Chile and others write their peso with "$", so a
+ * bare "$130.40" read as US dollars, and visitors took the price for a dollar
+ * amount. The code removes the doubt. Every currency gets it for consistency,
+ * except BRL: "R$" is unambiguous to the Brazilian audience the page speaks to.
+ */
+export function withCurrencyCode(formatted: string, currency: string): string {
+  const code = currency.toUpperCase();
+  if (code === "BRL" || formatted.includes(code)) return formatted;
+  return `${formatted} ${code}`;
+}
+
 export function formatMoney(amount: number, market: Market): string {
   const digits = fractionDigitsFor(market.currency);
   try {
-    return amount.toLocaleString(market.intl, {
-      style: "currency",
-      currency: market.currency,
-      minimumFractionDigits: digits,
-      maximumFractionDigits: digits,
-    });
+    return withCurrencyCode(
+      amount.toLocaleString(market.intl, {
+        style: "currency",
+        currency: market.currency,
+        minimumFractionDigits: digits,
+        maximumFractionDigits: digits,
+      }),
+      market.currency,
+    );
   } catch {
     // An unknown currency code must never blank out the price.
     return `${market.currency} ${amount.toFixed(digits)}`;
