@@ -10,6 +10,7 @@ import { ANCHOR_CONSOLE_FROM, ANCHOR_GAMING_PC_FROM, basePriceAt } from "@/lib/c
 import {
   FALLBACK_RESOLVED,
   formatMoney,
+  withCurrencyCode,
   type MarketLang,
   type ResolvedMarket,
 } from "@/lib/markets";
@@ -1087,12 +1088,15 @@ export function buildLocale(
   };
   const moneyWhole = (value: number) => {
     try {
-      return value.toLocaleString(market.intl, {
-        style: "currency",
-        currency: market.currency,
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-      });
+      return withCurrencyCode(
+        value.toLocaleString(market.intl, {
+          style: "currency",
+          currency: market.currency,
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0,
+        }),
+        market.currency,
+      );
     } catch {
       return `${market.currency} ${Math.round(value)}`;
     }
