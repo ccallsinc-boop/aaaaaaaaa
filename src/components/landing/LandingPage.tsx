@@ -7,6 +7,8 @@ import { BrandMarquee } from "@/components/landing/BrandMarquee";
 import { Testimonials } from "@/components/landing/Testimonials";
 
 import { Offer } from "@/components/landing/Offer";
+import { WhyNow } from "@/components/landing/WhyNow";
+import { ForWho } from "@/components/landing/ForWho";
 
 import { Guarantee } from "@/components/landing/Guarantee";
 import { Faq } from "@/components/landing/Faq";
@@ -56,6 +58,9 @@ export function LandingPage({
         <Hero />
         <BrandMarquee />
         <Reveal>
+          <WhyNow />
+        </Reveal>
+        <Reveal>
           <Deliverables />
         </Reveal>
         <Reveal>
@@ -76,6 +81,9 @@ export function LandingPage({
         </Reveal>
         <Reveal>
           <MidCta index={2} />
+        </Reveal>
+        <Reveal>
+          <ForWho />
         </Reveal>
         <Reveal>
           <Offer />

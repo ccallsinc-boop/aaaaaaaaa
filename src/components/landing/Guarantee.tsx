@@ -3,7 +3,10 @@ import { Cta } from "@/components/landing/Cta";
 import { useLocale } from "@/lib/locale";
 
 export function Guarantee() {
-  const { t } = useLocale();
+  const { t, checkout } = useLocale();
+  // A checkable claim instead of "100% secure": who actually processes the payment
+  // on this copy of the page.
+  const platform = checkout === "xpag" ? "Xpag" : "Hotmart";
 
   return (
     <section className="border-t border-border py-20">
@@ -12,14 +15,10 @@ export function Guarantee() {
           <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-primary text-primary-foreground">
             <ShieldCheck className="h-7 w-7" aria-hidden="true" />
           </span>
-          <h2 className="mt-6 text-[clamp(1.6rem,4vw,2.5rem)]">
-            {t.guaranteeTitle}
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm text-muted-foreground">
-            {t.guaranteeSub}
-          </p>
+          <h2 className="mt-6 text-[clamp(1.6rem,4vw,2.5rem)]">{t.guaranteeTitle}</h2>
+          <p className="mx-auto mt-4 max-w-xl text-sm text-muted-foreground">{t.guaranteeSub}</p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
-            {t.guaranteeBadges.map((badge) => (
+            {t.guaranteeBadges(platform).map((badge) => (
               <span
                 key={badge}
                 className="rounded-full border border-border bg-background px-4 py-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground"

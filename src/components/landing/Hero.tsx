@@ -59,7 +59,13 @@ export function Hero() {
           className="rise mx-auto mt-6 max-w-4xl text-[clamp(2.2rem,7vw,4.5rem)]"
           style={stagger(2)}
         >
-          {t.heroTitleA} <span className="block text-primary">{t.heroTitleB()}</span>
+          {t.heroTitleA}{" "}
+          {/* The number is the hardware anchor (ANCHOR_CONSOLE_FROM in campaign.ts),
+              converted per market, so the headline promise is a figure the visitor
+              can check, not a made-up one. */}
+          <span className="mt-1 block text-[0.62em] leading-tight text-primary">
+            {t.heroTitleB(consoleFrom)}
+          </span>
         </h1>
 
         <p
