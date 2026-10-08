@@ -32,7 +32,7 @@ export function StickyCta() {
               checkout,
             });
           }}
-          className={`rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-soft`}
+          className={`shrink-0 whitespace-nowrap rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground shadow-soft`}
         >
           {t.stickyCta}
         </a>

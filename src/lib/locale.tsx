@@ -102,10 +102,37 @@ const COPY = {
       { label: "FAQ", href: "#faq" },
     ],
     heroBadge: (d: number) => (d > 0 ? `Preço de lançamento · -${d}%` : "Android e iPhone"),
-    heroTitleA: "Seus jogos de PC,",
-    heroTitleB: () => "agora no celular.",
+    whyNowEyebrow: "Por que agora dá",
+    whyNowTitle: "Até pouco tempo, isso não existia",
+    whyNowSub:
+      "Celular não rodava jogo de PC. Dois avanços mudaram isso, e o método junta os dois:",
+    whyNowSteps: [
+      [
+        "Processadores novos",
+        "Snapdragon 8 Gen 2 e Apple A15 em diante têm força de console portátil.",
+      ],
+      ["Emuladores atuais", "Traduzem o jogo de PC para o celular em tempo real, sem PC ligado."],
+      ["O método", "Entrega tudo configurado: instalação, ajustes por jogo e controle."],
+    ] as [string, string][],
+
+    forWhoTitle: "Antes de comprar, confira",
+    forWhoYesTitle: "É para você se",
+    forWhoYes: [
+      "Você tem um Android com Snapdragon 8 Gen 2 ou superior, ou um iPhone 13 Pro ou mais novo",
+      "Você já tem seus jogos, por exemplo na Steam",
+      "Você quer jogar fora de casa, sem PC nem console",
+    ],
+    forWhoNoTitle: "Não é para você se",
+    forWhoNo: [
+      "Seu celular é intermediário",
+      "Você espera gráficos de PC gamer",
+      "Você não tem os jogos",
+    ],
+
+    heroTitleA: "GTA V no seu celular, hoje.",
+    heroTitleB: (c: string) => `Sem gastar mais de ${c} num console.`,
     heroSub: (price: string) =>
-      `Emulador + método passo a passo para rodar GTA V, Red Dead 2, Elden Ring, God of War Ragnarök e mais 8 no Android e no iPhone. Configuração pronta para cada jogo e suporte humano, por ${price} em pagamento único.`,
+      `Funciona com os jogos que você já tem: GTA V, Red Dead 2, Elden Ring e mais 9, no Android (Snapdragon 8 Gen 2+) ou iPhone 13 Pro+. Configuração pronta para cada jogo e suporte humano, por ${price} em pagamento único.`,
     heroCta: "Quero jogar no celular",
     heroSecondary: "Ver os 12 jogos",
     heroCompare: (full: string, save: string) => (
@@ -203,8 +230,8 @@ const COPY = {
     guaranteeTitle: "O risco é todo nosso",
     guaranteeSub:
       "Instale e teste no seu celular durante 7 dias. Se não rodar ou você não gostar, por qualquer motivo, devolvemos tudo, sem precisar justificar.",
-    guaranteeBadges: [
-      "Compra 100% segura",
+    guaranteeBadges: (platform: string) => [
+      `Pagamento processado pela ${platform}`,
       "7 dias de garantia",
       "Reembolso sem perguntas",
       "Suporte humano",
@@ -288,7 +315,7 @@ const COPY = {
     countdownCompact: (clock: string) => `Lançamento acaba em ${clock}`,
 
     stickySub: (n: number) => `Emulador + ${n} jogos configurados`,
-    stickyCta: "Quero acesso",
+    stickyCta: "Jogar no celular",
 
     popupEyebrow: "Espera, antes de sair",
     popupTitle: "Você ia embora sem ver o preço",
@@ -343,10 +370,37 @@ const COPY = {
       { label: "FAQ", href: "#faq" },
     ],
     heroBadge: (d: number) => (d > 0 ? `Launch price · -${d}%` : "Android and iPhone"),
-    heroTitleA: "Your PC games,",
-    heroTitleB: () => "now on your phone.",
+    whyNowEyebrow: "Why now",
+    whyNowTitle: "Until recently, this didn't exist",
+    whyNowSub:
+      "Phones couldn't run PC games. Two advances changed that, and the method brings them together:",
+    whyNowSteps: [
+      ["New processors", "Snapdragon 8 Gen 2 and Apple A15 onwards have handheld-console power."],
+      [
+        "Today's emulators",
+        "They translate the PC game to the phone in real time, with no PC running.",
+      ],
+      ["The method", "Gets it all set up for you: installation, per-game settings and controller."],
+    ] as [string, string][],
+
+    forWhoTitle: "Before you buy, check",
+    forWhoYesTitle: "It is for you if",
+    forWhoYes: [
+      "You have an Android with a Snapdragon 8 Gen 2 or newer, or an iPhone 13 Pro or newer",
+      "You already own your games, for example on Steam",
+      "You want to play away from home, without a PC or console",
+    ],
+    forWhoNoTitle: "It is not for you if",
+    forWhoNo: [
+      "Your phone is mid-range",
+      "You expect gaming-PC graphics",
+      "You do not own the games",
+    ],
+
+    heroTitleA: "GTA V on your phone, today.",
+    heroTitleB: (c: string) => `Without spending over ${c} on a console.`,
     heroSub: (price: string) =>
-      `An emulator plus a step-by-step method to run GTA V, Red Dead 2, Elden Ring, God of War Ragnarök and 8 more on Android and iPhone. Ready-made settings for every game and human support, for ${price} in one payment.`,
+      `Works with the games you already own: GTA V, Red Dead 2, Elden Ring and 9 more, on Android (Snapdragon 8 Gen 2+) or iPhone 13 Pro+. Ready-made settings for every game and human support, for ${price} in one payment.`,
     heroCta: "I want to play on my phone",
     heroSecondary: "See the 12 games",
     heroCompare: (full: string, save: string) => (
@@ -443,8 +497,8 @@ const COPY = {
     guaranteeTitle: "The risk is entirely ours",
     guaranteeSub:
       "Install it and test it on your phone for 7 days. If it will not run or you do not like it, for any reason, we refund everything, no justification needed.",
-    guaranteeBadges: [
-      "100% secure checkout",
+    guaranteeBadges: (platform: string) => [
+      `Payment processed by ${platform}`,
       "7-day guarantee",
       "No-questions refund",
       "Human support",
@@ -528,7 +582,7 @@ const COPY = {
     countdownCompact: (clock: string) => `Launch ends in ${clock}`,
 
     stickySub: (n: number) => `Emulator + ${n} games set up`,
-    stickyCta: "Get access",
+    stickyCta: "Play on my phone",
 
     popupEyebrow: "Wait, before you go",
     popupTitle: "You were about to leave without seeing the price",
@@ -584,10 +638,36 @@ const ES = {
     { label: "FAQ", href: "#faq" },
   ],
   heroBadge: (d: number) => (d > 0 ? `Precio de lanzamiento · -${d}%` : "Android y iPhone"),
-  heroTitleA: "Tus juegos de PC,",
-  heroTitleB: () => "ahora en el celular.",
+  whyNowEyebrow: "Por qué ahora sí",
+  whyNowTitle: "Hasta hace poco, esto no existía",
+  whyNowSub:
+    "Un celular no podía correr juegos de PC. Dos avances lo cambiaron, y el método los junta:",
+  whyNowSteps: [
+    [
+      "Procesadores nuevos",
+      "Snapdragon 8 Gen 2 y Apple A15 en adelante tienen potencia de consola portátil.",
+    ],
+    [
+      "Emuladores actuales",
+      "Traducen el juego de PC al celular en tiempo real, sin una PC encendida.",
+    ],
+    ["El método", "Te deja todo configurado: instalación, ajustes por juego y control."],
+  ] as [string, string][],
+
+  forWhoTitle: "Antes de comprar, revisa",
+  forWhoYesTitle: "Es para ti si",
+  forWhoYes: [
+    "Tienes un Android con Snapdragon 8 Gen 2 o superior, o un iPhone 13 Pro o más nuevo",
+    "Ya tienes tus juegos, por ejemplo en Steam",
+    "Quieres jugar fuera de casa, sin PC ni consola",
+  ],
+  forWhoNoTitle: "No es para ti si",
+  forWhoNo: ["Tu celular es de gama media", "Esperas gráficos de PC gamer", "No tienes los juegos"],
+
+  heroTitleA: "GTA V en tu celular, hoy.",
+  heroTitleB: (c: string) => `Sin gastar más de ${c} en una consola.`,
   heroSub: (price: string) =>
-    `Emulador + método paso a paso para correr GTA V, Red Dead 2, Elden Ring, God of War Ragnarök y 8 más en Android y iPhone. Configuración lista para cada juego y soporte humano, por ${price} en pago único.`,
+    `Funciona con los juegos que ya tienes: GTA V, Red Dead 2, Elden Ring y 9 más, en Android (Snapdragon 8 Gen 2+) o iPhone 13 Pro+. Configuración lista para cada juego y soporte humano, por ${price} en pago único.`,
   heroCta: "Quiero jugar en el celular",
   heroSecondary: "Ver los 12 juegos",
   heroCompare: (full: string, save: string) => (
@@ -684,8 +764,8 @@ const ES = {
   guaranteeTitle: "El riesgo es todo nuestro",
   guaranteeSub:
     "Instálalo y pruébalo en tu celular durante 7 días. Si no corre o no te gusta, por el motivo que sea, te devolvemos todo, sin justificar nada.",
-  guaranteeBadges: [
-    "Compra 100% segura",
+  guaranteeBadges: (platform: string) => [
+    `Pago procesado por ${platform}`,
     "7 días de garantía",
     "Reembolso sin preguntas",
     "Soporte humano",
@@ -766,7 +846,7 @@ const ES = {
   countdownCompact: (clock: string) => `Lanzamiento termina en ${clock}`,
 
   stickySub: (n: number) => `Emulador + ${n} juegos configurados`,
-  stickyCta: "Quiero acceso",
+  stickyCta: "Jugar en mi celular",
 
   popupEyebrow: "Espera, antes de irte",
   popupTitle: "Te ibas sin ver el precio",
@@ -821,10 +901,37 @@ const HI = {
     { label: "FAQ", href: "#faq" },
   ],
   heroBadge: (d: number) => (d > 0 ? `लॉन्च कीमत · -${d}%` : "Android और iPhone"),
-  heroTitleA: "आपके PC गेम्स,",
-  heroTitleB: () => "अब आपके फ़ोन पर।",
+  whyNowEyebrow: "अब क्यों मुमकिन है",
+  whyNowTitle: "कुछ समय पहले तक यह संभव नहीं था",
+  whyNowSub:
+    "फ़ोन PC गेम्स नहीं चला पाते थे। दो बदलावों ने यह बदल दिया, और तरीका दोनों को जोड़ता है:",
+  whyNowSteps: [
+    [
+      "नए प्रोसेसर",
+      "Snapdragon 8 Gen 2 और Apple A15 से आगे के चिप्स में पोर्टेबल कंसोल जितनी ताकत है।",
+    ],
+    ["आज के एमुलेटर", "PC गेम को रियल टाइम में फ़ोन के लिए ट्रांसलेट करते हैं, बिना चालू PC के।"],
+    ["तरीका", "सब कुछ सेट करके देता है: इंस्टॉलेशन, हर गेम की सेटिंग्स और कंट्रोलर।"],
+  ] as [string, string][],
+
+  forWhoTitle: "खरीदने से पहले जांच लें",
+  forWhoYesTitle: "यह आपके लिए है अगर",
+  forWhoYes: [
+    "आपके पास Snapdragon 8 Gen 2 या उससे नया Android, या iPhone 13 Pro या उससे नया है",
+    "आपके पास पहले से अपने गेम्स हैं, जैसे Steam पर",
+    "आप घर से बाहर, बिना PC या कंसोल के खेलना चाहते हैं",
+  ],
+  forWhoNoTitle: "यह आपके लिए नहीं है अगर",
+  forWhoNo: [
+    "आपका फ़ोन मिड-रेंज है",
+    "आप गेमिंग PC जैसे ग्राफ़िक्स चाहते हैं",
+    "आपके पास गेम्स नहीं हैं",
+  ],
+
+  heroTitleA: "GTA V आपके फ़ोन पर, आज ही।",
+  heroTitleB: (c: string) => `कंसोल पर ${c} से ज़्यादा खर्च किए बिना।`,
   heroSub: (price: string) =>
-    `एमुलेटर + स्टेप बाय स्टेप तरीका, जिससे GTA V, Red Dead 2, Elden Ring, God of War Ragnarök और 8 और गेम्स Android और iPhone पर चलें। हर गेम के लिए तैयार सेटिंग्स और इंसानी सपोर्ट, सिर्फ ${price} में, एक बार भुगतान।`,
+    `आपके पास पहले से मौजूद गेम्स के साथ चलता है: GTA V, Red Dead 2, Elden Ring और 9 और, Android (Snapdragon 8 Gen 2+) या iPhone 13 Pro+ पर। हर गेम के लिए तैयार सेटिंग्स और इंसानी सपोर्ट, सिर्फ ${price} में, एक बार भुगतान।`,
   heroCta: "मुझे फ़ोन पर खेलना है",
   heroSecondary: "12 गेम्स देखें",
   heroCompare: (full: string, save: string) => (
@@ -917,7 +1024,12 @@ const HI = {
   guaranteeTitle: "पूरा जोखिम हमारा है",
   guaranteeSub:
     "इंस्टॉल कीजिए और 7 दिन तक अपने फ़ोन पर आज़माइए। न चले या पसंद न आए, किसी भी वजह से, तो पूरा पैसा वापस, कोई सफ़ाई नहीं देनी।",
-  guaranteeBadges: ["100% सुरक्षित खरीद", "7 दिन की गारंटी", "बिना सवाल रिफंड", "इंसानी सपोर्ट"],
+  guaranteeBadges: (platform: string) => [
+    `${platform} द्वारा प्रोसेस किया गया भुगतान`,
+    "7 दिन की गारंटी",
+    "बिना सवाल रिफंड",
+    "इंसानी सपोर्ट",
+  ],
 
   brandsTitle: "इन जैसे स्टूडियो के गेम्स",
 
@@ -996,7 +1108,7 @@ const HI = {
   countdownCompact: (clock: string) => `लॉन्च खत्म: ${clock}`,
 
   stickySub: (n: number) => `एमुलेटर + ${n} गेम्स सेट`,
-  stickyCta: "एक्सेस चाहिए",
+  stickyCta: "फ़ोन पर खेलें",
 
   popupEyebrow: "रुकिए, जाने से पहले",
   popupTitle: "आप कीमत देखे बिना जा रहे थे",
