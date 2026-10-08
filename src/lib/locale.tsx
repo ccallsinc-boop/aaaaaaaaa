@@ -262,7 +262,7 @@ const COPY = {
     faq: (price: string, n: number) => [
       {
         q: `É ${price} mesmo, sem pegadinha?`,
-        a: `Sim. Pagamento único de ${price} pelo emulador, o método e a configuração dos ${n} jogos. Sem mensalidade e sem renovação automática. Fora do Reino Unido, o valor é convertido para a sua moeda pela cotação do dia, e o checkout da Hotmart mostra o valor final antes de você pagar.`,
+        a: `Sim. Pagamento único de ${price} pelo emulador, o método e a configuração dos ${n} jogos. Sem mensalidade e sem renovação automática. Fora dos países que usam dólar, o valor é convertido para a sua moeda pela cotação do dia, e o checkout mostra o valor final antes de você pagar.`,
       },
       {
         q: "Os jogos estão inclusos?",
@@ -529,7 +529,7 @@ const COPY = {
     faq: (price: string, n: number) => [
       {
         q: `Is it really ${price}, no catch?`,
-        a: `Yes. One payment of ${price} for the emulator, the method and the settings for the ${n} games. No subscription and no auto-renewal. Outside the UK the amount is converted to your currency at today's rate, and the Hotmart checkout shows the final amount before you pay.`,
+        a: `Yes. One payment of ${price} for the emulator, the method and the settings for the ${n} games. No subscription and no auto-renewal. Outside dollar countries the amount is converted to your currency at today's rate, and the checkout shows the final amount before you pay.`,
       },
       {
         q: "Are the games included?",
@@ -793,7 +793,7 @@ const ES = {
   faq: (price: string, n: number) => [
     {
       q: `¿De verdad son ${price}, sin trampa?`,
-      a: `Sí. Un único pago de ${price} por el emulador, el método y la configuración de los ${n} juegos. Sin mensualidad y sin renovación automática. Fuera del Reino Unido, el valor se convierte a tu moneda al cambio del día, y el checkout de Hotmart muestra el monto final antes de pagar.`,
+      a: `Sí. Un único pago de ${price} por el emulador, el método y la configuración de los ${n} juegos. Sin mensualidad y sin renovación automática. Fuera de los países que usan dólar, el valor se convierte a tu moneda al cambio del día, y el checkout muestra el monto final antes de pagar.`,
     },
     {
       q: "¿Los juegos están incluidos?",
