@@ -2,7 +2,7 @@
  * The front offer's price, and its optional launch window.
  *
  * The price is set in the currency the checkout offer is configured in: the
- * Hotmart offer is priced in pounds, so the page is too. A visitor in the UK sees
+ * offer is priced in US dollars, so the page is too. A visitor in the US sees
  * exactly OFFER_PRICE; every other market sees it converted at the live rate
  * (see buildResolvedMarket in markets.ts), and Hotmart confirms the final amount
  * in the buyer's currency at checkout.
@@ -20,24 +20,24 @@
  */
 
 /** ISO 4217 code of the currency the checkout offer is priced in. */
-export const OFFER_CURRENCY = "GBP";
+export const OFFER_CURRENCY = "USD";
 
 /** Price of the front offer, in OFFER_CURRENCY. Matches the Hotmart offer. */
-export const OFFER_PRICE = 5.3;
+export const OFFER_PRICE = 15;
 
 /**
  * Price anchor: what playing these games costs the usual way, in OFFER_CURRENCY.
  *
  * Without a real higher price there is nothing honest to strike through, and a
- * made-up "was" price is a fake discount (and unlawful in the UK, where the offer
- * is priced). The anchor is therefore a comparison the visitor can check: the
- * hardware these titles normally require. Both are floors, kept below current UK
- * retail on purpose, so "more than" stays true: the cheapest current console sells
- * for more than £250, and a PC that runs Red Dead Redemption 2 for more than £500.
- * They are converted per market like the price itself, and rounded down.
+ * made-up "was" price is a fake discount. The anchor is therefore a comparison the
+ * visitor can check: the hardware these titles normally require. Both are floors,
+ * kept below current US retail on purpose, so "more than" stays true: the cheapest
+ * current console sells for more than $300, and a PC that runs Red Dead Redemption 2
+ * for more than $600. They are converted per market like the price itself, and
+ * rounded down.
  */
-export const ANCHOR_CONSOLE_FROM = 250;
-export const ANCHOR_GAMING_PC_FROM = 500;
+export const ANCHOR_CONSOLE_FROM = 300;
+export const ANCHOR_GAMING_PC_FROM = 600;
 
 export type Campaign = {
   /** ISO 8601 instant when launch pricing ends. */

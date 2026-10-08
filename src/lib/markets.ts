@@ -50,7 +50,7 @@ function toBrlFrom(amount: number, currency: string, rates: Record<string, numbe
  * the currencies offers are priced in. Used only where no live table exists: the
  * pre-request fallback, structured data, and a live table missing the currency.
  */
-const INDICATIVE_PER_BRL: Record<string, number> = { GBP: 0.139, COP: 744.0 };
+const INDICATIVE_PER_BRL: Record<string, number> = { USD: 0.186, GBP: 0.139, COP: 744.0 };
 const INDICATIVE_OFFER_PER_BRL = INDICATIVE_PER_BRL[OFFER_CURRENCY];
 
 function toBrl(amount: number, currency: string, rates: Record<string, number>): number {
