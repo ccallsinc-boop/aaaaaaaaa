@@ -13,6 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { MetaPixel } from "@/components/MetaPixel";
+import { UtmTracker } from "@/components/UtmTracker";
 import { resolveMarket } from "@/lib/market.server";
 
 function NotFoundComponent() {
@@ -145,9 +146,10 @@ function RootShell({ children }: { children: ReactNode }) {
 /**
  * /clips and /es2 have their own dedicated pixels, so the store pixels stay off
  * there. The policy pages are excluded too: the pixel fires ViewContent on mount,
- * and someone reading the privacy policy is not a product view.
+ * and someone reading the privacy policy is not a product view. Neither is the
+ * owner opening the sales dashboard at /painel.
  */
-const NO_PIXEL_PREFIXES = ["/clips", "/es2", "/terms", "/privacy", "/refund"];
+const NO_PIXEL_PREFIXES = ["/clips", "/es2", "/terms", "/privacy", "/refund", "/painel"];
 
 /** Pages that need fbq loaded for their own events but are not a product view. */
 const NO_VIEW_CONTENT_PREFIXES = ["/upsell"];
@@ -165,6 +167,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <StorePixel />
+      <UtmTracker />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>

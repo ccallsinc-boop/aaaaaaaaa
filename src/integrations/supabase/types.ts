@@ -77,6 +77,129 @@ export type Database = {
         }
         Relationships: []
       }
+      tracker_sales: {
+        Row: {
+          approved_at: string | null
+          buyer_email: string | null
+          created_at: string
+          currency: string
+          external_id: string
+          fx_rate: number | null
+          gross_brl_cents: number
+          gross_cents: number
+          id: string
+          kind: string
+          net_brl_cents: number | null
+          ordered_at: string | null
+          parent_external_id: string | null
+          payment_method: string | null
+          product_id: string | null
+          product_name: string | null
+          provider: string
+          raw: Json
+          refunded_at: string | null
+          status: string
+          touch_id: string | null
+          updated_at: string
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
+          utm_term: string | null
+        }
+        Insert: {
+          approved_at?: string | null
+          buyer_email?: string | null
+          created_at?: string
+          currency: string
+          external_id: string
+          fx_rate?: number | null
+          gross_brl_cents: number
+          gross_cents: number
+          id?: string
+          kind?: string
+          net_brl_cents?: number | null
+          ordered_at?: string | null
+          parent_external_id?: string | null
+          payment_method?: string | null
+          product_id?: string | null
+          product_name?: string | null
+          provider: string
+          raw: Json
+          refunded_at?: string | null
+          status: string
+          touch_id?: string | null
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
+        }
+        Update: {
+          approved_at?: string | null
+          buyer_email?: string | null
+          created_at?: string
+          currency?: string
+          external_id?: string
+          fx_rate?: number | null
+          gross_brl_cents?: number
+          gross_cents?: number
+          id?: string
+          kind?: string
+          net_brl_cents?: number | null
+          ordered_at?: string | null
+          parent_external_id?: string | null
+          payment_method?: string | null
+          product_id?: string | null
+          product_name?: string | null
+          provider?: string
+          raw?: Json
+          refunded_at?: string | null
+          status?: string
+          touch_id?: string | null
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
+        }
+        Relationships: []
+      }
+      tracker_touches: {
+        Row: {
+          created_at: string
+          id: string
+          landing_path: string | null
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
+          utm_term: string | null
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          landing_path?: string | null
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          landing_path?: string | null
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

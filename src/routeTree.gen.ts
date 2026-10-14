@@ -21,6 +21,7 @@ import { Route as EsQuizRouteImport } from './routes/es-quiz'
 import { Route as EsQuiz2RouteImport } from './routes/es-quiz2'
 import { Route as Es2RouteImport } from './routes/es2'
 import { Route as InRouteImport } from './routes/in'
+import { Route as PainelRouteImport } from './routes/painel'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PtRouteImport } from './routes/pt'
 import { Route as RefundRouteImport } from './routes/refund'
@@ -33,6 +34,7 @@ import { Route as UpsellRouteImport } from './routes/upsell'
 import { Route as XpagRouteImport } from './routes/xpag'
 import { Route as ApiGeoRouteImport } from './routes/api.geo'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
+import { Route as ApiPublicHotmartRouteImport } from './routes/api/public/hotmart'
 import { Route as ApiPublicHublaRouteImport } from './routes/api/public/hubla'
 
 const IndexRoute = IndexRouteImport.update({
@@ -95,6 +97,11 @@ const InRoute = InRouteImport.update({
   path: '/in',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PainelRoute = PainelRouteImport.update({
+  id: '/painel',
+  path: '/painel',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -155,6 +162,11 @@ const ProductHandleRoute = ProductHandleRouteImport.update({
   path: '/product/$handle',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicHotmartRoute = ApiPublicHotmartRouteImport.update({
+  id: '/api/public/hotmart',
+  path: '/api/public/hotmart',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicHublaRoute = ApiPublicHublaRouteImport.update({
   id: '/api/public/hubla',
   path: '/api/public/hubla',
@@ -174,6 +186,7 @@ export interface FileRoutesByFullPath {
   '/es-quiz2': typeof EsQuiz2Route
   '/es2': typeof Es2Route
   '/in': typeof InRoute
+  '/painel': typeof PainelRoute
   '/privacy': typeof PrivacyRoute
   '/pt': typeof PtRoute
   '/refund': typeof RefundRoute
@@ -186,6 +199,7 @@ export interface FileRoutesByFullPath {
   '/xpag': typeof XpagRoute
   '/api/geo': typeof ApiGeoRoute
   '/product/$handle': typeof ProductHandleRoute
+  '/api/public/hotmart': typeof ApiPublicHotmartRoute
   '/api/public/hubla': typeof ApiPublicHublaRoute
 }
 export interface FileRoutesByTo {
@@ -201,6 +215,7 @@ export interface FileRoutesByTo {
   '/es-quiz2': typeof EsQuiz2Route
   '/es2': typeof Es2Route
   '/in': typeof InRoute
+  '/painel': typeof PainelRoute
   '/privacy': typeof PrivacyRoute
   '/pt': typeof PtRoute
   '/refund': typeof RefundRoute
@@ -213,6 +228,7 @@ export interface FileRoutesByTo {
   '/xpag': typeof XpagRoute
   '/api/geo': typeof ApiGeoRoute
   '/product/$handle': typeof ProductHandleRoute
+  '/api/public/hotmart': typeof ApiPublicHotmartRoute
   '/api/public/hubla': typeof ApiPublicHublaRoute
 }
 export interface FileRoutesById {
@@ -229,6 +245,7 @@ export interface FileRoutesById {
   '/es-quiz2': typeof EsQuiz2Route
   '/es2': typeof Es2Route
   '/in': typeof InRoute
+  '/painel': typeof PainelRoute
   '/privacy': typeof PrivacyRoute
   '/pt': typeof PtRoute
   '/refund': typeof RefundRoute
@@ -241,6 +258,7 @@ export interface FileRoutesById {
   '/xpag': typeof XpagRoute
   '/api/geo': typeof ApiGeoRoute
   '/product/$handle': typeof ProductHandleRoute
+  '/api/public/hotmart': typeof ApiPublicHotmartRoute
   '/api/public/hubla': typeof ApiPublicHublaRoute
 }
 export interface FileRouteTypes {
@@ -258,6 +276,7 @@ export interface FileRouteTypes {
     | '/es-quiz2'
     | '/es2'
     | '/in'
+    | '/painel'
     | '/privacy'
     | '/pt'
     | '/refund'
@@ -270,6 +289,7 @@ export interface FileRouteTypes {
     | '/xpag'
     | '/api/geo'
     | '/product/$handle'
+    | '/api/public/hotmart'
     | '/api/public/hubla'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -285,6 +305,7 @@ export interface FileRouteTypes {
     | '/es-quiz2'
     | '/es2'
     | '/in'
+    | '/painel'
     | '/privacy'
     | '/pt'
     | '/refund'
@@ -297,6 +318,7 @@ export interface FileRouteTypes {
     | '/xpag'
     | '/api/geo'
     | '/product/$handle'
+    | '/api/public/hotmart'
     | '/api/public/hubla'
   id:
     | '__root__'
@@ -312,6 +334,7 @@ export interface FileRouteTypes {
     | '/es-quiz2'
     | '/es2'
     | '/in'
+    | '/painel'
     | '/privacy'
     | '/pt'
     | '/refund'
@@ -324,6 +347,7 @@ export interface FileRouteTypes {
     | '/xpag'
     | '/api/geo'
     | '/product/$handle'
+    | '/api/public/hotmart'
     | '/api/public/hubla'
   fileRoutesById: FileRoutesById
 }
@@ -340,6 +364,7 @@ export interface RootRouteChildren {
   EsQuiz2Route: typeof EsQuiz2Route
   Es2Route: typeof Es2Route
   InRoute: typeof InRoute
+  PainelRoute: typeof PainelRoute
   PrivacyRoute: typeof PrivacyRoute
   PtRoute: typeof PtRoute
   RefundRoute: typeof RefundRoute
@@ -352,6 +377,7 @@ export interface RootRouteChildren {
   XpagRoute: typeof XpagRoute
   ApiGeoRoute: typeof ApiGeoRoute
   ProductHandleRoute: typeof ProductHandleRoute
+  ApiPublicHotmartRoute: typeof ApiPublicHotmartRoute
   ApiPublicHublaRoute: typeof ApiPublicHublaRoute
 }
 
@@ -441,6 +467,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/painel': {
+      id: '/painel'
+      path: '/painel'
+      fullPath: '/painel'
+      preLoaderRoute: typeof PainelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
@@ -525,6 +558,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductHandleRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hotmart': {
+      id: '/api/public/hotmart'
+      path: '/api/public/hotmart'
+      fullPath: '/api/public/hotmart'
+      preLoaderRoute: typeof ApiPublicHotmartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/hubla': {
       id: '/api/public/hubla'
       path: '/api/public/hubla'
@@ -548,6 +588,7 @@ const rootRouteChildren: RootRouteChildren = {
   EsQuiz2Route: EsQuiz2Route,
   Es2Route: Es2Route,
   InRoute: InRoute,
+  PainelRoute: PainelRoute,
   PrivacyRoute: PrivacyRoute,
   PtRoute: PtRoute,
   RefundRoute: RefundRoute,
@@ -560,6 +601,7 @@ const rootRouteChildren: RootRouteChildren = {
   XpagRoute: XpagRoute,
   ApiGeoRoute: ApiGeoRoute,
   ProductHandleRoute: ProductHandleRoute,
+  ApiPublicHotmartRoute: ApiPublicHotmartRoute,
   ApiPublicHublaRoute: ApiPublicHublaRoute,
 }
 export const routeTree = rootRouteImport

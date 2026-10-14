@@ -106,11 +106,25 @@ export const Route = createFileRoute("/api/public/hubla")({
           payload: payload as never,
         });
 
+        // Sales tracker behind /painel. It must never break the membership flow
+        // below, so any failure is reported in the response and logged, not thrown.
+        let tracker: unknown;
+        try {
+          const { normalizeHubla, recordSale } = await import("@/lib/tracker-sales.server");
+          const normalized = normalizeHubla(payload);
+          tracker = normalized.ok
+            ? await recordSale(payload, normalized.sale)
+            : { ignored: normalized.reason };
+        } catch (error) {
+          console.error("[tracker] hubla sale not recorded:", error);
+          tracker = { ok: false, reason: "tracker failed" };
+        }
+
         const status = resolveStatus(eventType);
 
         if (!email || !status) {
           return new Response(
-            JSON.stringify({ ok: true, ignored: true, event: eventType, email }),
+            JSON.stringify({ ok: true, ignored: true, event: eventType, email, tracker }),
             { headers: { "content-type": "application/json" } },
           );
         }
@@ -142,7 +156,7 @@ export const Route = createFileRoute("/api/public/hubla")({
           });
         }
 
-        return new Response(JSON.stringify({ ok: true, email: normalized, status }), {
+        return new Response(JSON.stringify({ ok: true, email: normalized, status, tracker }), {
           headers: { "content-type": "application/json" },
         });
       },

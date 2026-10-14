@@ -141,3 +141,54 @@ Dois pixels do Meta em `src/lib/meta-pixel.ts`. Eventos: `PageView`,
 
 Valor e moeda em todo evento são os do visitante. Páginas legais e o upsell não
 disparam `ViewContent`.
+
+## Painel de vendas (`/painel`)
+
+Tracker próprio, no estilo da Utmify: liga cada venda ao anúncio que a trouxe e
+mostra lucro, faturamento, taxas, gasto, ROAS, ROI, CPA e ticket médio por
+período (hoje, ontem, 7 e 30 dias, mês), mais uma tabela por campanha.
+
+Como funciona:
+
+1. O visitante chega com UTMs. `src/components/UtmTracker.tsx` guarda o clique
+   no navegador (30 dias) e no banco (`tracker_touches`), com um código curto.
+2. No clique de compra, o link do checkout (Hotmart, Xpag, Hubla) recebe as
+   UTMs e o código em `src`. Nenhum botão precisou mudar.
+3. O webhook do checkout grava a venda em `tracker_sales`, já em reais, e herda
+   as UTMs do clique pelo código.
+4. O painel soma as vendas aprovadas e busca o gasto na API de Insights do Meta.
+
+As fórmulas são as da tela de referência: fatura do Meta = gasto ÷ (1 − 12,15%),
+lucro = líquido − fatura, ROAS = bruto ÷ gasto, ROI = líquido ÷ fatura,
+CPA = gasto ÷ pedidos front, ticket médio = bruto front ÷ pedidos front. Taxas
+dos checkouts, imposto do Meta e produtos de order bump/upsell ficam em
+`src/lib/tracker-config.ts`.
+
+### Para ligar
+
+1. Aplique a migration `supabase/migrations/20261014230000_tracker.sql` no
+   banco (no Lovable, peça para aplicar as migrations pendentes).
+2. Variáveis do servidor:
+
+| Variável | Para quê |
+|---|---|
+| `SUPABASE_SERVICE_ROLE_KEY` | Gravar e ler vendas no servidor |
+| `TRACKER_ADMIN_EMAILS` | E-mails que podem abrir `/painel`, separados por vírgula. A conta precisa existir no Supabase Auth (crie em `/auth`) |
+| `META_ADS_ACCESS_TOKEN` | Token com permissão `ads_read` (System User do Business Manager). O token da API de Conversões costuma não ter |
+| `META_AD_ACCOUNT_IDS` | Contas de anúncio, separadas por vírgula, com ou sem `act_` |
+| `HOTMART_HOTTOK` | Hottok da Hotmart, conferido em cada webhook |
+| `HUBLA_WEBHOOK_TOKEN` | Já usado pela área de membros; o mesmo webhook alimenta o painel |
+| `META_GRAPH_VERSION` | Opcional. Padrão `v24.0` |
+
+3. Webhooks: Hotmart (versão 2.0) em `https://seu-dominio/api/public/hotmart`;
+   Hubla continua em `https://seu-dominio/api/public/hubla`.
+4. Nos anúncios do Meta, em Rastreamento > Parâmetros de URL, cole o modelo que
+   aparece em Configuração, no fim do painel. Nome e id da campanha vão juntos
+   para a venda achar o gasto mesmo se a campanha for renomeada.
+
+Limites conhecidos: a Xpag ainda não tem webhook ligado (falta um exemplo do
+payload dela); o webhook da Hubla é lido pelos campos `invoice.amountInCents` ou
+`invoice.amount.totalCents`, e um payload sem valor é recusado com o motivo na
+resposta em vez de virar uma venda de valor inventado; vendas em outra moeda são
+convertidas pela cotação do momento do webhook; reembolsos tiram a venda do dia
+em que ela foi aprovada.
