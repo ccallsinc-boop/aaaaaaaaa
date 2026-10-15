@@ -398,7 +398,7 @@ function MetricCard({
 }) {
   return (
     <div
-      className={`flex min-w-0 flex-col rounded-2xl border border-zinc-800 bg-[#18181a] p-3 sm:p-4 ${
+      className={`@container flex min-w-0 flex-col rounded-2xl border border-zinc-800 bg-[#18181a] p-3 sm:p-4 ${
         wide ? "col-span-2" : ""
       }`}
     >
@@ -417,9 +417,13 @@ function MetricCard({
         </div>
         <InfoButton text={info} label={label} />
       </div>
+      {/* A money value never breaks mid-number: on a 360px phone "R$ 9.489,83" is wider
+          than a half-width card, so the size follows the card (cqi) and never wraps. */}
       <p
-        className={`mt-4 break-words font-bold tabular-nums tracking-tight ${TONES[tone]} ${
-          wide ? "text-3xl sm:text-4xl" : "text-[1.35rem] sm:text-3xl"
+        className={`mt-4 whitespace-nowrap font-bold tabular-nums tracking-tight ${TONES[tone]} ${
+          wide
+            ? "text-[min(1.875rem,12cqi)] sm:text-[min(2.25rem,12cqi)]"
+            : "text-[min(1.35rem,16cqi)] sm:text-[min(1.875rem,16cqi)]"
         }`}
       >
         {value}
